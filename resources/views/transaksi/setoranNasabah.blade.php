@@ -3,6 +3,13 @@
 @php
 $total = 0;
 $count = 1;
+
+
+if($setoran->count() > 0){
+    $idPengurus = $setoran->first()->idPengurus;
+    $pengurus = App\Models\User::find($idPengurus)->name;
+}
+else $pengurus = '-';
 @endphp
 
 @section('content')
@@ -14,7 +21,7 @@ $count = 1;
             <div class="d-flex justify-content-around align-items-center col-8 mx-auto">
                 <select class="form-select third-text w-75" id="idNasabah" name="idNasabah">
                     @foreach ($users as $user)
-                    <option value="{{ $user->id }}" @if ($user->id === $target->id) selected @endif>
+                    <option value="{{ $user->id }}" @if ($user->id == $target->id) selected @endif>
                         {{ $user->name }}
                     </option>
                     @endforeach
@@ -23,14 +30,13 @@ $count = 1;
             </div>
         </x-form>
 
-
         <div class="col">
             <h3 class="text-center second-text">Nama Pengurus</h3>
-            <h5 class="text-center third-text">Ipul</h5>
+            <h5 class="text-center third-text mt-4">{{$pengurus}}</h5>
         </div>
     </div>
-    @if($target->setoranNasabah != NULL)
-    <table class="fl-table">
+    @if($setoran->count() > 0)
+    <table class="fl-table mt-3">
         <thead>
             <tr>
                 <th>No</th>
@@ -44,16 +50,20 @@ $count = 1;
             </tr>
         </thead>
         <tbody>
-            @foreach($target->setoranNasabah as $setoran)
+            @foreach($setoran as $setoran)
             <tr>
                 <td>{{$count++}}</td>
                 <td>{{$setoran->created_at}}</td>
                 <td>{{$setoran->id}}</td>
-                <td>{{$setoran->sampah->id}}</td>
-                <td>{{$setoran->sampah->nama}}</td>
-                <td>Rp {{$setoran->hargaNasabah}}</td>
+                <td>{{$setoran->dataSampah->id}}</td>
+                <td>{{$setoran->dataSampah->nama}}</td>
+                <td>Rp {{ number_format($setoran->hargaNasabah, 0, ',', '.') }}</td>
                 <td>{{$setoran->berat}}</td>
-                <td>Rp {{$setoran->subtotal}}</td>
+                <td>Rp {{ number_format($setoran->subtotal, 0, ',', '.') }}</td>
+                
+                @php
+                $total += $setoran->subtotal
+                @endphp
             </tr>
             @endforeach
             <tr style="border: solid black 1px;">
@@ -64,12 +74,12 @@ $count = 1;
                 <td></td>
                 <td></td>
                 <td></td>
-                <td style="border: 1px black solid;"><strong>Rp 1,750,000.00</strong></td>
+                <td style="border: 1px black solid;"><strong>Rp {{ number_format($total, 0, ',', '.') }}</strong></td>
             </tr>
         <tbody>
     </table>
     @else
-    <div class="d-flex align-items-center text-center" style="height: 80vh;">
+    <div class="d-flex align-items-center text-center" style="height: 55vh;">
         <h3 class="mx-auto">Belum Ada Setoran</h3>
     </div>
     @endif

@@ -2,20 +2,7 @@
 
 @section('content')
   <!-- Section Start -->
-  <div class="card mx-2">
-    <div class="card-header d-flex justify-content-end">
-      <ul class="nav nav-pills card-header-pills">
-        <li class="nav-item">
-          <div class="input-group">
-            <input type="search" class="form-control rounded mx-3" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-            <button type="button" class="btn btn-outline-primary">Filter</button>
-            <button type="button" class="btn btn-outline-primary">Export</button>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
-    <div class="container-fluid">
+    <div class="container-fluid mx-2 mt-5 pt-5">
         <h3 class="ps-5">Informasi Nasabah</h3>
     </div>
     <div class="row d-flex justify-content-center">

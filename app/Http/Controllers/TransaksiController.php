@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PenjualanSampah;
+use App\Models\SetoranNasabah;
+use App\Models\TabunganNasabah;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 
@@ -9,24 +12,26 @@ class TransaksiController extends Controller
 {
     public function setoranNasabah(){
         $users = User::where('is_admin', 0)->get();
-        $target = User::where('is_admin', 0)->first();
-        // dd($target);
-        return view('transaksi.setoranNasabah', ['users'=>$users, 'target'=>$target]);
+        $target = $users->first();
+        $setoran = SetoranNasabah::where('idNasabah', $target->id)->get();
+        return view('transaksi.setoranNasabah', ['users'=>$users, 'target'=>$target, 'setoran'=>$setoran]);
     }
 
     public function setoranNasabahById(request $request){
-        // dd($request);
         $users = User::where('is_admin', 0)->get();
         $target = User::where('id', $request->idNasabah)->first();
-        // dd($target);
-        return view('transaksi.setoranNasabah', ['users'=>$users, 'target'=>$target]);
+        $setoran = SetoranNasabah::where('idNasabah', $request->idNasabah)->get();
+        return view('transaksi.setoranNasabah', ['users'=>$users, 'target'=>$target, 'setoran'=>$setoran]);
     }
 
     public function tabunganNasabah(){
-        return view('transaksi.tabunganNasabah');        
+        $tabungan = TabunganNasabah::all();
+        return view('transaksi.tabunganNasabah', ['tabungan'=>$tabungan]);        
     }
 
     public function transaksiPenjualanNasabah(){
-        return view('transaksi.transaksiPenjualanNasabah');        
+        $nasabah = User::where('is_admin', 0)->get();
+        $penjualan = PenjualanSampah::all();
+        return view('transaksi.transaksiPenjualanNasabah', ['nasabah'=>$nasabah, 'penjualan'=>$penjualan]);        
     }
 }

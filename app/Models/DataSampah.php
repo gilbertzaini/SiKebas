@@ -20,4 +20,8 @@ class DataSampah extends Model
     public function pembayaranLapak(){
         return $this->hasMany(PembayaranLapak::class, 'kodeSampah', 'kodeSampah');
     }
+
+    public function penjualanSampah(){
+        return $this->hasMany(PenjualanSampah::class, 'kodeSampah');
+    }
 }

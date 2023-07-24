@@ -21,10 +21,10 @@ $count = 0;
           @foreach($records as $record)<tr>
             <td>{{$count++}}</td>
             <td>{{$record->dataSampah->nama}}</td>
-            <td>{{$record->hargaLapak}}</td>
+            <td>Rp {{ number_format($record->hargaLapak, 0, ',', '.') }}</td>
             <td>{{$record->jumlah}}</td>
-            <td>{{$record->total}}</td>
-        </tr>
+            <td>Rp {{ number_format($record->total, 0, ',', '.') }}</td>
+          </tr>
           @endforeach
         
         <tbody>

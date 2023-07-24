@@ -57,4 +57,12 @@ class User extends Authenticatable
     public function setoranNasabah(){
         return $this->hasMany(SetoranNasabah::class, 'idNasabah');
     }
+
+    public function tabunganNasabah(){
+        return $this->hasMany(TabunganNasabah::class, 'idNasabah');
+    }
+
+    public function penjualanSampah(){
+        return $this->hasMany(PenjualanSampah::class, 'idNasabah');
+    }
 }
