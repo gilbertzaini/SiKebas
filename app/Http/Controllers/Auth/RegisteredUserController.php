@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Saldo;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -55,6 +56,11 @@ class RegisteredUserController extends Controller
             'no_telp' => $request->no_telp
             // 'alamat' => $request->alamat
         ]);
+        
+        $saldo = new Saldo;
+        $saldo->user_id = $user->id;
+        $saldo->saldo = 0;
+        $saldo->save();
 
         event(new Registered($user));
 

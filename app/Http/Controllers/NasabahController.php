@@ -68,6 +68,7 @@ class NasabahController extends Controller
 
     function edit(string $id){
         $nasabah = User::find($id);
+
         return view('admin.editNasabah', ['nasabah'=>$nasabah]);
     }
 
@@ -93,7 +94,13 @@ class NasabahController extends Controller
         $nasabah->save();
 
         $saldo = Saldo::where('user_id', $request->idNasabah)->first();
-        $saldo->saldo = $request->saldo;
+        if($saldo){
+            $saldo->saldo = $request->saldo;
+        } else {
+            $saldo = new Saldo;
+            $saldo->user_id = $request->idNasabah;
+            $saldo->saldo = $request->saldo;
+        }
         $saldo->save();
 
         return redirect()->route('admin.daftarNasabah');

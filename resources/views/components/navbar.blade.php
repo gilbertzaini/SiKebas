@@ -1,36 +1,45 @@
-<nav class="navbar navbar-expand-lg navbar-dark" id="nav-pengurus">
-    <div class="container-fluid">
-      <a class="navbar-brand text-white" href="{{route('admin.dashboard')}}"><img src="../assets/iPhone_14_Pro_Max_-_1-removebg-preview.png" width="30" height="" class="d-inline-block" alt=""> SIKEBAS</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link text-white" aria-current="page" href="{{route('admin.index')}}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="{{route('admin.dashboard')}}">Dasboard</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="{{route('admin.daftarTransaksi')}}">Laporan Transaksi</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="{{route('admin.kategoriSampah')}}">Kategori Sampah</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Lainnya
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="{{route('admin.daftarNasabah')}}">Daftar Nasabah</a></li>
-              <li><a class="dropdown-item" href="{{route('admin.daftarPengurus')}}">Daftar Pengurus</a></li>
-            </ul>
-          </li>
-          <x-form action="{{route('logout')}}" class="nav-item">
-            <button class="nav-link text-white">Logout</button>
-          </x-form>
-        </ul>
+<nav class="navigation">
+  <div class="brand-nav-navigation">
+    <img src="../assets/iPhone_14_Pro_Max_-_1-removebg-preview.png" alt="" srcset="">
+    <h1 class="nav-text my-auto py-auto">SIKEBAS</h1>
+    <button onclick="burger()" class="burger"></button>
+    <div class="dropdowns-navigation">
+      <button class="button nav-link" onclick="window.location='{{route('admin.dashboard')}}'">Dashboard</button>
+      <div class="dropdown-navigation">
+        <button class="button">
+          Master
+        </button>
+        <div class="dropdown-menu-navigation">
+          <button><a href="{{route('admin.dataSampah')}}">Data Sampah</a></button>
+          <button><a href="{{route('admin.kategoriSampah')}}">Data Kategori Sampah</a></button>
+          <button><a href="{{route('admin.daftarNasabah')}}">Data Nasabah</a></button>
+          <button><a href="{{route('admin.daftarPengurus')}}">Data Pengurus</a></button>
+          <button><a href="{{route('admin.daftarPelapak')}}">Data Pelapak</a></button>
+        </div>
+      </div>
+      <div class="dropdown-navigation">
+        <button class="button">
+          Transaksi
+        </button>
+        <div class="dropdown-menu-navigation">
+          <button><a href="{{route('admin.setoranNasabah')}}">Setoran Sampah Nasabah</a></button>
+          <button><a href="{{route('admin.tabunganNasabah')}}">Tabungan Nasabah</a></button>
+          <button><a href="{{route('admin.laporanPembayaranKeLapak')}}">Transaksi Penjualan Sampah</a></button>
+        </div>
+      </div>
+      <div class="dropdown-navigation">
+        <button class="button">
+          Laporan
+        </button>
+        <div class="dropdown-menu-navigation">
+          <button><a href="{{route('admin.laporanArusKasNasabah')}}">Laporan Arus Kas Nasabah</a></button>
+          <button><a href="{{route('admin.laporanPembayaranKeLapak')}}">Laporan Pembayaran ke Lapak</a></button>
+          <button class="mb-2"><a href="{{route('admin.laporanNasabah')}}">Laporan Rekap Total Sampah Penimbangan Nasabah</a></button>
+        </div>
       </div>
     </div>
-  </nav>
+    <x-form action="{{route('logout')}}" class="nav-item my-auto py-auto justify-self-end" style="margin-left: 55rem;">
+      <button class="nav-link" style="color: #9da9a5;" onmouseover="this.style.color='white';" onmouseout="this.style.color='#9da9a5';">Logout</button>
+    </x-form>
+  </div>
+</nav>

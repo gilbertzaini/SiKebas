@@ -2,18 +2,21 @@
 
 @section('content')
 <!-- Section Start -->
-<div class="card mx-2">
-  <div class="card-header d-flex justify-content-end">
-    <ul class="nav nav-pills card-header-pills">
-      <li class="nav-item">
-        <x-form action="{{route('admin.searchNasabah')}}" class="input-group">
-          <input type="search" name="param" class="form-control rounded mx-3" placeholder="Cari nasabah..." aria-label="Search" aria-describedby="search-addon" />
-          <button type="submit" class="btn btn-outline-primary">Filter</button>
-          <a href="{{route('admin.exportNasabah')}}" class="btn btn-outline-primary">Export</a>
-        </x-form>  
-      </li>
-    </ul>
-  </div>
+<div class="card mx-2 mt-5 pt-5">
+  <h2 class="text-uppercase">Data Nasabah</h2>
+    <div class="card-header d-flex justify-content-end">
+      <ul class="nav nav-pills card-header-pills">
+        <li class="nav-item">
+          <div class="input-group">
+            <x-form action="{{route('admin.searchNasabah')}}" class="input-group">
+              <input type="search" name="param" class="form-control rounded mx-3" placeholder="Cari nasabah..." aria-label="Search" aria-describedby="search-addon" />
+              <button type="submit" class="btn btn-outline-primary">Filter</button>
+              <button type="button" class="btn btn-outline-primary" onclick="window.location='{{route('admin.nasabahBaru')}}'">Tambah</button>
+            </x-form>            
+          </div>
+        </li>
+      </ul>
+    </div>
 
   <div class="row d-flex justify-content-center">
     @if($nasabah->count() > 0)
@@ -36,14 +39,14 @@
             <div class="d-flex">
               <h5 class="card-title mt-2">Aksi : </h5>
               <div class="d-flex text-end ms-auto">
-                <button class="btn btn-primary rounded-pill mx-1"><a href="{{route('admin.editNasabah', ['id'=>$nasabah->id])}}" class="text-white text-decoration-none">Edit</a></button>
+                <button class="btn btn-primary rounded-pill mx-1" onclick="window.location='{{route('admin.editNasabah', ['id'=>$nasabah->id])}}'">Edit</button>
                 <x-form method="DELETE" action="{{ route('admin.deleteNasabah', ['id'=>$nasabah->id]) }}">
                   <button class="btn btn-danger rounded-pill" id="btn-hapus">Hapus</button>
                 </x-form>
               </div>
             </div>
             <div class="d-flex justify-content-center mt-4">
-                <a href="{{route('admin.detailNasabah', ['id'=>$nasabah->id])}}" class="btn btn-success rounded-pill px-5 text-decoration-none">Lihat Lebih Detail</a>
+              <button class="btn btn-success rounded-pill col-6" onclick="window.location='{{route('admin.detailNasabah', ['id'=>$nasabah->id])}}'">Lihat Lebih Detail</button>
             </div>
           </div>
         </div>

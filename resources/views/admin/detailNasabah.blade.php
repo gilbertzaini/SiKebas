@@ -32,7 +32,11 @@
             </div>
             <div class="d-flex">
               <h5 class="card-title">Saldo Saat ini :</h5>
-              <p class="card-text text-end ms-auto">Rp {{ number_format($nasabah->Saldo->saldo, 0, ',', '.') }}</p>
+              @if($nasabah->saldo != NULL)
+                <p class="card-text text-end ms-auto">Rp {{ number_format($nasabah->Saldo->saldo, 0, ',', '.') }}</p>
+              @else
+                <p class="card-text text-end ms-auto">Rp 0</p>
+              @endif
             </div>
           </div>
         </div>

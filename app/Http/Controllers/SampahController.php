@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\SampahExport;
+use App\Models\DataSampah;
 use App\Models\Sampah;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -17,6 +18,27 @@ class SampahController extends Controller
     function show(string $id){
         $sampah = Sampah::find($id);    
         return view('admin.kategoriSampah', ['sampah'=>$sampah]);
+    }
+
+    function showData(){
+        $metal = DataSampah::where('jenis', 'metal')->get();
+        $plastik = DataSampah::where('jenis', 'plastik')->get();
+        $beling = DataSampah::where('jenis', 'Beling/Kaca')->get();
+        $kertas = DataSampah::where('jenis', 'kertas')->get();
+        $akrilik = DataSampah::where('jenis', 'akrilik')->get();
+        $fiber = DataSampah::where('jenis', 'fiber')->get();
+        $elektronik = DataSampah::where('jenis', 'elektronik')->get();
+
+        // dd($sampah);
+        return view('admin.daftarSampah', [
+            'metal'=>$metal,
+            'plastik'=>$plastik,
+            'beling'=>$beling,
+            'kertas'=>$kertas,
+            'akrilik'=>$akrilik,
+            'fiber'=>$fiber,
+            'elektronik'=>$elektronik,
+        ]);
     }
 
     function search(request $request){

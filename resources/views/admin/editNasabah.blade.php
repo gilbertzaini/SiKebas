@@ -27,7 +27,7 @@
       </div>
       <div class="col-md-9 mb-3">
         <label for="validationCustom02">Saldo</label>
-        <input type="number" name="saldo" class="form-control" id="validationCustom02" value="{{$nasabah->Saldo->saldo}}" placeholder="Saldo" required>
+        <input type="number" name="saldo" class="form-control" id="validationCustom02" value="@if($nasabah->saldo != NULL){{$nasabah->Saldo->saldo}}@else{{0}}@endif" placeholder="Saldo" required>
         <x-error field="saldo" class="mt-2 "/>
         {{-- <div class="valid-feedback">
           good!

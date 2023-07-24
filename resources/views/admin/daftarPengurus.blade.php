@@ -2,18 +2,22 @@
 
 @section('content')
   <!-- Section Start -->
-  <div class="card mx-2">
-    <div class="card-header d-flex justify-content-end">
-      <ul class="nav nav-pills card-header-pills">
-        <li class="nav-item">
-          <x-form action="{{route('admin.searchPengurus')}}" class="input-group">
-            <input type="search" name="param" class="form-control rounded mx-3" placeholder="Cari jenis pengurus..." aria-label="Search" aria-describedby="search-addon" />
-            <button type="submit" class="btn btn-outline-primary">Filter</button>
-            <a href="{{route('admin.exportPengurus')}}" class="btn btn-outline-primary">Export</a>
-          </x-form>          
-        </li>
-      </ul>
-    </div>
+  <div class="card mx-2 mt-5 pt-5">
+    <h2 class="text-uppercase">Data Pengurus</h2>
+      <div class="card-header d-flex justify-content-end">
+        <ul class="nav nav-pills card-header-pills">
+          <li class="nav-item">
+            <div class="input-group">
+              <x-form action="{{route('admin.searchPengurus')}}" class="input-group">
+                <input type="search" name="param" class="form-control rounded mx-3" placeholder="Cari pengurus..." aria-label="Search" aria-describedby="search-addon" />
+                <button type="submit" class="btn btn-outline-primary">Filter</button>
+                <button type="button" class="btn btn-outline-primary" onclick="window.location='{{route('admin.pengurusBaru')}}'">Tambah</button>
+              </x-form>            
+            </div>
+          </li>
+        </ul>
+      </div>
+
     <div class="row d-flex justify-content-center">
       @if($pengurus->count() > 0)
         @foreach($pengurus as $pengurus)

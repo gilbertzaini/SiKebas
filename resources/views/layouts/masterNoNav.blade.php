@@ -16,9 +16,6 @@
 </head>
 
 <body>
-    @auth
-        @include('components/navbar')
-    @endauth
     @yield('content')
 
     <script>        

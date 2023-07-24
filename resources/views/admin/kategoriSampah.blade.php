@@ -2,18 +2,21 @@
 
   @section('content')
     <!-- Section Start -->
-    <div class="card mx-2">
-      <div class="card-header d-flex justify-content-end">
-        <ul class="nav nav-pills card-header-pills">
-          <li class="nav-item">
-            <x-form action="{{route('admin.searchSampah')}}" class="input-group">
-              <input type="search" name="param" class="form-control rounded mx-3" placeholder="Cari jenis sampah..." aria-label="Search" aria-describedby="search-addon" />
-              <button type="submit" class="btn btn-outline-primary">Filter</button>
-              <a href="{{route('admin.exportSampah')}}" class="btn btn-outline-primary">Export</a>
-            </x-form>          
-          </li>
-        </ul>
-      </div>
+    <div class="card mx-2 mt-5 pt-5">
+      <h2 class="text-uppercase">Data Kategori Sampah</h2>
+        <div class="card-header d-flex justify-content-end">
+          <ul class="nav nav-pills card-header-pills">
+            <li class="nav-item">
+              <div class="input-group">
+                <x-form action="{{route('admin.searchSampah')}}" class="input-group">
+                  <input type="search" name="param" class="form-control rounded mx-3" placeholder="Cari jenis sampah..." aria-label="Search" aria-describedby="search-addon" />
+                  <button type="submit" class="btn btn-outline-primary">Filter</button>
+                  <button type="button" class="btn btn-outline-primary" onclick="window.location='{{route('admin.sampahBaru')}}'">Tambah</button>
+                </x-form>            
+              </div>
+            </li>
+          </ul>
+        </div>
 
       <div class="row d-flex justify-content-center">
         @if($sampah->count() > 0)
@@ -50,9 +53,4 @@
       </div>
     </div>
     <!-- Section End -->
-    <!-- Button -->
-    <div class="d-flex justify-content-end mx-3 my-5">  
-      <a class="btn btn-primary rounded-circle" id="btn-tambah" href="{{route('admin.sampahBaru')}}"><i class="bi bi-plus-circle text-white"></i></a>
-    </div>
-    <script src="../style/js/bootstrap.bundle.js"></script>
   @endsection
