@@ -39,7 +39,7 @@
       </div>
     </div>
     <x-form action="{{route('logout')}}" class="nav-item my-auto py-auto justify-self-end" style="margin-left: 55rem;">
-      <button class="nav-link" style="color: #9da9a5;" onmouseover="this.style.color='white';" onmouseout="this.style.color='#9da9a5';">Logout</button>
+      <button class="nav-link" style="color: #9da9a5;" onmouseover="this.style.color='red';" onmouseout="this.style.color='#9da9a5';">Logout</button>
     </x-form>
   </div>
 </nav>
