@@ -1,6 +1,6 @@
 <nav class="navigation">
   <div class="brand-nav-navigation">
-    <img src="../assets/iPhone_14_Pro_Max_-_1-removebg-preview.png" alt="" srcset="">
+    <img src="{{asset('assets/iPhone_14_Pro_Max_-_1-removebg-preview.png')}}" alt="" srcset="">
     <h1 class="nav-text my-auto py-auto">SIKEBAS</h1>
     <button onclick="burger()" class="burger"></button>
     <div class="dropdowns-navigation">
