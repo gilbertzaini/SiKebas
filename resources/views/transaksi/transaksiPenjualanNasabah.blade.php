@@ -9,7 +9,7 @@ $count = 1;
 @section('content')
 <h2 class="main-text">Penjualan Sampah Nasabah</h2>
 <div id="carouselExampleDark" class="carousel carousel-dark slide" style="min-height: 70vh;">
-  <div class="carousel-inner">
+  <div class="carousel-inner" style="min-height: 55vh;">
     @foreach($nasabah as $nasabah)
     @php
       $penjualanNasabah = $penjualan->where('idNasabah', $nasabah->id);
@@ -42,7 +42,7 @@ $count = 1;
           <tbody>
         </table>
         @else  
-        <div class="d-flex align-items-center text-center" style="height: 55vh;">
+        <div class="d-flex align-items-center text-center" style="min-height: 48vh;" >
           <h3 class="mx-auto">Belum Ada Penjualan</h3>
         </div>
         @endif
