@@ -1,4 +1,9 @@
 @extends('layouts.master')
+
+@php
+$count = 0;
+@endphp
+
 @section('content')
   <h2 class="main-text">Laporan Pembayaran ke Lapak&nbsp;</h2>
 <div class="table-wrapper-section">
@@ -13,13 +18,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>1</td>
-            <td>Aki</td>
-            <td>Rp 10,000.00</td>
-            <td>2.2</td>
-			<td>Rp 22,000.00</td>
+          @foreach($records as $record)<tr>
+            <td>{{$count++}}</td>
+            <td>{{$record->dataSampah->nama}}</td>
+            <td>{{$record->hargaLapak}}</td>
+            <td>{{$record->jumlah}}</td>
+            <td>{{$record->total}}</td>
         </tr>
+          @endforeach
+        
         <tbody>
   </table>
 </div>

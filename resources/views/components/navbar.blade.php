@@ -24,7 +24,7 @@
         <div class="dropdown-menu-navigation">
           <button><a href="{{route('admin.setoranNasabah')}}">Setoran Sampah Nasabah</a></button>
           <button><a href="{{route('admin.tabunganNasabah')}}">Tabungan Nasabah</a></button>
-          <button><a href="{{route('admin.laporanPembayaranKeLapak')}}">Transaksi Penjualan Sampah</a></button>
+          <button><a href="{{route('admin.transaksiPenjualanNasabah')}}">Transaksi Penjualan Sampah</a></button>
         </div>
       </div>
       <div class="dropdown-navigation">

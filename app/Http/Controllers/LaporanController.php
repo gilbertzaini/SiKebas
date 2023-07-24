@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PembayaranLapak;
 use Illuminate\Http\Request;
 
 class LaporanController extends Controller
@@ -15,6 +16,7 @@ class LaporanController extends Controller
     }
 
     public function pembayaranLapak(){
-        return view('laporan.laporanPembayaranKeLapak');        
+        $records = PembayaranLapak::all();
+        return view('laporan.laporanPembayaranKeLapak', ['records'=>$records]);        
     }
 }

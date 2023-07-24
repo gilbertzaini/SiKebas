@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@php
+$count = 1;
+@endphp
 
 @section('content')
 <div class="container-fluid mt-5 pt-5">
@@ -42,6 +45,7 @@
                 </tr>
                 @foreach($metal as $metal)
                 <tr>
+                    <td>{{ ++$count }}</td>
                     <td>{{ $metal->kodeSampah }}</td>
                     <td>{{ $metal->nama }}</td>
                     <td>Rp {{ number_format($metal->hargaLapak, 2) }}</td>
@@ -52,6 +56,10 @@
             </tbody>
         </table>
     </div>
+
+    @php
+    $count = 1;
+    @endphp
 
     <div class="table-responsive-sm" id="plastik" style="display:none ;">
         <table class="table table-sm">
@@ -74,6 +82,7 @@
                 </tr>
                 @foreach($plastik as $plastik)
                 <tr>
+                    <td>{{ ++$count }}</td>
                     <td>{{ $plastik->kodeSampah }}</td>
                     <td>{{ $plastik->nama }}</td>
                     <td>Rp {{ number_format($plastik->hargaLapak, 2) }}</td>
@@ -85,12 +94,17 @@
         </table>
     </div>
 
+    @php
+    $count = 1;
+    @endphp
+
     <div class="table-responsive-sm" id="Kertas" style="display: none;">
         <table class="table table-sm">
             <caption class="text-center">List Barang Jenis <strong>Kertas&nbsp;</strong>
             </caption>
             <thead class="table-dark">
                 <tr>
+                    <td>{{ ++$count }}</td>
                     <th scope="col">No</th>
                     <th scope="col">Kode Barang</th>
                     <th scope="col">Nama barang</th>
@@ -107,6 +121,7 @@
                 </tr>
                 @foreach($kertas as $kertas)
                 <tr>
+                    <td>{{ ++$count }}</td>
                     <td>{{ $kertas->kodeSampah }}</td>
                     <td>{{ $kertas->nama }}</td>
                     <td>Rp {{ number_format($kertas->hargaLapak, 2) }}</td>
@@ -117,6 +132,10 @@
             </tbody>
         </table>
     </div>
+
+    @php
+    $count = 1;
+    @endphp
 
     <div class="table-responsive-sm" id="Beling" style="display: none;">
         <table class="table table-sm">
@@ -139,6 +158,7 @@
                 </tr>
                 @foreach($beling as $beling)
                 <tr>
+                    <td>{{ ++$count }}</td>
                     <td>{{ $beling->kodeSampah }}</td>
                     <td>{{ $beling->nama }}</td>
                     <td>Rp {{ number_format($beling->hargaLapak, 2) }}</td>
@@ -149,7 +169,11 @@
             </tbody>
         </table>
     </div>
-    
+
+    @php
+    $count = 1;
+    @endphp
+
     <div class="table-responsive-sm" id="Akrilik" style="display: none;">
         <table class="table table-sm">
             <caption class="text-center">List Barang Jenis <strong>Akrilik</strong></caption>
@@ -171,6 +195,7 @@
                 </tr>
                 @foreach($akrilik as $akrilik)
                 <tr>
+                    <td>{{ ++$count }}</td>
                     <td>{{ $akrilik->kodeSampah }}</td>
                     <td>{{ $akrilik->nama }}</td>
                     <td>Rp {{ number_format($akrilik->hargaLapak, 2) }}</td>
@@ -181,6 +206,10 @@
             </tbody>
         </table>
     </div>
+
+    @php
+    $count = 1;
+    @endphp
 
     <div class="table-responsive-sm" id="Fiber" style="display: none;">
         <table class="table table-sm">
@@ -203,6 +232,7 @@
                 </tr>
                 @foreach($fiber as $fiber)
                 <tr>
+                    <td>{{ ++$count }}</td>
                     <td>{{ $fiber->kodeSampah }}</td>
                     <td>{{ $fiber->nama }}</td>
                     <td>Rp {{ number_format($fiber->hargaLapak, 2) }}</td>
@@ -213,6 +243,10 @@
             </tbody>
         </table>
     </div>
+
+    @php
+    $count = 1;
+    @endphp
 
     <div class="table-responsive-sm" id="Electronik" style="display: none;">
         <table class="table table-sm">
@@ -235,6 +269,7 @@
                 </tr>
                 @foreach($elektronik as $elektronik)
                 <tr>
+                    <td>{{ ++$count }}</td>
                     <td>{{ $elektronik->kodeSampah }}</td>
                     <td>{{ $elektronik->nama }}</td>
                     <td>Rp {{ number_format($elektronik->hargaLapak, 2) }}</td>

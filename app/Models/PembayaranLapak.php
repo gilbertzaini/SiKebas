@@ -5,19 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SetoranNasabah extends Model
+class PembayaranLapak extends Model
 {
     use HasFactory;
-    
-    protected $table = 'setoran_nasabah';
+    protected $table = 'pembayaran_lapak';
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'idNasabah');
-    }
-
-    public function dataSampah()
-    {
+    public function dataSampah(){
         return $this->belongsTo(DataSampah::class, 'kodeSampah');
     }
 }
