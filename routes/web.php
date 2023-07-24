@@ -81,6 +81,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/laporan/arus-kas-nasabah', [LaporanController::class, 'kasNasabah'])->name('admin.laporanArusKasNasabah');
     Route::get('/admin/laporan/nasabah', [LaporanController::class, 'nasabah'])->name('admin.laporanNasabah');
     Route::get('/admin/laporan/pembayaran-ke-lapak', [LaporanController::class, 'pembayaranLapak'])->name('admin.laporanPembayaranKeLapak');
+    Route::get('/admin/laporan/DLHK', [SampahController::class, 'showData'])->name('admin.laporanDLHK');
 
     Route::get('/admin/transaksi/setoran-nasabah', [TransaksiController::class, 'setoranNasabah'])->name('admin.setoranNasabah');
     Route::post('/admin/transaksi/setoran-nasabah', [TransaksiController::class, 'setoranNasabahById'])->name('admin.setoranNasabahId');
