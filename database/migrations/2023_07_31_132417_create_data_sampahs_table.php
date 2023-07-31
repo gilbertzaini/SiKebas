@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('harga_sampah', function (Blueprint $table) {
-            $table->id();
+        Schema::create('data_sampahs', function (Blueprint $table) {
+            $table->string('kodeSampah')->unique()->primary();
+            $table->string('jenis');
             $table->string('nama');
-            $table->integer('hargaLapak');
-            $table->integer('hargaNasabah');
+            $table->integer('hargaLapak')->nullable();
+            $table->integer('hargaNasabah')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('harga_sampah');
+        Schema::dropIfExists('data_sampahs');
     }
 };

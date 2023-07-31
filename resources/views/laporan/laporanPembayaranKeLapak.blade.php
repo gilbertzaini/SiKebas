@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @php
-$count = 0;
+$count = 1;
 @endphp
 
 @section('content')

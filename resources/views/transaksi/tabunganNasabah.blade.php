@@ -12,6 +12,8 @@ $count = 1
             <tr>
                 <th>No</th>
                 <th>Tanggal</th>
+                <th>Kode Nasabah</th>
+                <th>Nama Nasabah</th>
                 <th>Debet Nasabah</th>
                 <th>Kredit Nasabah</th>
                 <th>Saldo</th>
@@ -23,6 +25,8 @@ $count = 1
             <tr>
                 <td>{{$count++}}</td>
                 <td>{{$tabungan->updated_at}}</td>
+                <td>N{{$tabungan->user->id}}</td>
+                <td>{{$tabungan->user->name}}</td>
                 @if($tabungan->kategori == 'debet')
                 <td>{{$tabungan->jumlah}}</td>
                 <td>-</td>

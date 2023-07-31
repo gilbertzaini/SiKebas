@@ -32,9 +32,8 @@ $count = 1;
                     <th scope="col">No</th>
                     <th scope="col">Kode Barang</th>
                     <th scope="col">Nama barang</th>
-                    <th scope="col">H.Lapak</th>
-                    <th scope="col">JML</th>
-                    <th scope="col">Rp</th>
+                    <th scope="col">Harga Lapak</th>
+                    <th scope="col">Harga Nasabah</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,8 +48,7 @@ $count = 1;
                     <td>{{ $metal->kodeSampah }}</td>
                     <td>{{ $metal->nama }}</td>
                     <td>Rp {{ number_format($metal->hargaLapak, 2) }}</td>
-                    <td>{{ $metal->jumlah }}</td>
-                    <td>Rp {{ number_format($metal->hargaLapak * $metal->jumlah, 2) }}</td>
+                    <td>Rp {{ number_format($metal->hargaNasabah, 2) }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -69,9 +67,8 @@ $count = 1;
                     <th scope="col">No</th>
                     <th scope="col">Kode Barang</th>
                     <th scope="col">Nama barang</th>
-                    <th scope="col">H.Lapak</th>
-                    <th scope="col">JML</th>
-                    <th scope="col">Rp</th>
+                    <th scope="col">Harga Lapak</th>
+                    <th scope="col">Harga Nasabah</th>
                 </tr>
             </thead>
             <tbody>
@@ -86,8 +83,7 @@ $count = 1;
                     <td>{{ $plastik->kodeSampah }}</td>
                     <td>{{ $plastik->nama }}</td>
                     <td>Rp {{ number_format($plastik->hargaLapak, 2) }}</td>
-                    <td>{{ $plastik->jumlah }}</td>
-                    <td>Rp {{ number_format($plastik->hargaLapak * $plastik->jumlah, 2) }}</td>
+                    <td>Rp {{ number_format($plastik->hargaNasabah, 2) }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -108,9 +104,8 @@ $count = 1;
                     <th scope="col">No</th>
                     <th scope="col">Kode Barang</th>
                     <th scope="col">Nama barang</th>
-                    <th scope="col">H.Lapak</th>
-                    <th scope="col">JML</th>
-                    <th scope="col">Rp</th>
+                    <th scope="col">Harga Lapak</th>
+                    <th scope="col">Harga Nasabah</th>
                 </tr>
             </thead>
             <tbody>
@@ -125,8 +120,7 @@ $count = 1;
                     <td>{{ $kertas->kodeSampah }}</td>
                     <td>{{ $kertas->nama }}</td>
                     <td>Rp {{ number_format($kertas->hargaLapak, 2) }}</td>
-                    <td>{{ $kertas->jumlah }}</td>
-                    <td>Rp {{ number_format($kertas->hargaLapak * $kertas->jumlah, 2) }}</td>
+                    <td>Rp {{ number_format($kertas->hargaNasabah, 2) }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -145,9 +139,8 @@ $count = 1;
                     <th scope="col">No</th>
                     <th scope="col">Kode Barang</th>
                     <th scope="col">Nama barang</th>
-                    <th scope="col">H.Lapak</th>
-                    <th scope="col">JML</th>
-                    <th scope="col">Rp</th>
+                    <th scope="col">Harga Lapak</th>
+                    <th scope="col">Harga Nasabah</th>
                 </tr>
             </thead>
             <tbody>
@@ -162,8 +155,7 @@ $count = 1;
                     <td>{{ $beling->kodeSampah }}</td>
                     <td>{{ $beling->nama }}</td>
                     <td>Rp {{ number_format($beling->hargaLapak, 2) }}</td>
-                    <td>{{ $beling->jumlah }}</td>
-                    <td>Rp {{ number_format($beling->hargaLapak * $beling->jumlah, 2) }}</td>
+                    <td>Rp {{ number_format($beling->hargaNasabah, 2) }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -182,9 +174,8 @@ $count = 1;
                     <th scope="col">No</th>
                     <th scope="col">Kode Barang</th>
                     <th scope="col">Nama barang</th>
-                    <th scope="col">H.Lapak</th>
-                    <th scope="col">JML</th>
-                    <th scope="col">Rp</th>
+                    <th scope="col">Harga Lapak</th>
+                    <th scope="col">Harga Nasabah</th>
                 </tr>
             </thead>
             <tbody>
@@ -199,8 +190,7 @@ $count = 1;
                     <td>{{ $akrilik->kodeSampah }}</td>
                     <td>{{ $akrilik->nama }}</td>
                     <td>Rp {{ number_format($akrilik->hargaLapak, 2) }}</td>
-                    <td>{{ $akrilik->jumlah }}</td>
-                    <td>Rp {{ number_format($akrilik->hargaLapak * $akrilik->jumlah, 2) }}</td>
+                    <td>Rp {{ number_format($akrilik->hargaNasabah, 2) }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -219,9 +209,8 @@ $count = 1;
                     <th scope="col">No</th>
                     <th scope="col">Kode Barang</th>
                     <th scope="col">Nama barang</th>
-                    <th scope="col">H.Lapak</th>
-                    <th scope="col">JML</th>
-                    <th scope="col">Rp</th>
+                    <th scope="col">Harga Lapak</th>
+                    <th scope="col">Harga Nasabah</th>
                 </tr>
             </thead>
             <tbody>
@@ -236,8 +225,7 @@ $count = 1;
                     <td>{{ $fiber->kodeSampah }}</td>
                     <td>{{ $fiber->nama }}</td>
                     <td>Rp {{ number_format($fiber->hargaLapak, 2) }}</td>
-                    <td>{{ $fiber->jumlah }}</td>
-                    <td>Rp {{ number_format($fiber->hargaLapak * $fiber->jumlah, 2) }}</td>
+                    <td>Rp {{ number_format($fiber->hargaNasabah, 2) }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -256,9 +244,8 @@ $count = 1;
                     <th scope="col">No</th>
                     <th scope="col">Kode Barang</th>
                     <th scope="col">Nama barang</th>
-                    <th scope="col">H.Lapak</th>
-                    <th scope="col">JML</th>
-                    <th scope="col">Rp</th>
+                    <th scope="col">Harga Lapak</th>
+                    <th scope="col">Harga Nasabah</th>
                 </tr>
             </thead>
             <tbody>
@@ -273,8 +260,7 @@ $count = 1;
                     <td>{{ $elektronik->kodeSampah }}</td>
                     <td>{{ $elektronik->nama }}</td>
                     <td>Rp {{ number_format($elektronik->hargaLapak, 2) }}</td>
-                    <td>{{ $elektronik->jumlah }}</td>
-                    <td>Rp {{ number_format($elektronik->hargaLapak * $elektronik->jumlah, 2) }}</td>
+                    <td>Rp {{ number_format($elektronik->hargaNasabah, 2) }}</td>
                 </tr>
                 @endforeach
             </tbody>
