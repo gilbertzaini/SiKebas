@@ -55,7 +55,7 @@ else $pengurus = '-';
                 <td>{{$count++}}</td>
                 <td>{{$setoran->created_at}}</td>
                 <td>T{{$setoran->id}}</td>
-                <td>S{{$setoran->dataSampah->kodeSampah}}</td>
+                <td>S{{$setoran->kodeSampah}}</td>
                 <td>{{$setoran->dataSampah->nama}}</td>
                 <td>Rp {{ number_format($setoran->hargaNasabah, 0, ',', '.') }}</td>
                 <td>{{$setoran->berat}}</td>

@@ -18,6 +18,6 @@ class SetoranNasabah extends Model
 
     public function dataSampah()
     {
-        return $this->belongsTo(DataSampah::class, 'kodeSampah');
+        return $this->belongsTo(DataSampah::class, 'kodeSampah', 'kodeSampah');
     }
 }

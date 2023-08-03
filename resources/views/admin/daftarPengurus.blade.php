@@ -71,8 +71,4 @@
     </table>
   </div>
   <!-- Section End -->
-  <!-- Button -->
-  <div class="d-flex justify-content-end mx-3 my-5">  
-    <a class="btn btn-primary rounded-circle" id="btn-tambah" href="{{route('admin.pengurusBaru')}}"><i class="bi bi-plus-circle text-white"></i></a>
-  </div>
 @endsection
