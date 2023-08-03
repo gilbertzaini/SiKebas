@@ -8,16 +8,10 @@
 		<input type="text" name="idSampah" value="{{$sampah->id}}" style="display:none;"/>
 		<div class="form-row px-3">
 			<div class="col-md-9 mb-3">
-				<label for="jsampah">Jenis Sampah</label><br>
-				<input type="text" id="jsampah" name="jenis" value="{{ old('jenis', $sampah->jenis) }}"><br>
+				<label for="kategori">Kategori Sampah</label><br>
+				<input type="text" id="kategori" name="kategori" value="{{ old('kategori', $sampah->kategori) }}"><br>
 			</div>
 		</div>
-		<div class="form-row px-3">
-			<div class="col-md-9 mb-3">
-				<label for="harga">Harga/kg</label><br>
-				<input type="text" id="harga" name="harga" value="{{ old('harga', $sampah->harga) }}">
-			</div>
-		</div>
-		<button type="submit" class="btn btn-primary mx-4">Buat Kategori</button>
+		<button type="submit" class="btn btn-primary mx-4">Ubah Kategori</button>
 	</x-form>
 @endsection

@@ -6,16 +6,23 @@ $count = 1;
 
 @section('content')
 <!-- Section Start -->
-@if($pelapak->count() > 0)
 <div class="container mt-5 pt-5">
-  <h2 class="text-center text-uppercase text-header-table-3">Data Pelapak</h2>
+  <div class="d-flex align-items-center justify-content-start">
+      <h2 class="text-center text-uppercase text-header-table-3">Data Pelapak</h2>
+      <div>
+        <button class="btn btn-success ms-3" onclick="window.location='{{route('admin.pelapakBaru')}}'">Tambah</button>
+      </div>
+    </div> 
 
+  @if($pelapak->count() > 0)
   <table class="table text-center mt-4">
     <thead>
       <tr>
         <th scope="col">No</th>
+        <th scope="col">Kode Pelapak</th>
         <th scope="col">Nama Pelapak</th>
-        <th scope="col">Alamat Pelapak</th>
+        <th scope="col">Alamat</th>
+        <th scope="col">No Telepon</th>
         <th scope="col">Handle</th>
       </tr>
     </thead>
@@ -26,15 +33,16 @@ $count = 1;
         @php
         $count++;
         @endphp
+        <td>P{{$pelapak->id}}</td>
         <td>{{$pelapak->nama}}</td>
         <td>{{$pelapak->alamat}}</td>
+        <td>{{$pelapak->no_telp}}</td>
         <td>
           <div class="d-inline-block d-flex justify-content-center align-items-center">
             <button class="btn btn-primary mx-1" onclick="window.location='{{route('admin.editPelapak', ['id'=>$pelapak->id])}}'">Edit</button>
             <x-form method="DELETE" action="{{ route('admin.deletePelapak', ['id'=>$pelapak->id]) }}">
               <button class="btn btn-danger mx-1">Hapus</button>
             </x-form>
-            <button class="btn btn-success mx-1" onclick="window.location='{{route('admin.pelapakBaru')}}'">Tambah</button>
           </div>
         </td>
       </tr>

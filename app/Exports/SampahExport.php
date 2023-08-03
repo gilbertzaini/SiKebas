@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\KategoriSampah;
 use App\Models\sampah;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -14,7 +15,7 @@ class SampahExport implements FromCollection, WithTitle, WithHeadings
     */
     public function collection()
     {
-        return sampah::all();
+        return KategoriSampah::all();
     }
 
     public function title(): string

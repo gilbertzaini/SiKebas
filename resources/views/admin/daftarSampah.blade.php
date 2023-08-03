@@ -1,6 +1,12 @@
 @extends('layouts.master')
 @php
 $count = 1;
+$kodeKategori = 1;
+$jenisArr = array();
+
+foreach($dataSampahByJenis as $jenis => $items){
+array_push($jenisArr, $jenis);
+}
 @endphp
 
 @section('content')
@@ -12,24 +18,33 @@ $count = 1;
                 Filter
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><button class="dropdown-item" id="toogleVissionMetal" type="button">Metal</button></li>
-                <li><button class="dropdown-item" id="toogleVissionPlastik" type="button">Plastik</button></li>
-                <li><button class="dropdown-item" id="toogleVissionKertas" type="button">Kertas</button></li>
-                <li><button class="dropdown-item" id="toogleVissionBeling" type="button">Beling / kaca</button></li>
-                <li><button class="dropdown-item" id="toogleVissionAkrilik">Akrilik</button></li>
-                <li><button class="dropdown-item" id="toogleVissionFiber">Fiber</button></li>
-                <li><button class="dropdown-item" id="toogleVissionElectronik">Electronik</button></li>
-            </ul>
+                @foreach($dataSampahByJenis as $jenis => $items)
+                <li><button class="dropdown-item" id="{{'toggleVision'.$jenis}}" type="button">{{$jenis}}</button></li>
+                @endforeach<li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <div class="form-check mx-3">
+                        <input class="form-check-input" type="checkbox" value="" id="toggleVisionAll">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Semuanya
+                        </label>
+                    </div>
+                </li>
+            </ul>            
+        <button class="btn btn-success" type="submit" onclick="window.location='{{route('admin.dataSampahBaru')}}'">Tambah</button>
         </div>
     </div>
     <!-- Default dropend button -->
     <!-- Section -->
-    <div class="table-responsive-sm" id="metal" style="display:none ;">
+    @foreach($dataSampahByJenis as $jenis => $items)
+    <div class="table-responsive-sm" id="{{$jenis}}" style="display: none;">
         <table class="table table-sm">
-            <caption class="text-center">List Barang Jenis <strong>Metal</strong></caption>
+            <caption class="text-center">List Barang Jenis <strong>{{$jenis}}</strong></caption>
             <thead class="table-dark">
                 <tr>
                     <th scope="col">No</th>
+                    <th scope="col">Kode Kategori Sampah</th>
                     <th scope="col">Kode Barang</th>
                     <th scope="col">Nama barang</th>
                     <th scope="col">Harga Lapak</th>
@@ -39,315 +54,66 @@ $count = 1;
             <tbody>
                 <tr class="table-danger">
                     <th scope="row">1</th>
-                    <td>1</td>
-                    <td colspan="4">Metal</td>
+                    <td>{{$kodeKategori}}</td>
+                    <td></td>
+                    <td colspan="4">{{$jenis}}</td>
                 </tr>
-                @foreach($metal as $metal)
+                @foreach($items as $item)
                 <tr>
                     <td>{{ ++$count }}</td>
-                    <td>{{ $metal->kodeSampah }}</td>
-                    <td>{{ $metal->nama }}</td>
-                    <td>Rp {{ number_format($metal->hargaLapak, 2) }}</td>
-                    <td>Rp {{ number_format($metal->hargaNasabah, 2) }}</td>
+                    <td>{{ $kodeKategori}}</td>
+                    <td>{{ $item->kodeSampah }}</td>
+                    <td>{{ $item->nama }}</td>
+                    <td>Rp {{ number_format($item->hargaLapak, 2) }}</td>
+                    <td>Rp {{ number_format($item->hargaNasabah, 2) }}</td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-
     @php
     $count = 1;
+    $kodeKategori++;
     @endphp
+    @endforeach
+</div>
 
-    <div class="table-responsive-sm" id="plastik" style="display:none ;">
-        <table class="table table-sm">
-            <caption class="text-center">List Barang Jenis <strong>Plastik</strong></caption>
-            <thead class="table-dark">
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Kode Barang</th>
-                    <th scope="col">Nama barang</th>
-                    <th scope="col">Harga Lapak</th>
-                    <th scope="col">Harga Nasabah</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="table-warning">
-                    <th scope="row">1</th>
-                    <td>2</td>
-                    <td colspan="4">Plastik</td>
-                </tr>
-                @foreach($plastik as $plastik)
-                <tr>
-                    <td>{{ ++$count }}</td>
-                    <td>{{ $plastik->kodeSampah }}</td>
-                    <td>{{ $plastik->nama }}</td>
-                    <td>Rp {{ number_format($plastik->hargaLapak, 2) }}</td>
-                    <td>Rp {{ number_format($plastik->hargaNasabah, 2) }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    var jenisArr = @json($jenisArr);
+    // console.log(jenisArr);
 
-    @php
-    $count = 1;
-    @endphp
+    jenisArr.forEach(function(jenis) {
+        var button = document.getElementById("toggleVision" + jenis);
+        if (button !== null) {
+            button.addEventListener("click", function(e) {
+                var element = document.getElementById(jenis);
+                if (element !== null) {
+                    if (element.style.display === "none") {
+                        element.style.display = "block";
+                        e.target.classList.add("active");
+                    } else {
+                        element.style.display = "none";
+                        e.target.classList.remove("active");
+                    }
+                }
+            });
+        }
+    });
 
-    <div class="table-responsive-sm" id="Kertas" style="display: none;">
-        <table class="table table-sm">
-            <caption class="text-center">List Barang Jenis <strong>Kertas&nbsp;</strong>
-            </caption>
-            <thead class="table-dark">
-                <tr>
-                    <td>{{ ++$count }}</td>
-                    <th scope="col">No</th>
-                    <th scope="col">Kode Barang</th>
-                    <th scope="col">Nama barang</th>
-                    <th scope="col">Harga Lapak</th>
-                    <th scope="col">Harga Nasabah</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="table-warning">
-                    <th scope="row">1</th>
-                    <td>3</td>
-                    <td colspan="4">Kertas</td>
-                </tr>
-                @foreach($kertas as $kertas)
-                <tr>
-                    <td>{{ ++$count }}</td>
-                    <td>{{ $kertas->kodeSampah }}</td>
-                    <td>{{ $kertas->nama }}</td>
-                    <td>Rp {{ number_format($kertas->hargaLapak, 2) }}</td>
-                    <td>Rp {{ number_format($kertas->hargaNasabah, 2) }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-
-    @php
-    $count = 1;
-    @endphp
-
-    <div class="table-responsive-sm" id="Beling" style="display: none;">
-        <table class="table table-sm">
-            <caption class="text-center">List Barang Jenis <strong>Beling/Kaca</strong></caption>
-            <thead class="table-dark">
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Kode Barang</th>
-                    <th scope="col">Nama barang</th>
-                    <th scope="col">Harga Lapak</th>
-                    <th scope="col">Harga Nasabah</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="table-danger">
-                    <th scope="row">1</th>
-                    <td>4</td>
-                    <td colspan="4">Beling/Kaca</td>
-                </tr>
-                @foreach($beling as $beling)
-                <tr>
-                    <td>{{ ++$count }}</td>
-                    <td>{{ $beling->kodeSampah }}</td>
-                    <td>{{ $beling->nama }}</td>
-                    <td>Rp {{ number_format($beling->hargaLapak, 2) }}</td>
-                    <td>Rp {{ number_format($beling->hargaNasabah, 2) }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-
-    @php
-    $count = 1;
-    @endphp
-
-    <div class="table-responsive-sm" id="Akrilik" style="display: none;">
-        <table class="table table-sm">
-            <caption class="text-center">List Barang Jenis <strong>Akrilik</strong></caption>
-            <thead class="table-dark">
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Kode Barang</th>
-                    <th scope="col">Nama barang</th>
-                    <th scope="col">Harga Lapak</th>
-                    <th scope="col">Harga Nasabah</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="table-warning">
-                    <th scope="row">1</th>
-                    <td>5</td>
-                    <td colspan="4">Akrilik</td>
-                </tr>
-                @foreach($akrilik as $akrilik)
-                <tr>
-                    <td>{{ ++$count }}</td>
-                    <td>{{ $akrilik->kodeSampah }}</td>
-                    <td>{{ $akrilik->nama }}</td>
-                    <td>Rp {{ number_format($akrilik->hargaLapak, 2) }}</td>
-                    <td>Rp {{ number_format($akrilik->hargaNasabah, 2) }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-
-    @php
-    $count = 1;
-    @endphp
-
-    <div class="table-responsive-sm" id="Fiber" style="display: none;">
-        <table class="table table-sm">
-            <caption class="text-center">List Barang Jenis <strong>Fiber</strong></caption>
-            <thead class="table-dark">
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Kode Barang</th>
-                    <th scope="col">Nama barang</th>
-                    <th scope="col">Harga Lapak</th>
-                    <th scope="col">Harga Nasabah</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="table-warning">
-                    <th scope="row">1</th>
-                    <td>6</td>
-                    <td colspan="4">Fiber</td>
-                </tr>
-                @foreach($fiber as $fiber)
-                <tr>
-                    <td>{{ ++$count }}</td>
-                    <td>{{ $fiber->kodeSampah }}</td>
-                    <td>{{ $fiber->nama }}</td>
-                    <td>Rp {{ number_format($fiber->hargaLapak, 2) }}</td>
-                    <td>Rp {{ number_format($fiber->hargaNasabah, 2) }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-
-    @php
-    $count = 1;
-    @endphp
-
-    <div class="table-responsive-sm" id="Electronik" style="display: none;">
-        <table class="table table-sm">
-            <caption class="text-center">List Barang Jenis <strong>Elektronik</strong></caption>
-            <thead class="table-dark">
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Kode Barang</th>
-                    <th scope="col">Nama barang</th>
-                    <th scope="col">Harga Lapak</th>
-                    <th scope="col">Harga Nasabah</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="table-warning">
-                    <th scope="row">1</th>
-                    <td>7</td>
-                    <td colspan="4">Elektronik</td>
-                </tr>
-                @foreach($elektronik as $elektronik)
-                <tr>
-                    <td>{{ ++$count }}</td>
-                    <td>{{ $elektronik->kodeSampah }}</td>
-                    <td>{{ $elektronik->nama }}</td>
-                    <td>Rp {{ number_format($elektronik->hargaLapak, 2) }}</td>
-                    <td>Rp {{ number_format($elektronik->hargaNasabah, 2) }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-
-    <script>
-        // Metal
-        document.getElementById("toogleVissionMetal").addEventListener("click", function(button) {
-            if (document.getElementById("metal").style.display === "none") {
-                document.getElementById("metal").style.display = "block";
-                document.getElementById("toogleVissionMetal").classList.add("active");
+    $(function() {
+        $("#toggleVisionAll").click(function(event) {
+            // console.log('clicked');
+            var x = $(this).is(':checked');
+            if (x == true) {
+                $(".table-responsive-sm").show();
+                $(".dropdown-item").removeClass("active");
             } else {
-                document.getElementById("metal").style.display = "none";
-                document.getElementById("toogleVissionMetal").classList.remove("active");
+                $(".table-responsive-sm").hide();
             }
         });
+    });
+</script>
 
-        //  Plastik
-        document.getElementById("toogleVissionPlastik").addEventListener("click", function(button) {
-            if (document.getElementById("plastik").style.display === "none") {
-                document.getElementById("plastik").style.display = "block";
-                document.getElementById("toogleVissionPlastik").classList.add("active");
-            } else {
-                document.getElementById("plastik").style.display = "none";
-                document.getElementById("toogleVissionPlastik").classList.remove("active");
-            }
-        });
-        //  Kertas
-        document.getElementById("toogleVissionKertas").addEventListener("click", function(button) {
-            if (document.getElementById("Kertas").style.display === "none") {
-                document.getElementById("Kertas").style.display = "block";
-                document.getElementById("toogleVissionKertas").classList.add("active");
-            } else {
-                document.getElementById("Kertas").style.display = "none";
-                document.getElementById("toogleVissionKertas").classList.remove("active");
-            }
-        });
-        //  Beling
-        document.getElementById("toogleVissionBeling").addEventListener("click", function(button) {
-            if (document.getElementById("Beling").style.display === "none") {
-                document.getElementById("Beling").style.display = "block";
-                document.getElementById("toogleVissionBeling").classList.add("active");
-            } else {
-                document.getElementById("Beling").style.display = "none";
-                document.getElementById("toogleVissionBeling").classList.remove("active");
-            }
-        });
-        //  Plastik
-        document.getElementById("toogleVissionPlastik").addEventListener("click", function(button) {
-            if (document.getElementById("Plastik").style.display === "none") {
-                document.getElementById("Plastik").style.display = "block";
-                document.getElementById("toogleVissionPlastik").classList.add("active");
-            } else {
-                document.getElementById("Plastik").style.display = "none";
-                document.getElementById("toogleVissionPlastik").classList.remove("active");
-            }
-        });
-        //  Akrilik
-        document.getElementById("toogleVissionAkrilik").addEventListener("click", function(button) {
-            if (document.getElementById("Akrilik").style.display === "none") {
-                document.getElementById("Akrilik").style.display = "block";
-                document.getElementById("toogleVissionAkrilik").classList.add("active");
-            } else {
-                document.getElementById("Akrilik").style.display = "none";
-                document.getElementById("toogleVissionAkrilik").classList.remove("active");
-            }
-        });
-        //  Fiber
-        document.getElementById("toogleVissionFiber").addEventListener("click", function(button) {
-            if (document.getElementById("Fiber").style.display === "none") {
-                document.getElementById("Fiber").style.display = "block";
-                document.getElementById("toogleVissionFiber").classList.add("active");
-            } else {
-                document.getElementById("Fiber").style.display = "none";
-                document.getElementById("toogleVissionFiber").classList.remove("active");
-            }
-        });
-        //  Fiber
-        document.getElementById("toogleVissionElectronik").addEventListener("click", function(button) {
-            if (document.getElementById("Electronik").style.display === "none") {
-                document.getElementById("Electronik").style.display = "block";
-                document.getElementById("toogleVissionElectronik").classList.add("active");
-            } else {
-                document.getElementById("Electronik").style.display = "none";
-                document.getElementById("toogleVissionElectronik").classList.remove("active");
-            }
-        });
-    </script>
-    @endsection
+
+@endsection

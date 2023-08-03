@@ -70,6 +70,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/sampah/export', [SampahController::class, 'export'])->name('admin.exportSampah');
 
     Route::get('/admin/sampah/data', [SampahController::class, 'showData'])->name('admin.dataSampah');
+    Route::get('/admin/sampah/data/tambah', [SampahController::class, 'createDataSampah'])->name('admin.dataSampahBaru');
+    Route::post('/admin/sampah/data/store', [SampahController::class, 'storeDataSampah'])->name('admin.storeDataSampahBaru');
 
     Route::get('/admin/pelapak', [PelapakController::class, 'showAll'])->name('admin.daftarPelapak');
     Route::get('/admin/pelapak/create', [PelapakController::class, 'create'])->name('admin.pelapakBaru');

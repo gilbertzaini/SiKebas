@@ -4,101 +4,147 @@ namespace App\Http\Controllers;
 
 use App\Exports\SampahExport;
 use App\Models\DataSampah;
+use App\Models\KategoriSampah;
 use App\Models\Sampah;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class SampahController extends Controller
 {
-    function showAll() {
-        $sampah = Sampah::all();
-        return view('admin.kategoriSampah', ['sampah'=>$sampah]);
+    function showAll()
+    {
+        $sampah = KategoriSampah::all();
+        return view('admin.kategoriSampah', ['sampah' => $sampah]);
     }
 
-    function show(string $id){
-        $sampah = Sampah::find($id);    
-        return view('admin.kategoriSampah', ['sampah'=>$sampah]);
+    function show(string $id)
+    {
+        $sampah = KategoriSampah::find($id);
+        return view('admin.kategoriSampah', ['sampah' => $sampah]);
     }
 
-    function showData(){
-        $metal = DataSampah::where('jenis', 'metal')->get();
-        $plastik = DataSampah::where('jenis', 'plastik')->get();
-        $beling = DataSampah::where('jenis', 'Beling/Kaca')->get();
-        $kertas = DataSampah::where('jenis', 'kertas')->get();
-        $akrilik = DataSampah::where('jenis', 'akrilik')->get();
-        $fiber = DataSampah::where('jenis', 'fiber')->get();
-        $elektronik = DataSampah::where('jenis', 'elektronik')->get();
-
-        // dd($sampah);
-        return view('admin.daftarSampah', [
-            'metal'=>$metal,
-            'plastik'=>$plastik,
-            'beling'=>$beling,
-            'kertas'=>$kertas,
-            'akrilik'=>$akrilik,
-            'fiber'=>$fiber,
-            'elektronik'=>$elektronik,
-        ]);
-    }
-
-    function search(request $request){
+    function search(request $request)
+    {
         $request->validate([
-            'param'=>'required|string'
+            'param' => 'required|string'
         ]);
 
-        return redirect()->route('admin.filteredSampah', ['param'=>$request->param]);
+        return redirect()->route('admin.filteredSampah', ['param' => $request->param]);
     }
 
-    function filtered(string $param){
-        $sampah = Sampah::where('jenis', 'like', '%' . $param . '%')->get();
-        return view('admin.kategoriSampah', ['sampah'=>$sampah]);
+    function filtered(string $param)
+    {
+        $sampah = KategoriSampah::where('kategori', 'like', '%' . $param . '%')->get();
+        return view('admin.kategoriSampah', ['sampah' => $sampah]);
     }
 
-    function create(request $request){        
+    function create()
+    {
         return view("admin.kategoriBaru");
     }
 
-    function store(request $request){
+    function store(request $request)
+    {
         $request->validate([
-            'jenis'=>'required|string',
-            'harga'=>'required|numeric',
+            'kategori' => 'required|string',
         ]);
 
-        $sampah = new Sampah;
-        $sampah->jenis = $request->jenis;
-        $sampah->harga = $request->harga;
+        $sampah = new KategoriSampah;
+        $sampah->kategori = $request->kategori;
         $sampah->save();
 
         return redirect()->route('admin.kategoriSampah');
     }
 
-    function edit(string $id){
-        $sampah = Sampah::find($id);
+    function edit(string $id)
+    {
+        $sampah = KategoriSampah::find($id);
 
-        return view("admin.editKategori", ['sampah'=>$sampah]);
+        return view("admin.editKategori", ['sampah' => $sampah]);
     }
 
-    function patch(request $request){
+    function patch(request $request)
+    {
         $request->validate([
-            'jenis'=>'required|string',
-            'harga'=>'required|numeric',
+            'kategori' => 'required|string',
         ]);
 
-        $sampah = Sampah::find($request->idSampah);
-        $sampah->jenis = $request->jenis;
-        $sampah->harga = $request->harga;
+        $sampah = KategoriSampah::find($request->idSampah);
+        $sampah->kategori = $request->kategori;
         $sampah->save();
 
         return redirect()->route('admin.kategoriSampah');
     }
 
-    function delete(string $id){
-        Sampah::find($id)->delete();
+    function delete(string $id)
+    {
+        KategoriSampah::find($id)->delete();
 
         return redirect()->route('admin.kategoriSampah');
     }
 
-    function export(){
+    function export()
+    {
         return Excel::download(new SampahExport, 'Sampah.xlsx');
+    }
+
+    function showData()
+    {
+        $dataSampahSorted = DataSampah::all()->sortBy(function ($item) {
+            return $item->kodeSampah == 10 ? 100 : (int)$item->kodeSampah;
+        });
+
+        $dataSampahByJenis = $dataSampahSorted->groupBy('jenis');
+
+        return view('admin.daftarSampah', [
+            'dataSampahByJenis' => $dataSampahByJenis,
+        ]);
+    }
+
+    function createDataSampah()
+    {
+        $dataSampahSorted = DataSampah::all()->sortBy(function ($item) {
+            return $item->kodeSampah == 10 ? 100 : (int)$item->kodeSampah;
+        });
+
+        $jenisSampah = $dataSampahSorted->groupBy('jenis');
+
+        return view('admin.dataSampahBaru', ['jenisSampah' => $jenisSampah]);
+    }
+
+    function storeDataSampah(request $request)
+    {
+        $request->validate([
+            'kategori' => 'required|numeric',
+            'nama' => 'required|string',
+            'hargaNasabah' => 'required|numeric',
+            'hargaPelapak' => 'required|numeric',
+        ]);
+
+        $kategori = KategoriSampah::where('id', $request->kategori)->first();
+        $serialNumber = DataSampah::where('jenis', $kategori->kategori)->count();
+        $serialNumber++;
+
+        $alphabets = range('A', 'Z');
+        $result = '';
+
+        do {
+            $index = ($serialNumber - 1) % 26;
+            $result = $alphabets[$index] . $result;
+            $serialNumber = intval(($serialNumber - $index) / 26);
+        } while ($serialNumber > 0);
+
+        // dd($request, $kategori, $serialNumber,  $result);
+
+        $dataSampah = new DataSampah;
+        $dataSampah->kodeSampah = $request->kategori . $result;
+        $dataSampah->jenis = $kategori->kategori;
+        $dataSampah->nama = $request->nama;
+        $dataSampah->hargaLapak = $request->hargaPelapak;
+        $dataSampah->hargaNasabah = $request->hargaNasabah;
+        $dataSampah->save();
+
+        return redirect()->route('admin.dataSampah');
+        // dd($dataSampah);
     }
 }
