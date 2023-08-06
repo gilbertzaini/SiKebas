@@ -6,12 +6,17 @@ $count = 1
 
 @section('content')
 <h2 class="main-text">Tabungan Nasabah</h2>
+
+
+<div class="container-fluid d-flex justify-content-end col-11">
+    <button class="btn btn-danger" onclick="window.location='{{route('admin.penarikanNasabah')}}'">Penarikan</button>
+</div>
 <div class="table-wrapper-section">
     <table class="fl-table">
         <thead>
             <tr>
                 <th>No</th>
-                <th>Tanggal</th>
+                <th>Waktu Transaksi</th>
                 <th>Kode Nasabah</th>
                 <th>Nama Nasabah</th>
                 <th>Debet Nasabah</th>
@@ -24,9 +29,9 @@ $count = 1
             @foreach($tabungan as $tabungan)
             <tr>
                 <td>{{$count++}}</td>
-                <td>{{$tabungan->updated_at}}</td>
-                <td>N{{$tabungan->user->id}}</td>
-                <td>{{$tabungan->user->name}}</td>
+                <td>{{$tabungan->created_at}}</td>
+                <td>N{{$tabungan->nasabah->id}}</td>
+                <td>{{$tabungan->nasabah->name}}</td>
                 @if($tabungan->kategori == 'debet')
                 <td>{{$tabungan->jumlah}}</td>
                 <td>-</td>
@@ -34,11 +39,7 @@ $count = 1
                 <td>-</td>
                 <td>{{$tabungan->jumlah}}</td>
                 @endif
-                @if($tabungan->user->saldo != NULL)
-                <td>Rp {{ number_format($tabungan->User->Saldo->saldo, 0, ',', '.') }}</td>
-                @else
-                <td>Rp 0</td>
-                @endif
+                <td>Rp {{ number_format($tabungan->saldoSementara, 0, ',', '.') }}</td>
                 <td>{{$tabungan->keterangan}}</td>
             </tr>
             @endforeach

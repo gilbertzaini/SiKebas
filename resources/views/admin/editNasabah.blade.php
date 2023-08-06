@@ -3,8 +3,8 @@
 @section('content')
   <!-- Section Start -->
   
-  <x-form method="PATCH" action="{{route('admin.patchNasabah')}}" class="needs-validation container-fluid my-3" novalidate>
-    <h3 class="px-4">Informasi Nasabah</h3>
+  <x-form method="PATCH" action="{{route('admin.patchNasabah')}}" class="needs-validation container-fluid mt-5 pt-5" novalidate>
+    <h3 class="px-3">Informasi Nasabah</h3>
 
     <input type="text" style="display:none" name="idNasabah" value="{{$nasabah->id}}"/>
 
@@ -13,6 +13,14 @@
         <label for="validationCustom01">Nama Lengkap</label>
         <input type="text" name="name" class="form-control" id="validationCustom01" value="{{$nasabah->name}}" placeholder="Nama Lengkap" required>
         <x-error field="name" class="mt-2 "/>
+        {{-- <div class="valid-feedback">
+          good!
+        </div> --}}
+      </div>
+      <div class="col-md-9 mb-3">
+        <label for="validationCustom01">Nomor Telepon</label>
+        <input type="text" name="alamat" class="form-control" id="validationCustom01" value="{{$nasabah->alamat}}" placeholder="Alamat" required>
+        <x-error field="alamat" class="mt-2 "/>
         {{-- <div class="valid-feedback">
           good!
         </div> --}}
@@ -32,37 +40,6 @@
         {{-- <div class="valid-feedback">
           good!
         </div> --}}
-      </div>
-      <div class="col-md-9 mb-3">
-        <label for="validationCustom03">e-mail</label>
-        <input type="email" name="email" class="form-control" id="validationCustom03" value="{{$nasabah->email}}" placeholder="e-mail" required>
-        <x-error field="email" class="mt-2 "/>
-        {{-- <div class="valid-feedback">
-          good!
-        </div> --}}
-      </div>
-      <div class="col-md-9 mb-3">
-        <label for="validationCustomUsername">Username</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroupPrepend">@</span>
-          </div>
-          <input type="text" name="username" class="form-control" id="validationCustomUsername" value="{{$nasabah->username}}" placeholder="Username" aria-describedby="inputGroupPrepend" required>
-          <x-error field="username" class="mt-2 "/>
-          {{-- <div class="invalid-feedback">
-            Please choose a username.
-          </div> --}}
-        </div>
-      </div>
-      <div class="col-md-9 mb-3">
-        <label for="validationCustomUsername">Password</label>
-        <div class="input-group">
-          <input type="password" name="password" class="form-control" id="validationCustomUsername" placeholder="Password" aria-describedby="inputGroupPrepend">
-          <x-error field="password" class="mt-2 "/>
-          {{-- <div class="invalid-feedback">
-            Please insert password.
-          </div> --}}
-        </div>
       </div>
     </div>
     

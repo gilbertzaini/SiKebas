@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Nasabah;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +12,7 @@ class TabunganNasabah extends Model
     
     protected $table = 'tabungan_nasabah';
 
-    public function user(){
-        return $this->belongsTo(User::class, 'idNasabah');
+    public function nasabah(){
+        return $this->belongsTo(Nasabah::class, 'idNasabah', 'id');
     }
 }

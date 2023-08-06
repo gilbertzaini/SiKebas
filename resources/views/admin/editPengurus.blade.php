@@ -3,10 +3,10 @@
 @section('content')
   <!-- Section Start -->
   
-  <x-form method="PATCH" action="{{route('admin.patchPengurus')}}" class="needs-validation container-fluid my-3" novalidate>
-    <h3 class="px-4">Informasi Pengurus</h3>
+  <x-form method="PATCH" action="{{route('admin.patchPengurus')}}" class="needs-validation container-fluid pt-5 mt-5" novalidate>
+    <h3 class="px-3">Informasi Pengurus</h3>
 
-    <input type="text" style="display:none" name="idNasabah" value="{{$pengurus->id}}"/>
+    <input type="text" style="display:none" name="idPengurus" value="{{$pengurus->id}}"/>
 
     <div class="form-row px-3">
       <div class="col-md-9 mb-3">
@@ -21,6 +21,14 @@
         <label for="validationCustom02">Nomor Telepon</label>
         <input type="text" name="telp" class="form-control" id="validationCustom02" value="{{$pengurus->no_telp}}" placeholder="Nomor Telepon" required>
         <x-error field="telp" class="mt-2 "/>
+        {{-- <div class="valid-feedback">
+          good!
+        </div> --}}
+      </div>
+      <div class="col-md-9 mb-3">
+        <label for="validationCustom02">Alamat</label>
+        <input type="text" name="alamat" class="form-control" id="validationCustom02" value="{{$pengurus->alamat}}" placeholder="Alamat" required>
+        <x-error field="alamat" class="mt-2 "/>
         {{-- <div class="valid-feedback">
           good!
         </div> --}}

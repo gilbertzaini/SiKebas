@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Nasabah;
 use App\Models\Saldo;
 use App\Models\User;
 use App\Exports\NasabahExport;
@@ -12,12 +13,12 @@ use Maatwebsite\Excel\Facades\Excel;
 class NasabahController extends Controller
 {
     function showAll() {
-        $nasabah = User::where('is_admin', 0)->get();
+        $nasabah = Nasabah::all();
         return view('admin.daftarNasabah', ['nasabah'=>$nasabah]);
     }
 
     function show(string $id){
-        $nasabah = User::find($id);    
+        $nasabah = Nasabah::find($id);    
         return view('admin.detailNasabah', ['nasabah'=>$nasabah]);
     }
 
@@ -30,8 +31,7 @@ class NasabahController extends Controller
     }
 
     function filtered(string $param){
-        $pengurus = User::where('name', 'like', '%' . $param . '%')
-                        ->where('is_admin', 0)
+        $pengurus = Nasabah::where('name', 'like', '%' . $param . '%')
                         ->get();
 
         return view('admin.daftarNasabah', ['nasabah'=>$pengurus]);
@@ -45,29 +45,21 @@ class NasabahController extends Controller
         $request->validate([
             'name'=>'required|string',
             'telp'=>'required|string|min:10',
-            'email'=>'required|email',
-            'username'=>'required|string',
-            'password'=>'required|string',
+            'alamat'=>'required|string',
         ]);
 
-        $nasabah = new User;
+        $nasabah = new Nasabah;
         $nasabah->name = $request->name;
         $nasabah->no_telp = $request->telp;
-        $nasabah->email = $request->email;
-        $nasabah->username = $request->username;
-        $nasabah->password = Hash::make($request->password);
+        $nasabah->alamat = $request->alamat;
+        $nasabah->saldo = 0;
         $nasabah->save();
-
-        $saldo = new Saldo;
-        $saldo->user_id = $nasabah->id;
-        $saldo->saldo = 0;
-        $saldo->save();
 
         return redirect()->route('admin.daftarNasabah');
     }
 
     function edit(string $id){
-        $nasabah = User::find($id);
+        $nasabah = Nasabah::find($id);
 
         return view('admin.editNasabah', ['nasabah'=>$nasabah]);
     }
@@ -76,39 +68,26 @@ class NasabahController extends Controller
         // dd($request);
 
         $request->validate([
+            'idNasabah'=>'required',
             'name'=>'required|string',
             'telp'=>'required|string|min:10',
-            'email'=>'required|email',
-            'username'=>'required|string',
+            'alamat'=>'required|string',
             'saldo' => 'required|numeric'
         ]);
 
-        $nasabah = User::find($request->idNasabah);
+        $nasabah = Nasabah::find($request->idNasabah);
         $nasabah->name = $request->name;
         $nasabah->no_telp = $request->telp;
-        $nasabah->email = $request->email;
-        $nasabah->username = $request->username;
-        if ($request->has('password')) {
-            $nasabah->password = Hash::make($request->password);
-        }        
+        $nasabah->alamat = $request->alamat;
+        $nasabah->saldo = $request->saldo;
         $nasabah->save();
-
-        $saldo = Saldo::where('user_id', $request->idNasabah)->first();
-        if($saldo){
-            $saldo->saldo = $request->saldo;
-        } else {
-            $saldo = new Saldo;
-            $saldo->user_id = $request->idNasabah;
-            $saldo->saldo = $request->saldo;
-        }
-        $saldo->save();
 
         return redirect()->route('admin.daftarNasabah');
     }
 
     function delete(string $id){
         // Saldo::where('user_id', $id)->delete();
-        User::find($id)->delete();
+        Nasabah::find($id)->delete();
 
         return redirect()->route('admin.daftarNasabah');
     }

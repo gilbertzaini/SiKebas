@@ -87,7 +87,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/admin/transaksi/setoran-nasabah', [TransaksiController::class, 'setoranNasabah'])->name('admin.setoranNasabah');
     Route::post('/admin/transaksi/setoran-nasabah', [TransaksiController::class, 'setoranNasabahById'])->name('admin.setoranNasabahId');
+    Route::get('/admin/transaksi/setoran-nasabah/{id}/tambah', [TransaksiController::class, 'setoranNasabahBaru'])->name('admin.setoranNasabahBaru');
+    Route::post('/admin/transaksi/setoran-nasabah/tambah', [TransaksiController::class, 'storeSetoranNasabahBaru'])->name('admin.storeSetoranNasabahBaru');
+    
     Route::get('/admin/transaksi/tabungan-nasabah', [TransaksiController::class, 'tabunganNasabah'])->name('admin.tabunganNasabah');
+    Route::get('/admin/transaksi/penarikan', [TransaksiController::class, 'penarikanNasabah'])->name('admin.penarikanNasabah');
+    Route::post('/admin/transaksi/penarikan/store', [TransaksiController::class, 'storePenarikanNasabah'])->name('admin.storePenarikanNasabah');
+        
     Route::get('/admin/transaksi/penjualan-nasabah', [TransaksiController::class, 'transaksiPenjualanNasabah'])->name('admin.transaksiPenjualanNasabah');
 
     Route::get('/admin/detailBaruPenjualan', function () {

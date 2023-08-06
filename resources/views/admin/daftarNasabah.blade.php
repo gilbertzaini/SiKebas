@@ -45,7 +45,7 @@
           <td>{{ $nasabah->alamat }}</td>
           <td>{{ $nasabah->no_telp }}</td>
           @if($nasabah->saldo != NULL)
-          <td>Rp {{ number_format($nasabah->Saldo->saldo, 2, ',', '.') }}</td>
+          <td>Rp {{ number_format($nasabah->saldo, 2, ',', '.') }}</td>
           @else
           <td>Rp 0</td>
           @endif

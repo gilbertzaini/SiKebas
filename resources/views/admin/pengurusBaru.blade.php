@@ -3,8 +3,8 @@
 @section('content')
   <!-- Section Start -->
   
-  <x-form action="{{route('admin.storePengurus')}}" class="needs-validation container-fluid my-3" novalidate>
-    <h3 class="px-4">Informasi Calon Pengurus</h3>
+  <x-form action="{{route('admin.storePengurus')}}" class="needs-validation container-fluid mt-5 pt-5" novalidate>
+    <h3 class="px-3">Informasi Calon Pengurus</h3>
     <div class="form-row px-3">
       <div class="col-md-9 mb-3">
         <label for="validationCustom01">Nama Lengkap</label>
@@ -18,6 +18,14 @@
         <label for="validationCustom02">Nomor Telepon</label>
         <input type="text" name="telp" class="form-control" id="validationCustom02" value="{{old('telp')}}" placeholder="Nomor Telepon" required>
         <x-error field="telp" class="mt-2 "/>
+        {{-- <div class="valid-feedback">
+          good!
+        </div> --}}
+      </div> 
+      <div class="col-md-9 mb-3">
+        <label for="validationCustom02">Alamat</label>
+        <input type="text" name="alamat" class="form-control" id="validationCustom02" value="{{old('alamat')}}" placeholder="Alamat" required>
+        <x-error field="alamat" class="mt-2 "/>
         {{-- <div class="valid-feedback">
           good!
         </div> --}}

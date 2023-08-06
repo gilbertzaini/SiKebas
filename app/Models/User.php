@@ -46,14 +46,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function saldo(){
-        return $this->hasOne(Saldo::class, 'user_id');
-    }
-
-    public function transaksi(){
-        return $this->hasMany(Transaction::class, 'user_id');
-    }
-
     public function setoranNasabah(){
         return $this->hasMany(SetoranNasabah::class, 'idNasabah');
     }

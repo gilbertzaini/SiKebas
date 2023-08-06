@@ -1,18 +1,27 @@
 @extends('layouts.master')
 
+@section('additionalHeadContent')
+<style>
+  .icons {
+    width: 60px  !important;
+    height:  60px !important;
+  }
+</style>
+@endsection
+
 @section('content')
   <!-- Section -->
   <section class="jumbotron">
     <div class="container mt-5">
       <div class="container-fluid">
         <div class="row align-items-center">
-          <h1 class="text-white text-center mb-5 ">Dashboard</h1>
+          <h1 class="text-white text-center my-5 ">Dashboard</h1>
           <div class="col mt-5">
-            <img src="../assets/add-user.png" class="img">
+            <img src="../assets/add-user.png" class="img icons">
             <div id="text1">
-              <h1><strong class="text-white">Pengurus Baru</strong></h1>
-              <p class="text-white">Bulan ini</p>
-              <div class="d-flex container">
+              <h1><strong class="text-white">Total Pengurus</strong></h1>
+              <!-- <p class="text-white">Bulan ini</p> -->
+              <div class="d-flex container mt-4">
                 <i class="gg-trending"></i>
                 <p>{{$pengurus->count()}}</p>
               </div>
@@ -20,11 +29,11 @@
           </div>
           <div class="col mt-5">
             <div class="container-fluid">
-              <img src="../assets/group.png" class="img">
+              <img src="../assets/group.png" class="img icons">
               <div id="text1">
-                <h1><strong class="text-white">Nasabah Baru</strong></h1>
-                <p class="text-white">Bulan ini</p>
-                <div class="d-flex container">
+                <h1><strong class="text-white">Total Nasabah</strong></h1>
+                <!-- <p class="text-white">Bulan ini</p> -->
+                <div class="d-flex container mt-4">
                   <i class="gg-trending"></i>
                   <p>{{$nasabah->count()}}</p>
                 </div>
@@ -33,26 +42,26 @@
           </div>
           <div class="col mt-5">
             <div class="container-fluid">
-              <img src="../assets/shopping-online.png" class="img" id="img1">
+              <img src="../assets/shopping-online.png" class="img icons" id="img1">
               <div id="text1">
-                <h1><strong class="text-white">Transaksi Baru</strong></h1>
-                <p class="text-white">Bulan ini</p>
-                <div class="d-flex container">
+                <h1><strong class="text-white">TotalTransaksi</strong></h1>
+                <!-- <p class="text-white">Bulan ini</p> -->
+                <div class="d-flex container mt-4">
                   <i class="gg-trending"></i>
-                  <p>{{$transaction->count()}}</p>
+                  <p>{{$transaction}}</p>
                 </div>
               </div>
           </div>
           </div>
           <div class="col mt-5">
             <div class="container-fluid">
-              <img src="../assets/dollar.png" class="img" id="img2">
+              <img src="../assets/dollar.png" class="img icons" id="img2">
               <div id="text1">
-                <h1><strong class="text-white">Saldo Baru</strong></h1>
-                <p class="text-white">Bulan ini</p>
-                <div class="d-flex container">
+                <h1><strong class="text-white">Total Saldo</strong></h1>
+                <!-- <p class="text-white">Bulan ini</p> -->
+                <div class="d-flex container mt-4">
                   <i class="gg-trending"></i>
-                  <p>Rp. {{ number_format($saldo, 0, ',', '.') }}</p>
+                  <p>Rp. {{ number_format($saldo, 2, ',', '.') }}</p>
                 </div>
               </div>
             </div>

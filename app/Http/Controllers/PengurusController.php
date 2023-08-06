@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class PengurusController extends Controller
 {
     function showAll() {
-        $pengurus = User::where('is_admin', 1)->get();
+        $pengurus = User::all();
         return view('admin.daftarpengurus', ['pengurus'=>$pengurus]);
     }
 
@@ -24,7 +24,6 @@ class PengurusController extends Controller
         return view('admin.pengurusBaru');
     }
 
-
     function store(request $request){
         $request->validate([
             'name'=>'required|string',
@@ -32,15 +31,16 @@ class PengurusController extends Controller
             'email'=>'required|email',
             'username'=>'required|string',
             'password'=>'required|string',
+            'alamat'=>'required|string',
         ]);
 
         $pengurus = new User;
         $pengurus->name = $request->name;
         $pengurus->no_telp = $request->telp;
+        $pengurus->alamat = $request->alamat;
         $pengurus->email = $request->email;
         $pengurus->username = $request->username;
         $pengurus->password = Hash::make($request->password);
-        $pengurus->is_admin = 1;
         $pengurus->save();
 
         return redirect()->route('admin.daftarPengurus');
@@ -56,7 +56,6 @@ class PengurusController extends Controller
 
     function filtered(string $param){
         $pengurus = User::where('name', 'like', '%' . $param . '%')
-                        ->where('is_admin', 1)
                         ->get();
 
         return view('admin.daftarPengurus', ['pengurus'=>$pengurus]);
@@ -71,15 +70,18 @@ class PengurusController extends Controller
         // dd($request);
 
         $request->validate([
+            'idPengurus'=>'required|string',
             'name'=>'required|string',
             'telp'=>'required|string|min:10',
             'email'=>'required|email',
             'username'=>'required|string',
+            'alamat'=>'required|string',
         ]);
 
-        $pengurus = User::find($request->idNasabah);
+        $pengurus = User::find($request->idPengurus);
         $pengurus->name = $request->name;
         $pengurus->no_telp = $request->telp;
+        $pengurus->alamat = $request->alamat;
         $pengurus->email = $request->email;
         $pengurus->username = $request->username;
         if ($request->has('password')) {
