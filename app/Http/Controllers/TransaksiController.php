@@ -14,33 +14,69 @@ use Illuminate\Support\Facades\Auth;
 
 class TransaksiController extends Controller
 {
-    public function setoranNasabah(){
-        $users = Nasabah::all();
-        $target = $users->first();
+    public function setoranNasabah()
+    {
+        $nasabahs = Nasabah::all();
+        $pengurus = User::all();
+
+        $target = $nasabahs->first();
+        $targetPengurus = NULL;
+
         $setoran = SetoranNasabah::where('idNasabah', $target->id)->get();
-        return view('transaksi.setoranNasabah', ['users'=>$users, 'target'=>$target, 'setoran'=>$setoran]);
+        return view(
+            'transaksi.setoranNasabah',
+            [
+                'nasabahs' => $nasabahs,
+                'target' => $target,
+                'setoran' => $setoran,
+                'pengurus' => $pengurus,
+                'targetPengurus' => $targetPengurus,
+            ]
+        );
     }
 
-    public function setoranNasabahById(request $request){
-        $users = Nasabah::all();
+    public function setoranNasabahById(request $request)
+    {
+        $nasabahs = Nasabah::all();
+        $pengurus = User::all();
+
         $target = Nasabah::where('id', $request->idNasabah)->first();
-        $setoran = SetoranNasabah::where('idNasabah', $request->idNasabah)->get();
-        return view('transaksi.setoranNasabah', ['users'=>$users, 'target'=>$target, 'setoran'=>$setoran]);
+        if($request->idPengurus != "all") $targetPengurus = User::where('id', $request->idPengurus)->first();
+        else $targetPengurus = NULL;
+                
+        // dd($request, $target, $targetPengurus);
+
+        $setoran = SetoranNasabah::where('idNasabah', $target->id);
+        if($request->idPengurus != "all") $setoran = $setoran->where('idPengurus', $targetPengurus->id)->get();
+        else $setoran = $setoran->get();
+
+        return view(
+            'transaksi.setoranNasabah',
+            [
+                'nasabahs' => $nasabahs,
+                'target' => $target,
+                'setoran' => $setoran,
+                'pengurus' => $pengurus,
+                'targetPengurus' => $targetPengurus,
+            ]
+        );
     }
 
-    public function setoranNasabahBaru(string $id){
+    public function setoranNasabahBaru(string $id)
+    {
         $nasabah = Nasabah::find($id);
         $pengurus = Auth::user();
         $sampah = DataSampah::all()->sortBy('nama');
-        return view('transaksi.setoranNasabahBaru', ['nasabah'=>$nasabah, 'pengurus'=>$pengurus, 'sampah'=>$sampah]);
+        return view('transaksi.setoranNasabahBaru', ['nasabah' => $nasabah, 'pengurus' => $pengurus, 'sampah' => $sampah]);
     }
 
-    public function storeSetoranNasabahBaru(request $request){
+    public function storeSetoranNasabahBaru(request $request)
+    {
         $request->validate([
-            'idNasabah'=>'required|string',
-            'idPengurus'=>'required|string',
-            'kodeSampah'=>'required|string',
-            'berat'=>'required|numeric',
+            'idNasabah' => 'required|string',
+            'idPengurus' => 'required|string',
+            'kodeSampah' => 'required|string',
+            'berat' => 'required|numeric',
         ]);
 
         $sampah = DataSampah::where('kodeSampah', $request->kodeSampah)->first();
@@ -49,7 +85,7 @@ class TransaksiController extends Controller
         $setoranNasabah = new SetoranNasabah;
         $setoranNasabah->kodeSampah = $request->kodeSampah;
         $setoranNasabah->idNasabah = $request->idNasabah;
-        $setoranNasabah->idPengurus = $request->idPengurus;        
+        $setoranNasabah->idPengurus = $request->idPengurus;
         $setoranNasabah->berat = $request->berat;
         $setoranNasabah->subtotal = $request->berat * $sampah->hargaNasabah;
 
@@ -65,47 +101,57 @@ class TransaksiController extends Controller
         $setoranNasabah->save();
         $tabunganNasabah->save();
         $saldoNasabah->save();
-        
+
         $users = Nasabah::all();
         $target = $users->first();
         $setoran = SetoranNasabah::where('idNasabah', $target->id)->get();
-        return view('transaksi.setoranNasabah', ['users'=>$users, 'target'=>$target, 'setoran'=>$setoran]);
+        return view('transaksi.setoranNasabah', ['users' => $users, 'target' => $target, 'setoran' => $setoran]);
     }
 
-    public function tabunganNasabah(){
+    public function tabunganNasabah()
+    {
         $tabungan = TabunganNasabah::all();
-        return view('transaksi.tabunganNasabah', ['tabungan'=>$tabungan]);        
+        return view('transaksi.tabunganNasabah', ['tabungan' => $tabungan]);
     }
 
-    public function penarikanNasabah(){
+    public function penarikanNasabah()
+    {
         $nasabah = Nasabah::all();
-        return view('transaksi.formPenarikanNasabah', ['nasabah'=>$nasabah]);
+        return view('transaksi.formPenarikanNasabah', ['nasabah' => $nasabah]);
     }
 
-    public function storePenarikanNasabah(request $request){
+    public function storePenarikanNasabah(request $request)
+    {
         $request->validate([
-            'idNasabah'=>'required|string',
-            'tarik'=>'required|numeric',
+            'idNasabah' => 'required|string',
+            'tarik' => 'required|numeric',
         ]);
 
         $nasabah = Nasabah::where('id', $request->idNasabah)->first();
         // dd($request, $nasabah, $saldoNasabah);
 
+        if ($request->tarik > $nasabah->saldo) {
+            return redirect()->back()->with('error', 'Saldo Tidak Mencukupi.');
+        } else {
+            $nasabah->saldo -= $request->tarik;
+        }
+
         $tabunganNasabah = new TabunganNasabah();
         $tabunganNasabah->idNasabah = $request->idNasabah;
         $tabunganNasabah->kategori = 'kredit';
-        $nasabah->saldo -= $request->tarik;
         $tabunganNasabah->jumlah = $request->tarik;
-        $tabunganNasabah->keterangan = $request->keterangan;
+        if ($request->keterangan != NULL) $tabunganNasabah->keterangan = $request->keterangan;
+        $tabunganNasabah->saldoSementara = $nasabah->saldo;
         $tabunganNasabah->save();
         $nasabah->save();
 
         return redirect()->route('admin.tabunganNasabah');
     }
 
-    public function transaksiPenjualanNasabah(){
+    public function transaksiPenjualanNasabah()
+    {
         $nasabah = Nasabah::all();
         $penjualan = PenjualanSampah::all();
-        return view('transaksi.transaksiPenjualanNasabah', ['nasabah'=>$nasabah, 'penjualan'=>$penjualan]);        
+        return view('transaksi.penjualanNasabah', ['nasabah' => $nasabah, 'penjualan' => $penjualan]);
     }
 }

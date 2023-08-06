@@ -81,8 +81,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/admin/pelapak/{id}', [PelapakController::class, 'delete'])->name('admin.deletePelapak');
 
     Route::get('/admin/laporan/arus-kas-nasabah', [LaporanController::class, 'kasNasabah'])->name('admin.laporanArusKasNasabah');
+    Route::post('/admin/laporan/arus-kas-nasabah', [LaporanController::class, 'kasNasabahByDate'])->name('admin.laporanArusKasNasabahByDate');
+
     Route::get('/admin/laporan/nasabah', [LaporanController::class, 'nasabah'])->name('admin.laporanNasabah');
+    Route::post('/admin/laporan/nasabah', [LaporanController::class, 'nasabahByDate'])->name('admin.laporanNasabahByDate');
+
     Route::get('/admin/laporan/pembayaran-ke-lapak', [LaporanController::class, 'pembayaranLapak'])->name('admin.laporanPembayaranKeLapak');
+    Route::post('/admin/laporan/pembayaran-ke-lapak', [LaporanController::class, 'pembayaranLapakByDate'])->name('admin.laporanPembayaranKeLapakByDate');
+    
     Route::get('/admin/laporan/DLHK', [SampahController::class, 'showData'])->name('admin.laporanDLHK');
 
     Route::get('/admin/transaksi/setoran-nasabah', [TransaksiController::class, 'setoranNasabah'])->name('admin.setoranNasabah');

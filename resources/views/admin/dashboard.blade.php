@@ -21,7 +21,7 @@
             <div id="text1">
               <h1><strong class="text-white">Total Pengurus</strong></h1>
               <!-- <p class="text-white">Bulan ini</p> -->
-              <div class="d-flex container mt-4">
+              <div class="d-flex container mt-4 mx-2">
                 <i class="gg-trending"></i>
                 <p>{{$pengurus->count()}}</p>
               </div>
@@ -33,7 +33,7 @@
               <div id="text1">
                 <h1><strong class="text-white">Total Nasabah</strong></h1>
                 <!-- <p class="text-white">Bulan ini</p> -->
-                <div class="d-flex container mt-4">
+                <div class="d-flex container mt-4 mx-2">
                   <i class="gg-trending"></i>
                   <p>{{$nasabah->count()}}</p>
                 </div>
@@ -46,7 +46,7 @@
               <div id="text1">
                 <h1><strong class="text-white">TotalTransaksi</strong></h1>
                 <!-- <p class="text-white">Bulan ini</p> -->
-                <div class="d-flex container mt-4">
+                <div class="d-flex container mt-4 mx-2">
                   <i class="gg-trending"></i>
                   <p>{{$transaction}}</p>
                 </div>
@@ -59,7 +59,7 @@
               <div id="text1">
                 <h1><strong class="text-white">Total Saldo</strong></h1>
                 <!-- <p class="text-white">Bulan ini</p> -->
-                <div class="d-flex container mt-4">
+                <div class="d-flex container mt-4 mx-2">
                   <i class="gg-trending"></i>
                   <p>Rp. {{ number_format($saldo, 2, ',', '.') }}</p>
                 </div>

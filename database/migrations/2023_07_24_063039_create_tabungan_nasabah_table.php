@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('idNasabah');
             $table->integer('jumlah');
             $table->string('kategori');
-            $table->string('keterangan');
+            $table->string('keterangan')->default('Penarikan');
             $table->timestamps();
         });
     }

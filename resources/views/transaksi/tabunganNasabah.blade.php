@@ -33,13 +33,13 @@ $count = 1
                 <td>N{{$tabungan->nasabah->id}}</td>
                 <td>{{$tabungan->nasabah->name}}</td>
                 @if($tabungan->kategori == 'debet')
-                <td>{{$tabungan->jumlah}}</td>
+                <td>Rp {{ number_format($tabungan->jumlah, 2, ',', '.') }}</td>
                 <td>-</td>
                 @else
                 <td>-</td>
-                <td>{{$tabungan->jumlah}}</td>
+                <td>Rp {{ number_format($tabungan->jumlah, 2, ',', '.') }}</td>
                 @endif
-                <td>Rp {{ number_format($tabungan->saldoSementara, 0, ',', '.') }}</td>
+                <td>Rp {{ number_format($tabungan->saldoSementara, 2, ',', '.') }}</td>
                 <td>{{$tabungan->keterangan}}</td>
             </tr>
             @endforeach

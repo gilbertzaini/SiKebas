@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Nasabah;
 use App\Models\PenjualanSampah;
 use App\Models\Saldo;
 use App\Models\SetoranNasabah;
@@ -33,31 +34,21 @@ class HomeController extends Controller
         return view('admin.index');
     }
 
-    public function transactions(){
-        $transactions = Transaction::all();
-        return view('admin.daftarTransaksi', ['transactions'=>$transactions]);
-    }
-
     public function dashboard(){        
         $currentMonthStart = Carbon::now()->startOfMonth();
         $currentMonthEnd = Carbon::now()->endOfMonth();
 
-        $pengurus = User::where('is_admin', 1)
-                    // ->whereBetween('created_at', [$currentMonthStart, $currentMonthEnd])
-                    ->get();
+        $pengurus = User::all();
 
-        $nasabah = User::where('is_admin', 0)
-                    // ->whereBetween('created_at', [$currentMonthStart, $currentMonthEnd])
-                    ->get();
+        $nasabah = Nasabah::all();
 
         $transaction = PenjualanSampah::all()->count();
         $transaction += SetoranNasabah::all()->count();
         $transaction += TabunganNasabah::all()->count();
         
-        $saldos = Saldo::all();
         $saldo = 0;
         
-        foreach ($saldos as $item) {
+        foreach ($nasabah as $item) {
             $saldo += $item->saldo;
         }
 

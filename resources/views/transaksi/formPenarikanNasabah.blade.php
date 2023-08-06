@@ -166,18 +166,25 @@
                     <x-form class="requires-validation" action="{{route('admin.storePenarikanNasabah')}}" novalidate>
 
                         <select class="form-select" name="idNasabah" aria-label="Default select example" required>
-                            <option>Nama Nasabah</option>
+                            <option value="">Nama Nasabah</option>
                             @foreach($nasabah as $nasabah)
-                            <option value="{{$nasabah->id}}">{{$nasabah->name}}</option>
+                            <option value="{{ $nasabah->id }}" @if(old('idNasabah')==$nasabah->id) selected @endif>{{ $nasabah->name }}</option>
                             @endforeach
                         </select>
 
+
                         <hr class="border-light border border-2 mt-3 mb-1">
 
-                        <div class="col-md-12">
-                            <input class="form-control" type="number" name="tarik" placeholder="Jumlah" required>
+                        <div class="mt-3">
+                            <input style="height: 2.7rem;" class="form-control" type="number" name="tarik" placeholder="Jumlah" required>
                             <div class="valid-feedback">Penarikan telah di isi!</div>
                             <div class="invalid-feedback">Penarikan tidak boleh kosong</div>
+                            @if(session('error'))
+                            <div style="color:red;">
+                                {{ session('error') }}
+                            </div>
+                            @endif
+
                         </div>
 
                         <div class="col-md-12">

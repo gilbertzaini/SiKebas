@@ -3,12 +3,6 @@
 @php
 $total = 0;
 $count = 1;
-
-if($setoran->count() > 0){
-$idPengurus = $setoran->first()->idPengurus;
-$pengurus = App\Models\User::find($idPengurus)->name;
-}
-else $pengurus = '-';
 @endphp
 
 @section('content')
@@ -19,19 +13,27 @@ else $pengurus = '-';
             <label for="idNasabah" class="form-label second-text">Nama Nasabah</label>
             <div class="d-flex justify-content-around align-items-center col-8 mx-auto">
                 <select class="form-select third-text w-75" id="idNasabah" name="idNasabah">
-                    @foreach ($users as $user)
-                    <option value="{{ $user->id }}" @if ($user->id == $target->id) selected @endif>
-                        {{ $user->name }}
+                    @foreach ($nasabahs as $nasabah)
+                    <option value="{{ $nasabah->id }}" @if ($nasabah->id == $target->id) selected @endif>
+                        {{ $nasabah->name }}
                     </option>
                     @endforeach
                 </select>
-
             </div>
         </div>
 
         <div class="col-5">
             <h3 class="text-center second-text">Nama Pengurus</h3>
-            <h5 class="text-center third-text mt-4">{{$pengurus}}</h5>
+            <div class="d-flex justify-content-around align-items-center col-8 mx-auto">
+                <select class="form-select third-text w-75" name="idPengurus">
+                    <option value="all">Semua</option>
+                    @foreach ($pengurus as $pengurus)
+                    <option value="{{ $pengurus->id }}" @if ($targetPengurus != NULL && $pengurus->id == $targetPengurus->id) selected @endif>
+                        {{ $pengurus->name }}
+                    </option>
+                    @endforeach
+                </select>
+            </div>
         </div>
 
         <div class="col-2 justify-content-between align-self-end">
@@ -56,7 +58,7 @@ else $pengurus = '-';
                 <td>{{$count++}}</td>
                 <td>TS{{$setoran->id}}</td>
                 <td>{{$setoran->created_at}}</td>
-                <td>Rp {{ number_format($setoran->subtotal, 0, ',', '.') }}</td>
+                <td>Rp {{ number_format($setoran->subtotal, 2, ',', '.') }}</td>
 
                 @php
                 $total += $setoran->subtotal
@@ -67,7 +69,7 @@ else $pengurus = '-';
                 <td></td>
                 <td><strong>Total</strong></td>
                 <td></td>
-                <td style="border: 1px black solid;"><strong>Rp {{ number_format($total, 0, ',', '.') }}</strong></td>
+                <td style="border: 1px black solid;"><strong>Rp {{ number_format($total, 2, ',', '.') }}</strong></td>
             </tr>
         <tbody>
     </table>
