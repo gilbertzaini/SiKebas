@@ -6,6 +6,8 @@ use App\Models\Nasabah;
 use App\Models\Saldo;
 use App\Models\User;
 use App\Exports\NasabahExport;
+use App\Models\SetoranNasabah;
+use App\Models\TabunganNasabah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
@@ -18,8 +20,12 @@ class NasabahController extends Controller
     }
 
     function show(string $id){
-        $nasabah = Nasabah::find($id);    
-        return view('admin.detailNasabah', ['nasabah'=>$nasabah]);
+        $nasabah = Nasabah::find($id);
+        
+        $setoran = SetoranNasabah::where('idNasabah', $id)->get();
+        $penarikan = TabunganNasabah::where('idNasabah', $id)->where('kategori', 'Kredit')->get();
+
+        return view('admin.detailNasabah', ['nasabah'=>$nasabah, 'setoran'=>$setoran, 'penarikan'=>$penarikan]);
     }
 
     function search(request $request){

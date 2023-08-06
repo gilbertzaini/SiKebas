@@ -93,7 +93,7 @@ class TransaksiController extends Controller
 
         $tabunganNasabah = new TabunganNasabah();
         $tabunganNasabah->idNasabah = $request->idNasabah;
-        $tabunganNasabah->kategori = 'debet';
+        $tabunganNasabah->kategori = 'Debet';
         $tabunganNasabah->jumlah = $setoranNasabah->subtotal;
         $tabunganNasabah->keterangan = 'Setoran';
         $tabunganNasabah->saldoSementara = $saldoNasabah->saldo;
@@ -138,7 +138,7 @@ class TransaksiController extends Controller
 
         $tabunganNasabah = new TabunganNasabah();
         $tabunganNasabah->idNasabah = $request->idNasabah;
-        $tabunganNasabah->kategori = 'kredit';
+        $tabunganNasabah->kategori = 'Kredit';
         $tabunganNasabah->jumlah = $request->tarik;
         if ($request->keterangan != NULL) $tabunganNasabah->keterangan = $request->keterangan;
         $tabunganNasabah->saldoSementara = $nasabah->saldo;
