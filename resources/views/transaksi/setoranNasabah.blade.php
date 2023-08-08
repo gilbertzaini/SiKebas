@@ -56,7 +56,7 @@ $count = 1;
             @foreach($setoran as $setoran)
             <tr>
                 <td>{{$count++}}</td>
-                <td>TS{{$setoran->id}}</td>
+                <td>{{$setoran->kodeTransaksi}}</td>
                 <td>{{$setoran->created_at}}</td>
                 <td>Rp {{ number_format($setoran->subtotal, 2, ',', '.') }}</td>
 

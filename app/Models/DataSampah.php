@@ -9,8 +9,6 @@ class DataSampah extends Model
 {
     use HasFactory;
     // protected $primaryKey = 'kodeSampah';
-
-
     protected $table = 'data_sampahs';
 
     public function setoranNasabah(){

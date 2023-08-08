@@ -22,6 +22,8 @@
     <table class="fl-table">
         <thead>
             <tr>
+                <th>Kode Nasabah</th>
+                <th>Nama Nasabah</th>
                 <th>Tanggal</th>
                 <th>Keterangan</th>
                 <th>Debit</th>
@@ -32,6 +34,8 @@
         <tbody>
             @foreach($records as $record)
             <tr>
+                <td>N{{ str_pad($record->nasabah->id, 6, '0', STR_PAD_LEFT) }}</td>
+                <td>{{$record->nasabah->name}}</td>
                 <td>{{$record->created_at}}</td>
                 <td>{{$record->keterangan}}</td>
                 @if($record->kategori == 'debet')

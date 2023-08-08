@@ -17,6 +17,7 @@ $count = 1
             <tr>
                 <th>No</th>
                 <th>Waktu Transaksi</th>
+                <th>Kode Transaksi</th>
                 <th>Kode Nasabah</th>
                 <th>Nama Nasabah</th>
                 <th>Debet Nasabah</th>
@@ -30,9 +31,10 @@ $count = 1
             <tr>
                 <td>{{$count++}}</td>
                 <td>{{$tabungan->created_at}}</td>
-                <td>N{{$tabungan->nasabah->id}}</td>
+                <td>{{$tabungan->kodeTransaksi}}</td>
+            <td>N{{ str_pad($tabungan->nasabah->id, 6, '0', STR_PAD_LEFT) }}</td>
                 <td>{{$tabungan->nasabah->name}}</td>
-                @if($tabungan->kategori == 'debet')
+                @if($tabungan->kategori == 'Debet')
                 <td>Rp {{ number_format($tabungan->jumlah, 2, ',', '.') }}</td>
                 <td>-</td>
                 @else

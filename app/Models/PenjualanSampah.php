@@ -15,7 +15,7 @@ class PenjualanSampah extends Model
         return $this->belongsTo(DataSampah::class, 'kodeSampah', 'kodeSampah');
     }
 
-    public function nasabah(){
-        return $this->belongsTo(Nasabah::class, 'idNasabah');
+    public function pelapak(){
+        return $this->belongsTo(Pelapak::class, 'idPelapak');
     }
 }

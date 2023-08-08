@@ -33,7 +33,7 @@ $count = 1;
         @php
         $count++;
         @endphp
-        <td>P{{$pelapak->id}}</td>
+        <td>L{{ str_pad($pelapak->id, 6, '0', STR_PAD_LEFT) }}</td>
         <td>{{$pelapak->nama}}</td>
         <td>{{$pelapak->alamat}}</td>
         <td>{{$pelapak->no_telp}}</td>

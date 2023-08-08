@@ -43,7 +43,7 @@ class HomeController extends Controller
         $nasabah = Nasabah::all();
 
         $transaction = PenjualanSampah::all()->count();
-        $transaction += SetoranNasabah::all()->count();
+        // $transaction += SetoranNasabah::all()->count();
         $transaction += TabunganNasabah::all()->count();
         
         $saldo = 0;

@@ -51,7 +51,9 @@ class LaporanController extends Controller
     }
 
     public function nasabah(){        
-        $sampah = DataSampah::all();
+        $sampah = DataSampah::all()->sortBy(function ($item) {
+            return $item->kodeSampah == 10 ? 100 : (int)$item->kodeSampah;
+        });
         $tanggalMulai = NULL;
         $tanggalSelesai = NULL;
 
@@ -76,7 +78,9 @@ class LaporanController extends Controller
             'tanggalSelesai'=>'required|date',
         ]);
         
-        $sampah = DataSampah::all();
+        $sampah = DataSampah::all()->sortBy(function ($item) {
+            return $item->kodeSampah == 10 ? 100 : (int)$item->kodeSampah;
+        });
         $tanggalMulai = Carbon::parse($request->tanggalMulai)->format('Y-m-d');
         $tanggalSelesaiOri = Carbon::parse($request->tanggalSelesai)->format('Y-m-d');
         $tanggalSelesai = Carbon::parse($tanggalSelesaiOri)->addDay()->format('Y-m-d');

@@ -44,7 +44,7 @@
             <div class="container-fluid">
               <img src="../assets/shopping-online.png" class="img icons" id="img1">
               <div id="text1">
-                <h1><strong class="text-white">TotalTransaksi</strong></h1>
+                <h1><strong class="text-white">Total Transaksi</strong></h1>
                 <!-- <p class="text-white">Bulan ini</p> -->
                 <div class="d-flex container mt-4 mx-2">
                   <i class="gg-trending"></i>

@@ -40,7 +40,7 @@
         @foreach($nasabah as $nasabah)
         <tr>
           <td>{{ $no }}</td>
-          <td>N{{ $nasabah->id }}</td>
+            <td>N{{ str_pad($nasabah->id, 6, '0', STR_PAD_LEFT) }}</td>
           <td>{{ $nasabah->name }}</td>
           <td>{{ $nasabah->alamat }}</td>
           <td>{{ $nasabah->no_telp }}</td>

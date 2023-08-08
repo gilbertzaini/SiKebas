@@ -11,9 +11,9 @@ class SetoranNasabah extends Model
     
     protected $table = 'setoran_nasabah';
 
-    public function user()
+    public function nasabah()
     {
-        return $this->belongsTo(User::class, 'idNasabah');
+        return $this->belongsTo(Nasabah::class, 'idNasabah');
     }
 
     public function dataSampah()

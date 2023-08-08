@@ -49,7 +49,7 @@ $count = 0;
             <tr>
                 <td>{{$count++}}</td>
                 <td>{{$item->kodeSampah}}</td>
-                <td class="text-start">{{$item->nama}}</td>
+                <td>{{$item->nama}}</td>
                 <td>
                     @php $totalBerat = NULL; @endphp
                     @foreach($summedSetoran as $setoran)

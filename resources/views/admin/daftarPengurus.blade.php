@@ -39,7 +39,7 @@
           @foreach($pengurus as $pengurus)
           <tr>
             <td>{{ $count++ }}</td>
-            <td>P{{ $pengurus->id }}</td> <!-- Replace with actual Kode Nasabah -->
+            <td>P{{ str_pad($pengurus->id, 6, '0', STR_PAD_LEFT) }}</td>
             <td>{{ $pengurus->name }}</td>
             <td>{{ $pengurus->alamat }}</td>
             <td>{{ $pengurus->no_telp }}</td>
