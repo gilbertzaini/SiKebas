@@ -43,7 +43,7 @@ $count = 1;
 
     </x-form>
     @if($setoran->count() > 0)
-    <table class="fl-table mt-3">
+    <table class="fl-table mt-3" id="dataTable">
         <thead>
             <tr>
                 <th>No</th>
@@ -66,9 +66,9 @@ $count = 1;
             </tr>
             @endforeach
             <tr style="border: solid black 1px;">
+                <td style="color:transparent;">{{$count+1}}</td>
                 <td></td>
                 <td><strong>Total</strong></td>
-                <td></td>
                 <td style="border: 1px black solid;"><strong>Rp {{ number_format($total, 2, ',', '.') }}</strong></td>
             </tr>
         <tbody>
@@ -79,4 +79,12 @@ $count = 1;
     </div>
     @endif
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('#dataTable').DataTable({
+      dom: '<"top"l>t<"bottom"ip>',
+    });
+  });
+</script>
 @endsection

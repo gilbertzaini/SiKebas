@@ -15,7 +15,7 @@ $count = 1;
     </div> 
 
   @if($pelapak->count() > 0)
-  <table class="table text-center mt-4">
+  <table class="table text-center mt-4" id="dataTable">
     <thead>
       <tr>
         <th scope="col">No</th>
@@ -55,4 +55,20 @@ $count = 1;
   </div>
   @endif
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('#dataTable').DataTable({
+      columnDefs: [{
+          targets: [2], // Index of the column you want to make searchable (0-based index)
+          searchable: true
+        },
+        {
+          targets: [0, 1, 3, 4, 5], // Index of the column you want to make searchable (0-based index)
+          searchable: false
+        }
+      ]
+    });
+  });
+</script>
 @endsection

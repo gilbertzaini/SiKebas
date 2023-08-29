@@ -593,4 +593,25 @@ img{
   color: #ffffff !important;
 }
 
+.dataTableNewElement{
+  width: auto;
+  padding-right: 10px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
 
+.tableAddButton{
+  height: 2.2rem !important;
+  font-size: 1rem !important;
+}
+
+.dataTables_length {
+  margin-top: 0.5rem !important;
+  margin-bottom: auto !important;
+}
+
+.dataTables_filter {
+  margin-top: 0.3rem !important;
+  margin-bottom: auto !important;
+}

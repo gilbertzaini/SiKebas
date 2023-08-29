@@ -22,7 +22,8 @@ $count = 1;
             <button type="submit" class="btn btn-primary col-5">Pilih</button>
         </div>
     </x-form>
-  <table class="fl-table">
+
+  <table class="fl-table" id="dataTable">
     <thead>
       <tr>
         <th>No</th>
@@ -33,7 +34,8 @@ $count = 1;
       </tr>
     </thead>
     <tbody>
-      @foreach($sampah as $item)<tr>
+      @foreach($sampah as $item)
+      <tr>
 
         @php $totalBerat = NULL; @endphp
         @foreach($summedBerat as $berat)
@@ -42,7 +44,6 @@ $count = 1;
         @endif
         @endforeach
 
-        @if($totalBerat != NULL)
         <td>{{$count++}}</td>
         <td>{{$item->nama}}</td>
         <td>Rp {{ number_format($item->hargaLapak, 2, ',', '.') }}</td>
@@ -54,10 +55,18 @@ $count = 1;
           @endif
         </td>
         <td>Rp {{ number_format($item->hargaLapak * $totalBerat, 2, ',', '.') }}</td>
-        @endif
       </tr>
       @endforeach
     <tbody>
   </table>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('#dataTable').DataTable({
+      dom: '<"top"l>t<"bottom"ip>',
+    });
+  });
+  
+</script>
 @endsection

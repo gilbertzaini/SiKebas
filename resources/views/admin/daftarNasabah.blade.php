@@ -4,7 +4,7 @@
 <!-- Section Start -->
 <div class="mx-2">
   <h2 class="main-text">Data Nasabah</h2>
-  <div class="card-header d-flex justify-content-end mx-5 px-4">
+  <!-- <div class="card-header d-flex justify-content-end mx-5 px-4">
     <ul class="nav nav-pills card-header-pills">
       <li class="nav-item">
         <div class="input-group">
@@ -16,10 +16,10 @@
         </div>
       </li>
     </ul>
-  </div>
+  </div> -->
 
   <div class="table-wrapper-section">
-    <table class="fl-table">
+    <table class="fl-table" id="dataTable">
       <thead>
         <tr>
           <th>No</th>
@@ -40,7 +40,7 @@
         @foreach($nasabah as $nasabah)
         <tr>
           <td>{{ $no }}</td>
-            <td>N{{ str_pad($nasabah->id, 6, '0', STR_PAD_LEFT) }}</td>
+          <td>N{{ str_pad($nasabah->id, 6, '0', STR_PAD_LEFT) }}</td>
           <td>{{ $nasabah->name }}</td>
           <td>{{ $nasabah->alamat }}</td>
           <td>{{ $nasabah->no_telp }}</td>
@@ -78,5 +78,27 @@
     </table>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('#dataTable').DataTable({
+      dom: '<"top"lf<"dataTableNewElement">>t<"bottom"ip>',
+      initComplete: function() {
+        $('.dataTableNewElement').html(
+          '<button class="btn btn-secondary tableAddButton my-1" onclick="window.location=\'{{ route("admin.nasabahBaru") }}\'">Tambah</button>');
+        },
+      columnDefs: [{
+          targets: [2], // Index of the column you want to make searchable (0-based index)
+          searchable: true
+        },
+        {
+          targets: [0, 1, 3, 4, 5], // Index of the column you want to make searchable (0-based index)
+          searchable: false
+        }
+      ]
+    });
+  });
+</script>
+
 <!-- Section End -->
 @endsection

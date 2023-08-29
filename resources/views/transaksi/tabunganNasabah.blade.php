@@ -7,12 +7,11 @@ $count = 1
 @section('content')
 <h2 class="main-text">Tabungan Nasabah</h2>
 
-
-<div class="container-fluid d-flex justify-content-end col-11">
+<!-- <div class="container-fluid d-flex justify-content-end col-11">
     <button class="btn btn-danger" onclick="window.location='{{route('admin.penarikanNasabah')}}'">Penarikan</button>
-</div>
+</div> -->
 <div class="table-wrapper-section">
-    <table class="fl-table">
+    <table class="fl-table" id="dataTable">
         <thead>
             <tr>
                 <th>No</th>
@@ -32,7 +31,7 @@ $count = 1
                 <td>{{$count++}}</td>
                 <td>{{$tabungan->created_at}}</td>
                 <td>{{$tabungan->kodeTransaksi}}</td>
-            <td>N{{ str_pad($tabungan->nasabah->id, 6, '0', STR_PAD_LEFT) }}</td>
+                <td>N{{ str_pad($tabungan->nasabah->id, 6, '0', STR_PAD_LEFT) }}</td>
                 <td>{{$tabungan->nasabah->name}}</td>
                 @if($tabungan->kategori == 'Debet')
                 <td>Rp {{ number_format($tabungan->jumlah, 2, ',', '.') }}</td>
@@ -48,4 +47,16 @@ $count = 1
         <tbody>
     </table>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('#dataTable').DataTable({
+      dom: '<"top"l<"dataTableNewElement">>t<"bottom"ip>',
+      initComplete: function() {
+        $('.dataTableNewElement').html(
+          '<button class="btn btn-danger tableAddButton my-1" onclick="window.location=\'{{ route("admin.penarikanNasabah") }}\'">Penarikan</button>');
+        },
+    });
+  });
+</script>
 @endsection

@@ -8,11 +8,11 @@ $count = 1;
 
 @section('content')
 <h2 class="main-text">Transaksi Penjualan Nasabah</h2>
-<div class="container-fluid d-flex justify-content-end col-11">
+<!-- <div class="container-fluid d-flex justify-content-end col-11">
     <button class="btn btn-danger" onclick="window.location='{{route('admin.tambahPenjualanSampah')}}'">Penjualan Baru</button>
-</div>
+</div> -->
 <div class="table-wrapper-section">
-    <table class="fl-table">
+    <table class="fl-table" id="dataTable">
         <thead>
         <tr>
             <th>No</th>
@@ -42,9 +42,19 @@ $count = 1;
             <td>Rp {{ number_format($penjualan->total, 2) }}</td>
           </tr>
           @endforeach
-        <tr>
-        </tr>
         <tbody>
     </table>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('#dataTable').DataTable({
+      dom: '<"top"l<"dataTableNewElement">>t<"bottom"ip>',
+      initComplete: function() {
+        $('.dataTableNewElement').html(
+          '<button class="btn btn-danger tableAddButton my-1" onclick="window.location=\'{{ route("admin.tambahPenjualanSampah") }}\'">Penjualan Baru</button>');
+        },
+    });
+  });
+</script>
 @endsection

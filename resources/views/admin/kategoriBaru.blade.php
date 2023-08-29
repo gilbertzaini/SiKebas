@@ -1,16 +1,27 @@
-@extends('layouts.master')
+@extends('layouts.forms')
 
 @section('content')
-<h3 class="px-4">Detail Kategori</h3>
-<h3 class="px-4">Sampah</h3>
-<br>
-<x-form action="{{route('admin.storeSampah')}}">
-	<div class="form-row px-3">
-		<div class="col-md-9 mb-3">
-			<label for="kategori">Kategori Sampah</label><br>
-			<input type="text" id="kategori" name="kategori"><br>
-		</div>
-	</div>
-	<button type="submit" class="btn btn-primary mx-4">Tambah Kategori</button>
-</x-form>
+<div class="form-body">
+    <div class="row">
+        <div class="form-holder">
+            <div class="form-content">
+                <div class="form-items">
+                    <h3>Tambah Kategori Sampah</h3>
+                    <p>Silahkan isi data di bawah ini.</p>
+                    <x-form class="requires-validation" action="{{route('admin.storeSampah')}}" novalidate>
+                        <div class="col-md-12">
+                            <input class="form-control" type="text" name="kategori" placeholder="Kategori">
+                        </div>
+
+                        <div class="form-button mt-3">
+                            <button type="button" class="btn btn-danger" onclick="window.location='{{route('admin.kategoriSampah')}}'">Kembali</button>
+                            <button type="submit" class="btn btn-primary">Tambahkan</button>
+                        </div>
+                    </x-form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection

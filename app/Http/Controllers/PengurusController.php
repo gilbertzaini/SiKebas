@@ -67,8 +67,6 @@ class PengurusController extends Controller
     }
 
     function patch(request $request){
-        // dd($request);
-
         $request->validate([
             'idPengurus'=>'required|string',
             'name'=>'required|string',
@@ -79,14 +77,20 @@ class PengurusController extends Controller
         ]);
 
         $pengurus = User::find($request->idPengurus);
+        
+        // dd($request, $pengurus, Hash::make($request->oldPassword), $pengurus->password);
         $pengurus->name = $request->name;
         $pengurus->no_telp = $request->telp;
         $pengurus->alamat = $request->alamat;
         $pengurus->email = $request->email;
         $pengurus->username = $request->username;
-        if ($request->has('password')) {
-            $pengurus->password = Hash::make($request->password);
-        }        
+        if ($request->has('password') && $request->has('oldPassword')) {
+            if (Hash::check($request->oldPassword, $pengurus->password)) {
+                $pengurus->password = Hash::make($request->password);
+            } else {
+                return redirect()->back()->with('error', 'Password Salah');
+            }
+        }
         $pengurus->save();
 
         return redirect()->route('admin.daftarPengurus');

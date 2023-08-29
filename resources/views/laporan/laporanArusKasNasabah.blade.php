@@ -19,7 +19,8 @@
             <button type="submit" class="btn btn-primary col-5">Pilih</button>
         </div>
     </x-form>
-    <table class="fl-table">
+    
+    <table class="fl-table" id="dataTable">
         <thead>
             <tr>
                 <th>Kode Nasabah</th>
@@ -51,4 +52,12 @@
         <tbody>
     </table>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('#dataTable').DataTable({
+      dom: '<"top"l>t<"bottom"ip>',
+    });
+  });
+</script>
 @endsection
