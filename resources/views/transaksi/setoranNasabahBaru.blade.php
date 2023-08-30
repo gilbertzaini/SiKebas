@@ -1,5 +1,14 @@
 @extends('layouts.forms')
 
+@section('additionalHeadContent')
+<style>
+.nama {
+    margin-top: -0.05rem !important;
+    margin-bottom: 0.5rem !important;
+}
+</style>
+@endsection
+
 @section('content')
 <div class="form-body">
     <div class="row">
@@ -12,11 +21,11 @@
                         <input class="form-control" type="text" name="idNasabah" value="{{$nasabah->id}}" style="display:none;">
                         <input class="form-control" type="text" name="idPengurus" value="{{$pengurus->id}}" style="display:none;">
                         
-                        <label>Nama Nasabah</label>
-                        <input class="form-control" type="text" name="namaNasabah" placeholder="Nama Nasabah" value="{{$nasabah->name}}" disabled>
+                        <label for="namaNasabah">Nama Nasabah</label>
+                        <input class="form-control nama" type="text" name="namaNasabah" placeholder="Nama Nasabah" value="{{$nasabah->name}}" disabled>
                         
-                        <label>Nama Pengurus</label>
-                        <input class="form-control" type="text" name="namaPengurus" placeholder="Nama Nasabah" value="{{$pengurus->name}}" disabled>
+                        <label for="namaPengurus">Nama Pengurus</label>
+                        <input class="form-control nama" type="text" name="namaPengurus" placeholder="Nama Nasabah" value="{{$pengurus->name}}" disabled>
 
 
                         <hr class="border-light border border-2">
