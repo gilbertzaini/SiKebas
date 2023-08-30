@@ -31,65 +31,62 @@
 <div class="container-fluid px-5 mx-auto row d-flex justify-content-between">
   <div class="col-sm-6 my-3">
   <h3>Setoran</h3>
-  @foreach($setoran as $setoran)
-    <div class="card my-2">
-      <div class="card-body bg-card rounded text-white">
-        <div class="d-flex mb-2">
-          <h5 class="card-title">Kode Transaksi : </h5>
-          <p class="card-text text-end ms-auto  ">TS{{$setoran->id}}</p>
-        </div>
-        <div class="d-flex mb-2">
-          <h5 class="card-title">Jenis Transaksi :</h5>
-          <p class="card-text text-end ms-auto">Setoran</p>
-        </div>
-        <div class="d-flex mb-2">
-          <h5 class="card-title text-nowrap">Jenis Sampah :</h5>
-          <p class="card-text text-end ms-auto">{{$setoran->DataSampah->nama}}</p>
-        </div>
-        <div class="d-flex mb-2">
-          <h5 class="card-title text-nowrap">Jumlah Sampah :</h5>
-          <p class="card-text text-end ms-auto">{{$setoran->berat}} Kg</p>
-        </div>
-        <!-- <div class="d-flex mb-2">
-          <h5 class="card-title text-nowrap">Harga/kg :</h5>
-          <p class="card-text text-end ms-auto">Rp 5.500</p>
-        </div> -->
-        <div class="d-flex">
-          <h5 class="card-title text-nowrap">Jumlah :</h5>
-          <p class="card-text text-end ms-auto">Rp {{ number_format($setoran->subtotal, 2, ',', '.') }}</p>
-        </div>
-      </div>
-    </div>
-  @endforeach
+  <table class="fl-table" id="dataTable">
+    <thead>
+      <th>Waktu Transaksi</th>
+      <th>Kode Transaksi</th>
+      <th>Jenis Sampah</th>
+      <th>Jumlah Sampah</th>
+      <th>Total</th>
+    </thead>
+    <tbody>
+      @foreach($setoran as $setoran)
+      <tr>
+        <td>{{$setoran->created_at}}</td>
+        <td>{{$setoran->kodeTransaksi}}</td>
+        <td>{{$setoran->DataSampah->nama}}</td>
+        <td>{{$setoran->berat}}</td>
+        <td>Rp {{ number_format($setoran->subtotal, 2, ',', '.') }}</td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
   </div>
+
   <div class="col-sm-6 my-3">
   <h3>Penarikan</h3>
-  @foreach($penarikan as $penarikan)
-    <div class="card my-2">
-      <div class="card-body bg-card rounded text-white">
-        <div class="d-flex mb-2">
-          <h5 class="card-title">Kode Transaksi : </h5>
-          <p class="card-text text-end ms-auto  ">TP{{$penarikan->id}}</p>
-        </div>
-        <div class="d-flex mb-2">
-          <h5 class="card-title">Jenis Transaksi : </h5>
-          <p class="card-text text-end ms-auto">Penarikan</p>
-        </div>
-        <div class="d-flex mb-2">
-          <h5 class="card-title">Jumlah : </h5>
-          <p class="card-text text-end ms-auto">Rp {{ number_format($penarikan->jumlah, 2, ',', '.') }}</p>
-        </div>
-        <div class="d-flex">
-          <h5 class="card-title">Keterangan : </h5>
-          <p class="card-text text-end ms-auto">{{$penarikan->keterangan}}</p>
-        </div>
-      </div>
-    </div>
-  @endforeach
+  <table class="fl-table" id="dataTable2">
+    <thead>
+      <th>Waktu Transaksi</th>
+      <th>Kode Transaksi</th>
+      <th>Jumlah</th>
+      <th>Keterangan</th>
+    </thead>
+    <tbody>
+      @foreach($penarikan as $penarikan)
+      <tr>
+        <td>{{$penarikan->created_at}}</td>
+        <td>{{$penarikan->kodeTransaksi}}</td>
+        <td>Rp {{ number_format($penarikan->jumlah, 2, ',', '.') }}</td>
+        <td>{{$penarikan->keterangan}}</td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
   </div>
 </div>
 </div>
-<!-- Section End -->
-<!-- Button -->
-<script src="../style/js/bootstrap.bundle.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#dataTable').DataTable({
+      dom: '<"top"l>t<"bottom"ip>',
+    });
+  });
+
+  $(document).ready(function() {
+    $('#dataTable2').DataTable({
+      dom: '<"top"l>t<"bottom"ip>',
+    });
+  });
+</script>
 @endsection

@@ -22,7 +22,7 @@
     <table class="fl-table" id="dataTable">
       <thead>
         <tr>
-          <th>No</th>
+          <th>No</th> 
           <th>Kode Nasabah</th>
           <th>Nama Nasabah</th>
           <th>Alamat</th>
