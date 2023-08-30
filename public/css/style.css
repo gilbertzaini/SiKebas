@@ -615,3 +615,11 @@ img{
   margin-top: 0.3rem !important;
   margin-bottom: auto !important;
 }
+
+#gallery-dashboard{
+  color: white;
+}
+
+.container-gallery-dashboard{
+  background-color: #254038;
+}
