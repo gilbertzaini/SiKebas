@@ -11,19 +11,19 @@ $count = 0;
     <x-form class="row text-center d-flex justify-content-between align-items-center" action="{{ route('admin.laporanNasabahByDate') }}">
         <div class="col-5 justify-content-center align-self-center">
             <label for="tanggalMulai" class="form-label second-text">Periode: </label>
-            <input type="date" name="tanggalMulai" @if($tanggalMulai != NULL) value="{{$tanggalMulai}}" @endif/>
+            <input type="date" name="tanggalMulai" @if($tanggalMulai !=NULL) value="{{$tanggalMulai}}" @endif />
         </div>
 
         <div class="col-5 justify-content-center align-self-center">
             <label for="tanggalSelesai" class="form-label second-text">Sampai: </label>
-            <input type="date" name="tanggalSelesai" @if($tanggalSelesai != NULL) value="{{ $tanggalSelesai }}" @endif />
+            <input type="date" name="tanggalSelesai" @if($tanggalSelesai !=NULL) value="{{ $tanggalSelesai }}" @endif />
         </div>
 
         <div class="col-2 container d-flex justify-content-center align-items-center pt-3">
             <button type="submit" class="btn btn-primary col-5">Pilih</button>
         </div>
     </x-form>
-    <table class="fl-table">
+    <table class="fl-table" id="dataTable">
         <thead>
             <th>No</th>
             <th>Kode Sampah</th>
@@ -70,4 +70,20 @@ $count = 0;
         <tbody>
     </table>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable({
+            columnDefs: [{
+                    targets: [2], // Index of the column you want to make searchable (0-based index)
+                    searchable: true
+                },
+                {
+                    targets: [0, 1, 3], // Index of the column you want to make searchable (0-based index)
+                    searchable: false
+                }
+            ]
+        });
+    });
+</script>
 @endsection
