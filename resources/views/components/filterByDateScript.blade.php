@@ -26,11 +26,14 @@
      format: 'MMMM Do YYYY'
  });
 
- // DataTables initialisation
-// let table = new DataTable('#dataTable');
+//  DataTables initialisation
+    // let table = $('#dataTable').DataTable();
     
  // Refilter the table
- document.querySelectorAll('#min, #max').forEach((el) => {
-     el.addEventListener('change', () => table.draw());
- });
+//  document.querySelectorAll('#min, #max').forEach((el) => {
+//      el.addEventListener('change', () => {
+//         console.log("Changed");
+//         table.draw();
+//      });
+//  });
 </script>

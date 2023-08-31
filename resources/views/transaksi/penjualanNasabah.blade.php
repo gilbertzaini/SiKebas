@@ -12,6 +12,7 @@ $count = 1;
     <button class="btn btn-danger" onclick="window.location='{{route('admin.tambahPenjualanSampah')}}'">Penjualan Baru</button>
 </div> -->
 <div class="table-wrapper-section">
+  @include('components/filterByDateInput')
     <table class="fl-table" id="dataTable">
         <thead>
         <tr>
@@ -46,14 +47,22 @@ $count = 1;
     </table>
 </div>
 
+@include('components/filterByDateScript')
 <script>
   $(document).ready(function() {
-    $('#dataTable').DataTable({
+    let dataTable = $('#dataTable').DataTable({
       dom: '<"top"l<"dataTableNewElement">>t<"bottom"ip>',
       initComplete: function() {
         $('.dataTableNewElement').html(
           '<button class="btn btn-danger tableAddButton my-1" onclick="window.location=\'{{ route("admin.tambahPenjualanSampah") }}\'">Penjualan Baru</button>');
         },
+    });
+
+    document.querySelectorAll('#min, #max').forEach((el) => {
+      el.addEventListener('change', () => {
+        console.log("Changed");
+        dataTable.draw();
+      });
     });
   });
 </script>

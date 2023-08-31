@@ -9,39 +9,48 @@ $count = 1;
 <h2 class="main-text">Setoran Nasabah</h2>
 <div class="table-wrapper-section container-fluid col-11">
     <x-form class="row text-center" action="{{ route('admin.setoranNasabahId') }}">
-        <div class="col-5">
-            <label for="idNasabah" class="form-label second-text">Nama Nasabah</label>
-            <div class="d-flex justify-content-around align-items-center col-8 mx-auto">
-                <select class="form-select third-text w-75" id="idNasabah" name="idNasabah">
-                    @foreach ($nasabahs as $nasabah)
-                    <option value="{{ $nasabah->id }}" @if ($nasabah->id == $target->id) selected @endif>
-                        {{ $nasabah->name }}
-                    </option>
-                    @endforeach
-                </select>
+        <div class="col-12 d-flex align-items-center">
+            <div class="col-5">
+                <label for="idNasabah" class="form-label second-text">Nama Nasabah</label>
+                <div class="d-flex justify-content-around align-items-center col-8 mx-auto">
+                    <select class="form-select third-text w-75" id="idNasabah" name="idNasabah">
+                        @foreach ($nasabahs as $nasabah)
+                        <option value="{{ $nasabah->id }}" @if ($nasabah->id == $target->id) selected @endif>
+                            {{ $nasabah->name }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-5">
+                <h3 class="text-center second-text">Nama Pengurus</h3>
+                <div class="d-flex justify-content-around align-items-center col-8 mx-auto">
+                    <select class="form-select third-text w-75" name="idPengurus">
+                        <option value="all">Semua</option>
+                        @foreach ($pengurus as $pengurus)
+                        <option value="{{ $pengurus->id }}" @if ($targetPengurus !=NULL && $pengurus->id == $targetPengurus->id) selected @endif>
+                            {{ $pengurus->name }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-2 justify-content-between align-self-end">
+                <button type="submit" class="btn btn-primary">Pilih</button>
+                <button type="button" class="btn btn-success ms-3" onclick="window.location='{{route('admin.setoranNasabahBaru', ['id'=>$target->id])}}'">Tambah</button>
             </div>
         </div>
 
-        <div class="col-5">
-            <h3 class="text-center second-text">Nama Pengurus</h3>
-            <div class="d-flex justify-content-around align-items-center col-8 mx-auto">
-                <select class="form-select third-text w-75" name="idPengurus">
-                    <option value="all">Semua</option>
-                    @foreach ($pengurus as $pengurus)
-                    <option value="{{ $pengurus->id }}" @if ($targetPengurus != NULL && $pengurus->id == $targetPengurus->id) selected @endif>
-                        {{ $pengurus->name }}
-                    </option>
-                    @endforeach
-                </select>
+        <div class="col-12 d-flex">
+            <div class="col-10">
+                @include('components/filterByDateInput')
             </div>
+            <div class="col-2"></div>
         </div>
-
-        <div class="col-2 justify-content-between align-self-end">
-            <button type="submit" class="btn btn-primary">Pilih</button>
-            <button type="button" class="btn btn-success ms-3" onclick="window.location='{{route('admin.setoranNasabahBaru', ['id'=>$target->id])}}'">Tambah</button>
-        </div>
-
     </x-form>
+
     @if($setoran->count() > 0)
     <table class="fl-table mt-3" id="dataTable">
         <thead>
@@ -80,11 +89,19 @@ $count = 1;
     @endif
 </div>
 
+@include('components/filterByDateScript')
 <script>
-  $(document).ready(function() {
-    $('#dataTable').DataTable({
-      dom: '<"top"l>t<"bottom"ip>',
+    $(document).ready(function() {
+        let dataTable = $('#dataTable').DataTable({
+            dom: '<"top"l>t<"bottom"ip>',
+            initComplete: function() {
+                // Add event listeners to date inputs
+                $('#min, #max').on('change', function() {
+                    dataTable.draw(); // Redraw the table on date range change
+                });
+            }
+        });
     });
-  });
 </script>
+
 @endsection
