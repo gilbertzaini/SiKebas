@@ -41,6 +41,7 @@
               <div class="invalid-feedback">Username tidak boleh kosong!</div>
             </div>
 
+            @if(Auth::user()->id == $pengurus->id)
             <p class="my-3">Silahkan isi data di bawah ini jika ingin mengubah kata sandi.</p>
 
             <div class="col-md-12">
@@ -53,6 +54,7 @@
             <div class="col-md-12 mt-3">
               <input type="password" name="password" class="form-control" id="validationCustom02" placeholder="Kata Sandi Baru">
             </div>
+            @endif
 
             <div class="form-button mt-3">
               <button class="btn btn-danger" type="button" onclick="window.location='{{route('admin.daftarPengurus')}}'">Kembali</button>

@@ -7,7 +7,7 @@
     <x-form class="row text-center d-flex justify-content-between align-items-center" action="{{ route('admin.laporanArusKasNasabahByDate') }}">
         @include('components/laporanDateFilter')
     </x-form>
-    
+
     <table class="fl-table" id="dataTable">
         <thead>
             <tr>
@@ -42,10 +42,19 @@
 </div>
 
 <script>
-  $(document).ready(function() {
-    $('#dataTable').DataTable({
-      dom: '<"top"l>t<"bottom"ip>',
+    $(document).ready(function() {
+        $('#dataTable').DataTable({
+            dom: '<"top"lf<"dataTableNewElement">>t<"bottom"ip>',
+            initComplete: function() {
+                $('.dataTableNewElement').html(
+                    '<button target="_blank" class="btn btn-secondary tableAddButton my-1" onclick="openNewTab(\'{{ route("admin.exportKasNasabah", ["tanggalMulai"=>$tanggalMulai, "tanggalSelesai"=>$tanggalSelesai]) }}\')">Cetak</button>'
+                );
+            },
+        });
     });
-  });
+
+    function openNewTab(url) {
+        window.open(url, '_blank');
+    }
 </script>
 @endsection

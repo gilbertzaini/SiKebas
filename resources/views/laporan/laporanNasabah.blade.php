@@ -19,20 +19,6 @@ $count = 0;
             <th>Berat Total</th>
         </thead>
         <tbody>
-            <!-- <tr>
-                <td>{{$count++}}</td>
-                @foreach($sampah as $item)
-                <td>
-                    @foreach($summedSetoran as $setoran)
-                    @if($setoran->kodeSampah == $item->kodeSampah)
-                    {{$setoran->totalBerat}}
-                    @else
-                    -
-                    @endif
-                    @endforeach
-                </td>
-                @endforeach
-            </tr> -->
             @foreach($sampah as $item)
             <tr>
                 <td>{{$count++}}</td>
@@ -60,8 +46,15 @@ $count = 0;
 </div>
 
 <script>
+    
     $(document).ready(function() {
         $('#dataTable').DataTable({
+            dom: '<"top"lf<"dataTableNewElement">>t<"bottom"ip>',
+            initComplete: function() {
+                $('.dataTableNewElement').html(
+                    '<button target="_blank" class="btn btn-secondary tableAddButton my-1" onclick="openNewTab(\'{{ route("admin.exportLaporanNasabah", ["tanggalMulai"=>$tanggalMulai, "tanggalSelesai"=>$tanggalSelesai]) }}\')">Cetak</button>');
+            },
+
             columnDefs: [{
                     targets: [2], // Index of the column you want to make searchable (0-based index)
                     searchable: true
@@ -73,5 +66,9 @@ $count = 0;
             ]
         });
     });
+
+    function openNewTab(url) {
+            window.open(url, '_blank');
+        }
 </script>
 @endsection

@@ -52,6 +52,12 @@ $count = 1;
 <script>
   $(document).ready(function() {
     $('#dataTable').DataTable({
+      dom: '<"top"lf<"dataTableNewElement">>t<"bottom"ip>',
+      initComplete: function() {
+        $('.dataTableNewElement').html(
+          '<button target="_blank" class="btn btn-secondary tableAddButton my-1" onclick="openNewTab(\'{{ route("admin.exportPembayaranLapak", ["tanggalMulai"=>$tanggalMulai, "tanggalSelesai"=>$tanggalSelesai]) }}\')">Cetak</button>');
+      },
+
       columnDefs: [{
           targets: [1], // Index of the column you want to make searchable (0-based index)
           searchable: true
@@ -63,5 +69,9 @@ $count = 1;
       ]
     });
   });
+  
+  function openNewTab(url) {
+      window.open(url, '_blank');
+    }
 </script>
 @endsection

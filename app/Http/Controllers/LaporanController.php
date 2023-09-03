@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\laporanNasabahExport;
 use App\Models\DataSampah;
 use App\Models\PembayaranLapak;
 use App\Models\PenjualanSampah;
@@ -11,26 +12,31 @@ use App\Models\TabunganNasabah;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class LaporanController extends Controller
 {
-    public function kasNasabah(){
-        $tanggalMulai = NULL;
-        $tanggalSelesai = NULL;
+    public function kasNasabah()
+    {
+        $tanggalMulai = 0;
+        $tanggalSelesai = 0;
         $records = TabunganNasabah::all();
-        return view('laporan.laporanArusKasNasabah', 
-                    [
-                        'records' => $records, 
-                        'tanggalMulai'=>$tanggalMulai, 
-                        'tanggalSelesai'=>$tanggalSelesai
-                    ]);
+        return view(
+            'laporan.laporanArusKasNasabah',
+            [
+                'records' => $records,
+                'tanggalMulai' => $tanggalMulai,
+                'tanggalSelesai' => $tanggalSelesai
+            ]
+        );
     }
 
     public function kasNasabahByDate(Request $request)
     {
         $request->validate([
-            'tanggalMulai'=>'required|date',
-            'tanggalSelesai'=>'required|date',
+            'tanggalMulai' => 'required|date',
+            'tanggalSelesai' => 'required|date',
         ]);
 
         $tanggalMulai = Carbon::parse($request->tanggalMulai)->format('Y-m-d');
@@ -38,46 +44,69 @@ class LaporanController extends Controller
         $tanggalSelesai = Carbon::parse($tanggalSelesaiOri)->addDay()->format('Y-m-d');
 
         $records = TabunganNasabah::whereBetween('created_at', [$tanggalMulai, $tanggalSelesai])
-                                  ->get();
-    
+            ->get();
+
         // dd($request, $tanggalMulai, $tanggalSelesai, $records);
 
-        return view('laporan.laporanArusKasNasabah', 
-                    [
-                        'records' => $records, 
-                        'tanggalMulai'=>$tanggalMulai, 
-                        'tanggalSelesai'=>$tanggalSelesaiOri
-                    ]);
+        return view(
+            'laporan.laporanArusKasNasabah',
+            [
+                'records' => $records,
+                'tanggalMulai' => $tanggalMulai,
+                'tanggalSelesai' => $tanggalSelesaiOri
+            ]
+        );
     }
 
-    public function nasabah(){        
+    public function kasNasabahExport($tanggalMulai, $tanggalSelesai)
+    {
+        // Retrieve data from the database
+        if ($tanggalMulai != 0 || $tanggalSelesai != 0) {
+            $tanggalMulai = Carbon::parse($tanggalMulai)->format('Y-m-d');
+            $tanggalSelesaiOri = Carbon::parse($tanggalSelesai)->format('Y-m-d');
+            $tanggalSelesai = Carbon::parse($tanggalSelesaiOri)->addDay()->format('Y-m-d');
+
+            $records = TabunganNasabah::whereBetween('created_at', [$tanggalMulai, $tanggalSelesai])
+                ->get();
+        } else {
+            $records = TabunganNasabah::all();
+        }
+
+        return view('export.kasNasabahExport', compact('records'));
+    }
+
+    public function nasabah()
+    {
         $sampah = DataSampah::all()->sortBy(function ($item) {
             return $item->kodeSampah == 10 ? 100 : (int)$item->kodeSampah;
         });
-        $tanggalMulai = NULL;
-        $tanggalSelesai = NULL;
+        $tanggalMulai = 0;
+        $tanggalSelesai = 0;
 
         // Calculate the sum of 'jumlah' field for each 'kodeSampah'
         $summedSetoran = SetoranNasabah::select('kodeSampah', DB::raw('SUM(berat) as totalBerat'))
-                               ->groupBy('kodeSampah')
-                               ->get();
-    
+            ->groupBy('kodeSampah')
+            ->get();
+
         // Pass the data to the view
-        return view('laporan.laporanNasabah', 
-                    [
-                        'sampah'=>$sampah, 
-                        'summedSetoran'=>$summedSetoran, 
-                        'tanggalMulai'=>$tanggalMulai, 
-                        'tanggalSelesai'=>$tanggalSelesai
-                    ]);
+        return view(
+            'laporan.laporanNasabah',
+            [
+                'sampah' => $sampah,
+                'summedSetoran' => $summedSetoran,
+                'tanggalMulai' => $tanggalMulai,
+                'tanggalSelesai' => $tanggalSelesai
+            ]
+        );
     }
 
-    public function nasabahByDate(request $request){        
+    public function nasabahByDate(request $request)
+    {
         $request->validate([
-            'tanggalMulai'=>'required|date',
-            'tanggalSelesai'=>'required|date',
+            'tanggalMulai' => 'required|date',
+            'tanggalSelesai' => 'required|date',
         ]);
-        
+
         $sampah = DataSampah::all()->sortBy(function ($item) {
             return $item->kodeSampah == 10 ? 100 : (int)$item->kodeSampah;
         });
@@ -87,74 +116,146 @@ class LaporanController extends Controller
 
         // Calculate the sum of 'jumlah' field for each 'kodeSampah'
         $summedSetoran = SetoranNasabah::select('kodeSampah', DB::raw('SUM(berat) as totalBerat'))
-                               ->groupBy('kodeSampah')
-                               ->whereBetween('created_at', [$tanggalMulai, $tanggalSelesai])
-                               ->get();
-    
+            ->groupBy('kodeSampah')
+            ->whereBetween('created_at', [$tanggalMulai, $tanggalSelesai])
+            ->get();
+
         // Pass the data to the view
-        return view('laporan.laporanNasabah', 
-                    [
-                        'sampah'=>$sampah, 
-                        'summedSetoran'=>$summedSetoran, 
-                        'tanggalMulai'=>$tanggalMulai, 
-                        'tanggalSelesai'=>$tanggalSelesaiOri
-                    ]);
+        return view(
+            'laporan.laporanNasabah',
+            [
+                'sampah' => $sampah,
+                'summedSetoran' => $summedSetoran,
+                'tanggalMulai' => $tanggalMulai,
+                'tanggalSelesai' => $tanggalSelesaiOri
+            ]
+        );
     }
 
-    public function pembayaranLapak(){
+    // public function nasabahExport()
+    // {
+    //     return Excel::download(new laporanNasabahExport, 'laporanNasabah.xlsx');
+    // }// Generate PDF
+    public function nasabahExport($tanggalMulai, $tanggalSelesai)
+    {
         $sampah = DataSampah::all();
-        $tanggalMulai = NULL;
-        $tanggalSelesai = NULL;
+
+        // Retrieve data from the database
+        if ($tanggalMulai != 0 || $tanggalSelesai != 0) {
+            $tanggalMulai = Carbon::parse($tanggalMulai)->format('Y-m-d');
+            $tanggalSelesaiOri = Carbon::parse($tanggalSelesai)->format('Y-m-d');
+            $tanggalSelesai = Carbon::parse($tanggalSelesaiOri)->addDay()->format('Y-m-d');
+
+            $summedSetoran = SetoranNasabah::select('kodeSampah', DB::raw('SUM(berat) as totalBerat'))
+                ->groupBy('kodeSampah')
+                ->whereBetween('created_at', [$tanggalMulai, $tanggalSelesai])
+                ->get();
+        } else {
+            $summedSetoran = SetoranNasabah::select('kodeSampah', DB::raw('SUM(berat) as totalBerat'))
+                ->groupBy('kodeSampah')
+                ->get();
+        }
+
+        return view('export.laporanNasabahExport', compact('summedSetoran', 'sampah'));
+
+        // $pdf = PDF::loadView('export.laporanNasabahExport', compact('summedSetoran', 'sampah'));
+        // $pdf->setPaper('A4',  'potrait');
+        // return $pdf->download('laporanNasabah.pdf');
+    }
+
+
+    public function pembayaranLapak()
+    {
+        $sampah = DataSampah::all();
+        $tanggalMulai = 0;
+        $tanggalSelesai = 0;
 
         $summedBerat = PenjualanSampah::select('kodeSampah', DB::raw('SUM(jumlah) as totalBerat'))
-                                        ->groupBy('kodeSampah')
-                                        ->get();
+            ->groupBy('kodeSampah')
+            ->get();
 
         $summedTotal = PenjualanSampah::select('kodeSampah', DB::raw('SUM(total) as totalJumlah'))
-                                        ->groupBy('kodeSampah')
-                                        ->get();
+            ->groupBy('kodeSampah')
+            ->get();
 
         // dd($summedBerat, $summedTotal);
-        return view('laporan.laporanPembayaranKeLapak', 
-        [
-            'sampah'=>$sampah, 
-            'summedBerat'=>$summedBerat, 
-            'summedTotal'=>$summedTotal,
-            'tanggalMulai'=>$tanggalMulai,
-            'tanggalSelesai'=>$tanggalSelesai
-        ]);        
+        return view(
+            'laporan.laporanPembayaranKeLapak',
+            [
+                'sampah' => $sampah,
+                'summedBerat' => $summedBerat,
+                'summedTotal' => $summedTotal,
+                'tanggalMulai' => $tanggalMulai,
+                'tanggalSelesai' => $tanggalSelesai
+            ]
+        );
     }
 
-    public function pembayaranLapakByDate(request $request){
+    public function pembayaranLapakByDate(request $request)
+    {
         $request->validate([
-            'tanggalMulai'=>'required|date',
-            'tanggalSelesai'=>'required|date',
+            'tanggalMulai' => 'required|date',
+            'tanggalSelesai' => 'required|date',
         ]);
-        
+
         $sampah = DataSampah::all();
         $tanggalMulai = Carbon::parse($request->tanggalMulai)->format('Y-m-d');
         $tanggalSelesaiOri = Carbon::parse($request->tanggalSelesai)->format('Y-m-d');
         $tanggalSelesai = Carbon::parse($tanggalSelesaiOri)->addDay()->format('Y-m-d');
-        
+
         $sampah = DataSampah::all();
         $summedBerat = PenjualanSampah::select('kodeSampah', DB::raw('SUM(jumlah) as totalBerat'))
-                                        ->groupBy('kodeSampah')
-                                        ->whereBetween('created_at', [$tanggalMulai, $tanggalSelesai])
-                                        ->get();
+            ->groupBy('kodeSampah')
+            ->whereBetween('created_at', [$tanggalMulai, $tanggalSelesai])
+            ->get();
 
         $summedTotal = PenjualanSampah::select('kodeSampah', DB::raw('SUM(total) as totalJumlah'))
-                                        ->groupBy('kodeSampah')
-                                        ->whereBetween('created_at', [$tanggalMulai, $tanggalSelesai])
-                                        ->get();
+            ->groupBy('kodeSampah')
+            ->whereBetween('created_at', [$tanggalMulai, $tanggalSelesai])
+            ->get();
 
         // dd($summedBerat, $summedTotal);
-        return view('laporan.laporanPembayaranKeLapak', 
-                    [
-                        'sampah'=>$sampah, 
-                        'summedBerat'=>$summedBerat, 
-                        'summedTotal'=>$summedTotal,
-                        'tanggalMulai'=>$tanggalMulai,
-                        'tanggalSelesai'=>$tanggalSelesaiOri
-                    ]);        
+        return view(
+            'laporan.laporanPembayaranKeLapak',
+            [
+                'sampah' => $sampah,
+                'summedBerat' => $summedBerat,
+                'summedTotal' => $summedTotal,
+                'tanggalMulai' => $tanggalMulai,
+                'tanggalSelesai' => $tanggalSelesaiOri
+            ]
+        );
+    }
+
+    public function pembayaranLapakExport($tanggalMulai, $tanggalSelesai)
+    {
+        $sampah = DataSampah::all();
+
+        // Retrieve data from the database
+        if ($tanggalMulai != 0 || $tanggalSelesai != 0) {
+            $tanggalMulai = Carbon::parse($tanggalMulai)->format('Y-m-d');
+            $tanggalSelesaiOri = Carbon::parse($tanggalSelesai)->format('Y-m-d');
+            $tanggalSelesai = Carbon::parse($tanggalSelesaiOri)->addDay()->format('Y-m-d');
+
+            $summedBerat = PenjualanSampah::select('kodeSampah', DB::raw('SUM(jumlah) as totalBerat'))
+                ->groupBy('kodeSampah')
+                ->whereBetween('created_at', [$tanggalMulai, $tanggalSelesai])
+                ->get();
+
+            $summedTotal = PenjualanSampah::select('kodeSampah', DB::raw('SUM(total) as totalJumlah'))
+                ->groupBy('kodeSampah')
+                ->whereBetween('created_at', [$tanggalMulai, $tanggalSelesai])
+                ->get();
+        } else {
+            $summedBerat = PenjualanSampah::select('kodeSampah', DB::raw('SUM(jumlah) as totalBerat'))
+                ->groupBy('kodeSampah')
+                ->get();
+
+            $summedTotal = PenjualanSampah::select('kodeSampah', DB::raw('SUM(total) as totalJumlah'))
+                ->groupBy('kodeSampah')
+                ->get();
+        }
+
+        return view('export.pembayaranLapakExport', compact('sampah', 'summedBerat', 'summedTotal'));
     }
 }
