@@ -2,7 +2,7 @@
 
 @section('content')
   <!-- Section Start -->
-  <div class="mx-2">
+  <div class="mx-2" style="min-height: 100vh;">
   <h2 class="main-text">Data Pengurus</h2>
   <!-- <div class="card-header d-flex justify-content-end mx-5 px-4">
     <ul class="nav nav-pills card-header-pills">
