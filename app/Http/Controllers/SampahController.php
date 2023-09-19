@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Exports\SampahExport;
 use App\Models\DataSampah;
 use App\Models\KategoriSampah;
-use App\Models\Sampah;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -81,11 +80,6 @@ class SampahController extends Controller
         KategoriSampah::find($id)->delete();
 
         return redirect()->route('admin.kategoriSampah');
-    }
-
-    function export()
-    {
-        return Excel::download(new SampahExport, 'Sampah.xlsx');
     }
 
     function showData()

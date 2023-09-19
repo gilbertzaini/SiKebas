@@ -35,7 +35,8 @@
           <button class="my-2"><a href="{{route('admin.laporanNasabah')}}">Laporan Rekap Total Sampah Penimbangan Nasabah</a></button>
           <button><a href="{{route('admin.laporanArusKasNasabah')}}">Laporan Arus Kas Nasabah</a></button>
           <button><a href="{{route('admin.laporanPembayaranKeLapak')}}">Laporan Pembayaran ke Lapak</a></button>
-          <!-- <button class="my-2"><a href="{{route('admin.laporanDLHK')}}">Laporan Keuangan Bank Sampah untuk DLHK</a></button> -->
+          <button class="my-2"><a href="{{route('admin.laporanDLHK')}}">Laporan Keuangan Bank Sampah untuk DLHK</a></button>
+          <button><a href="{{route('admin.laporanInternal')}}">Laporan Keuangan Internal</a></button>
         </div>
       </div>
     </div>

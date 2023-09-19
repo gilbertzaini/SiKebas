@@ -46,7 +46,6 @@ $count = 0;
 </div>
 
 <script>
-    
     $(document).ready(function() {
         $('#dataTable').DataTable({
             dom: '<"top"lf<"dataTableNewElement">>t<"bottom"ip>',

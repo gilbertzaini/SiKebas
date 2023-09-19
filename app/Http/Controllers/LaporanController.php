@@ -132,10 +132,6 @@ class LaporanController extends Controller
         );
     }
 
-    // public function nasabahExport()
-    // {
-    //     return Excel::download(new laporanNasabahExport, 'laporanNasabah.xlsx');
-    // }// Generate PDF
     public function nasabahExport($tanggalMulai, $tanggalSelesai)
     {
         $sampah = DataSampah::all();
@@ -257,5 +253,156 @@ class LaporanController extends Controller
         }
 
         return view('export.pembayaranLapakExport', compact('sampah', 'summedBerat', 'summedTotal'));
+    }
+
+    public function dlhk()
+    {
+        $sampah = DataSampah::all()->sortBy(function ($item) {
+            return $item->kodeSampah == 10 ? 100 : (int)$item->kodeSampah;
+        });
+        $tanggalMulai = 0;
+        $tanggalSelesai = 0;
+
+        // Calculate the sum of 'jumlah' field for each 'kodeSampah'
+        $summedSampah = PenjualanSampah::select('kodeSampah', DB::raw('SUM(jumlah) as totalBerat'))
+            ->groupBy('kodeSampah')
+            ->get();
+
+        // Pass the data to the view
+        return view(
+            'laporan.laporanDLHK',
+            [
+                'sampah' => $sampah,
+                'summedSetoran' => $summedSampah,
+                'tanggalMulai' => $tanggalMulai,
+                'tanggalSelesai' => $tanggalSelesai
+            ]
+        );
+    }
+
+    public function dlhkByDate(Request $request)
+    {
+        $request->validate([
+            'tanggalMulai' => 'required|date',
+            'tanggalSelesai' => 'required|date',
+        ]);
+
+        $tanggalMulai = Carbon::parse($request->tanggalMulai)->format('Y-m-d');
+        $tanggalSelesaiOri = Carbon::parse($request->tanggalSelesai)->format('Y-m-d');
+        $tanggalSelesai = Carbon::parse($tanggalSelesaiOri)->addDay()->format('Y-m-d');
+
+        $sampah = DataSampah::all()->sortBy(function ($item) {
+            return $item->kodeSampah == 10 ? 100 : (int)$item->kodeSampah;
+        });
+
+        $summedSampah = PenjualanSampah::select('kodeSampah', DB::raw('SUM(jumlah) as totalBerat'))
+            ->groupBy('kodeSampah')
+            ->whereBetween('created_at', [$tanggalMulai, $tanggalSelesai])
+            ->get();
+
+        return view(
+            'laporan.laporanDLHK',
+            [
+                'sampah' => $sampah,
+                'summedSetoran' => $summedSampah,
+                'tanggalMulai' => $tanggalMulai,
+                'tanggalSelesai' => $tanggalSelesai
+            ]
+        );
+    }
+
+    public function dlhkExport($tanggalMulai, $tanggalSelesai)
+    {
+        if ($tanggalMulai != 0 || $tanggalSelesai != 0) {
+            $tanggalMulai = Carbon::parse($tanggalMulai)->format('Y-m-d');
+            $tanggalSelesaiOri = Carbon::parse($tanggalSelesai)->format('Y-m-d');
+            $tanggalSelesai = Carbon::parse($tanggalSelesaiOri)->addDay()->format('Y-m-d');
+
+            $sampah = DataSampah::all()->sortBy(function ($item) {
+                return $item->kodeSampah == 10 ? 100 : (int)$item->kodeSampah;
+            });
+
+            $summedSampah = PenjualanSampah::select('kodeSampah', DB::raw('SUM(jumlah) as totalBerat'))
+                ->groupBy('kodeSampah')
+                ->whereBetween('created_at', [$tanggalMulai, $tanggalSelesai])
+                ->get();
+        } else {
+            $sampah = DataSampah::all()->sortBy(function ($item) {
+                return $item->kodeSampah == 10 ? 100 : (int)$item->kodeSampah;
+            });
+
+            $summedSampah = PenjualanSampah::select('kodeSampah', DB::raw('SUM(jumlah) as totalBerat'))
+                ->groupBy('kodeSampah')
+                ->get();
+        }
+
+        return view(
+            'export.laporanDLHKExport',
+            [
+                'sampah' => $sampah,
+                'summedSetoran' => $summedSampah,
+            ]
+        );
+    }
+
+    public function internal()
+    {
+        $tanggalMulai = 0;
+        $tanggalSelesai = 0;
+
+        $debet = TabunganNasabah::where('kategori', 'Debet')->get();
+        $kredit = TabunganNasabah::where('kategori', 'Kredit')->get();
+        $lapak = PenjualanSampah::all();
+
+        return view('laporan.laporanInternal', compact('tanggalMulai', 'tanggalSelesai', 'debet', 'kredit', 'lapak'));
+    }
+
+    public function internalByDate(request $request)
+    {
+        $request->validate([
+            'tanggalMulai' => 'required|date',
+            'tanggalSelesai' => 'required|date',
+        ]);
+
+        $tanggalMulai = Carbon::parse($request->tanggalMulai)->format('Y-m-d');
+        $tanggalSelesaiOri = Carbon::parse($request->tanggalSelesai)->format('Y-m-d');
+        $tanggalSelesai = Carbon::parse($tanggalSelesaiOri)->addDay()->format('Y-m-d');
+
+        $debet = TabunganNasabah::where('kategori', 'Debet')
+            ->whereBetween('created_at', [$tanggalMulai, $tanggalSelesai])
+            ->get();
+
+        $kredit = TabunganNasabah::where('kategori', 'Kredit')
+            ->whereBetween('created_at', [$tanggalMulai, $tanggalSelesai])
+            ->get();
+
+        $lapak = PenjualanSampah::whereBetween('created_at', [$tanggalMulai, $tanggalSelesai])->get();
+
+        return view('laporan.laporanInternal', compact('tanggalMulai', 'tanggalSelesai', 'debet', 'kredit', 'lapak'));
+    }
+
+    public function internalExport($tanggalMulai, $tanggalSelesai)
+    {
+        if ($tanggalMulai != 0 || $tanggalSelesai != 0) {
+            $tanggalMulai = Carbon::parse($tanggalMulai)->format('Y-m-d');
+            $tanggalSelesaiOri = Carbon::parse($tanggalSelesai)->format('Y-m-d');
+            $tanggalSelesai = Carbon::parse($tanggalSelesaiOri)->addDay()->format('Y-m-d');
+
+            $debet = TabunganNasabah::where('kategori', 'Debet')
+                ->whereBetween('created_at', [$tanggalMulai, $tanggalSelesai])
+                ->get();
+
+            $kredit = TabunganNasabah::where('kategori', 'Kredit')
+                ->whereBetween('created_at', [$tanggalMulai, $tanggalSelesai])
+                ->get();
+
+            $lapak = PenjualanSampah::whereBetween('created_at', [$tanggalMulai, $tanggalSelesai])->get();
+        } else {
+            $debet = TabunganNasabah::where('kategori', 'Debet')->get();
+            $kredit = TabunganNasabah::where('kategori', 'Kredit')->get();
+            $lapak = PenjualanSampah::all();
+        }
+
+        return view('export.laporanInternalExport', compact('debet', 'kredit', 'lapak'));
     }
 }

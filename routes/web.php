@@ -92,7 +92,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/admin/laporan/pembayaran-ke-lapak', [LaporanController::class, 'pembayaranLapakByDate'])->name('admin.laporanPembayaranKeLapakByDate');
     Route::get('/admin/laporan/pembayaran-ke-lapak/export/{tanggalMulai}/{tanggalSelesai}', [LaporanController::class, 'pembayaranLapakExport'])->name('admin.exportPembayaranLapak');
     
-    Route::get('/admin/laporan/DLHK', [SampahController::class, 'showData'])->name('admin.laporanDLHK');
+    Route::get('/admin/laporan/DLHK', [LaporanController::class, 'dlhk'])->name('admin.laporanDLHK');
+    Route::post('/admin/laporan/DLHK', [LaporanController::class, 'dlhkByDate'])->name('admin.laporanDLHKbyDate');
+    Route::get('/admin/laporan/DLHK/export/{tanggalMulai}/{tanggalSelesai}', [LaporanController::class, 'dlhkExport'])->name('admin.exportLaporanDLHK');
+    
+    Route::get('/admin/laporan/internal', [LaporanController::class, 'internal'])->name('admin.laporanInternal');
+    Route::post('/admin/laporan/internal', [LaporanController::class, 'internalByDate'])->name('admin.laporanInternalByDate');
+    Route::get('/admin/laporan/internal/export/{tanggalMulai}/{tanggalSelesai}', [LaporanController::class, 'internalExport'])->name('admin.exportLaporanInternal');
+    
     Route::get('/admin/transaksi/setoran-nasabah', [TransaksiController::class, 'setoranNasabah'])->name('admin.setoranNasabah');
     Route::post('/admin/transaksi/setoran-nasabah', [TransaksiController::class, 'setoranNasabahById'])->name('admin.setoranNasabahId');
     Route::get('/admin/transaksi/setoran-nasabah/{id}/tambah', [TransaksiController::class, 'setoranNasabahBaru'])->name('admin.setoranNasabahBaru');
