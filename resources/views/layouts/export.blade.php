@@ -33,12 +33,14 @@
 </head>
 
 <body>
+    @include('components/kopLaporan')
     <div>
         @yield('content')
     </div>
 
     <script>
-        window.print();                
+        setTimeout(function () { window.print(); }, 500);
+        window.onfocus = function () { setTimeout(function () { window.close(); }, 500); }  
     </script>
 </body>
 

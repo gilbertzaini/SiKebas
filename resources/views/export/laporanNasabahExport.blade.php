@@ -2,6 +2,10 @@
 
 @php $count = 1 @endphp
 
+@section('judul')
+<h5><b>Rekap Total Penimbangan Nasabah</b></h5>
+@endsection
+
 @section('content')
 <div class="container">
     <table class="table table-bordered table-striped">

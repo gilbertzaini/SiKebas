@@ -72,7 +72,7 @@ class LaporanController extends Controller
             $records = TabunganNasabah::all();
         }
 
-        return view('export.kasNasabahExport', compact('records'));
+        return view('export.kasNasabahExport', compact('records', 'tanggalMulai', 'tanggalSelesai'));
     }
 
     public function nasabah()
@@ -152,7 +152,7 @@ class LaporanController extends Controller
                 ->get();
         }
 
-        return view('export.laporanNasabahExport', compact('summedSetoran', 'sampah'));
+        return view('export.laporanNasabahExport', compact('summedSetoran', 'sampah', 'tanggalMulai', 'tanggalSelesai'));
 
         // $pdf = PDF::loadView('export.laporanNasabahExport', compact('summedSetoran', 'sampah'));
         // $pdf->setPaper('A4',  'potrait');
@@ -252,7 +252,7 @@ class LaporanController extends Controller
                 ->get();
         }
 
-        return view('export.pembayaranLapakExport', compact('sampah', 'summedBerat', 'summedTotal'));
+        return view('export.pembayaranLapakExport', compact('sampah', 'summedBerat', 'summedTotal', 'tanggalMulai', 'tanggalSelesai'));
     }
 
     public function dlhk()
@@ -341,6 +341,8 @@ class LaporanController extends Controller
             [
                 'sampah' => $sampah,
                 'summedSetoran' => $summedSampah,
+                'tanggalMulai' => $tanggalMulai,
+                'tanggalSelesai' => $tanggalSelesai
             ]
         );
     }
@@ -403,6 +405,6 @@ class LaporanController extends Controller
             $lapak = PenjualanSampah::all();
         }
 
-        return view('export.laporanInternalExport', compact('debet', 'kredit', 'lapak'));
+        return view('export.laporanInternalExport', compact('debet', 'kredit', 'lapak', 'tanggalMulai', 'tanggalSelesai'));
     }
 }

@@ -2,6 +2,10 @@
 
 @php $count = 1 @endphp
 
+@section('judul')
+<h5><b>Laporan Arus Kas Nasabah</b></h5>
+@endsection
+
 @section('content')
 
 <table class="table table-bordered table-striped">

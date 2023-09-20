@@ -22,6 +22,10 @@ $rowLapak = count($arrLapak);
 $row = max($rowDebet, $rowKredit, $rowLapak);
 @endphp
 
+@section('judul')
+<h5><b>Laporan Keuangan Internal</b></h5>
+@endsection
+
 @section('content')
 
 <table class="table table-bordered table-striped">

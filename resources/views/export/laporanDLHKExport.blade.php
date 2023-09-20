@@ -23,6 +23,11 @@ $kodeKategori = 1;
 $prevCategory = "none";
 @endphp
 
+
+@section('judul')
+<h5><b>Laporan Untuk DLHK</b></h5>
+@endsection
+
 @section('content')
 
 <table class="table table-bordered table-striped">
