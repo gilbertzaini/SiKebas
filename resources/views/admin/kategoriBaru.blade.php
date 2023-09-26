@@ -11,6 +11,9 @@
                     <x-form class="requires-validation" action="{{route('admin.storeSampah')}}" novalidate>
                         <div class="col-md-12">
                             <input class="form-control" type="text" name="kategori" placeholder="Kategori">
+                            @error('kategori')
+                                <div class="formAlert">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-button mt-3">

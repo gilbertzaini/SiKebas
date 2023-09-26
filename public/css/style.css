@@ -623,3 +623,10 @@ img{
 .container-gallery-dashboard{
   background-color: #254038;
 }
+
+.formAlert{
+  margin-top: 5px;
+  background: transparent;
+  font-size: 0.8rem;
+  color: red;
+}

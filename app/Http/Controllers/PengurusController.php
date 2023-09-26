@@ -28,7 +28,6 @@ class PengurusController extends Controller
         $request->validate([
             'name'=>'required|string',
             'telp'=>'required|string|min:10',
-            'email'=>'required|email',
             'username'=>'required|string',
             'password'=>'required|string',
             'alamat'=>'required|string',
@@ -38,7 +37,6 @@ class PengurusController extends Controller
         $pengurus->name = $request->name;
         $pengurus->no_telp = $request->telp;
         $pengurus->alamat = $request->alamat;
-        $pengurus->email = $request->email;
         $pengurus->username = $request->username;
         $pengurus->password = Hash::make($request->password);
         $pengurus->save();
@@ -71,20 +69,19 @@ class PengurusController extends Controller
             'idPengurus'=>'required|string',
             'name'=>'required|string',
             'telp'=>'required|string|min:10',
-            'email'=>'required|email',
-            'username'=>'required|string',
             'alamat'=>'required|string',
         ]);
 
         $pengurus = User::find($request->idPengurus);
         
+        // dd($request);
         // dd($request, $pengurus, Hash::make($request->oldPassword), $pengurus->password);
         $pengurus->name = $request->name;
         $pengurus->no_telp = $request->telp;
         $pengurus->alamat = $request->alamat;
-        $pengurus->email = $request->email;
         $pengurus->username = $request->username;
-        if ($request->has('password') && $request->has('oldPassword')) {
+        // if ($request->has('password') && $request->has('oldPassword')) {
+        if($request->password != NULL && $request->oldPassword != NULL){
             if (Hash::check($request->oldPassword, $pengurus->password)) {
                 $pengurus->password = Hash::make($request->password);
             } else {
@@ -102,7 +99,7 @@ class PengurusController extends Controller
         return redirect()->route('admin.daftarPengurus');
     }
 
-    function export(){
-        return Excel::download(new PengurusExport, 'Pengurus.xlsx');
-    }
+    // function export(){
+    //     return Excel::download(new PengurusExport, 'Pengurus.xlsx');
+    // }
 }

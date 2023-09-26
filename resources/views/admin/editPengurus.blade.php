@@ -13,46 +13,47 @@
 
             <div class="col-md-12">
               <input type="text" name="name" class="form-control" id="validationCustom01" value="{{$pengurus->name}}" placeholder="Nama Lengkap" required>
-              <div class="valid-feedback">Nama telah di isi!</div>
-              <div class="invalid-feedback">Nama tidak boleh kosong!</div>
+              @error('name')
+                <div class="formAlert">{{ $message }}</div>
+              @enderror
             </div>
 
             <div class="col-md-12">
               <input type="text" name="alamat" class="form-control" id="validationCustom01" value="{{$pengurus->alamat}}" placeholder="Alamat" required>
-              <div class="valid-feedback">Alamat telah di isi!</div>
-              <div class="invalid-feedback">Alamat tidak boleh kosong!</div>
+              @error('alamat')
+                <div class="formAlert">{{ $message }}</div>
+              @enderror
             </div>
 
             <div class="col-md-12">
               <input type="text" name="telp" class="form-control" id="validationCustom02" value="{{$pengurus->no_telp}}" placeholder="Nomor Telepon" required>
-              <div class="valid-feedback">Nomor Telepon telah di isi!</div>
-              <div class="invalid-feedback">Nomor Telepon tidak boleh kosong!</div>
-            </div>
-
-            <div class="col-md-12 mt-3">
-              <input type="email" name="email" class="form-control" id="validationCustom02" value="{{$pengurus->email}}" placeholder="Saldo" required>
-              <div class="valid-feedback">e-mail telah di isi!</div>
-              <div class="invalid-feedback">e-mail tidak boleh kosong!</div>
-            </div>
-
-            <div class="col-md-12 mt-3">
-              <input type="text" name="username" class="form-control" id="validationCustom02" value="{{$pengurus->username}}" placeholder="Saldo" required>
-              <div class="valid-feedback">Username telah di isi!</div>
-              <div class="invalid-feedback">Username tidak boleh kosong!</div>
+              @error('telp')
+                <div class="formAlert">{{ $message }}</div>
+              @enderror
             </div>
 
             @if(Auth::user()->id == $pengurus->id)
-            <p class="my-3">Silahkan isi data di bawah ini jika ingin mengubah kata sandi.</p>
+            <p class="my-3">Silahkan isi data di bawah ini jika ingin mengubah username atau kata sandi.</p>
+
+            <div class="col-md-12 mt-3">
+              <input type="text" name="username" class="form-control" id="validationCustom02" value="{{$pengurus->username}}" placeholder="Username" required>
+              @error('username')
+                <div class="formAlert">{{ $message }}</div>
+              @enderror
+            </div>
 
             <div class="col-md-12">
               <input type="password" name="oldPassword" class="form-control" id="validationCustom02" placeholder="Kata Sandi Sebelumnya">
               @if(session('error'))
-                  <div class="invalid-feedback">{{ session('error') }}</div>
+                  <div class="formAlert">{{ session('error') }}</div>
               @endif
             </div>
 
             <div class="col-md-12 mt-3">
               <input type="password" name="password" class="form-control" id="validationCustom02" placeholder="Kata Sandi Baru">
+              @error('username')
+                <div class="formAlert">{{ $message }}</div>
+              @enderror
             </div>
             @endif
 

@@ -12,7 +12,10 @@
 
 						<input type="text" name="idSampah" value="{{$sampah->id}}" style="display:none;" />
 						<div class="col-md-12">
-							<input type="text" id="kategori" name="kategori" value="{{ old('kategori', $sampah->kategori) }}"><br>
+							<input type="text" id="kategori" name="kategori" value="{{ old('kategori', $sampah->kategori) }}">
+							@error('kategori')
+                                <div class="formAlert">{{ $message }}</div>
+                            @enderror
 						</div>
 
 						<div class="form-button mt-3">

@@ -56,12 +56,16 @@
                                 <option value="{{$sampah->kodeSampah}}">{{$sampah->nama}} - Rp {{ number_format($sampah->hargaNasabah, 2, ',', '.') }}</option>
                                 @endforeach
                             </select>
+                            @error('kodeSampah')
+                                <div class="formAlert">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-md-12">
                             <input class="form-control" type="text" name="berat" placeholder="Berat Sampah (Kg)">
-                            <div class="valid-feedback">Harga Nasabah telah di isi!</div>
-                            <div class="invalid-feedback">Harga Nasabah tidak boleh kosong!</div>
+                            @error('berat')
+                                <div class="formAlert">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-button mt-3">
