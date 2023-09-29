@@ -59,19 +59,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/pengurus/export', [PengurusController::class, 'export'])->name('admin.exportPengurus');
 
     Route::get('/admin/sampah', [SampahController::class, 'showAll'])->name('admin.kategoriSampah');
-    Route::post('/admin/sampah/search', [SampahController::class, 'search'])->name('admin.searchSampah');
-    Route::get('/admin/sampah/search/{param}', [SampahController::class, 'filtered'])->name('admin.filteredSampah');
+    // Route::post('/admin/sampah/search', [SampahController::class, 'search'])->name('admin.searchSampah');
+    // Route::get('/admin/sampah/search/{param}', [SampahController::class, 'filtered'])->name('admin.filteredSampah');
     // Route::get('/admin/sampah/{id}/detail', [SampahController::class, 'show'])->name('admin.detailSampah');
     Route::get('/admin/sampah/create', [SampahController::class, 'create'])->name('admin.sampahBaru');
     Route::post('/admin/sampah', [SampahController::class, 'store'])->name('admin.storeSampah');
     Route::get('/admin/sampah/{id}/edit', [SampahController::class, 'edit'])->name('admin.editSampah');
     Route::patch('/admin/sampah', [SampahController::class, 'patch'])->name('admin.patchSampah');
     Route::delete('/admin/sampah/{id}', [SampahController::class, 'delete'])->name('admin.deleteSampah');
-    Route::get('/admin/sampah/export', [SampahController::class, 'export'])->name('admin.exportSampah');
+    // Route::get('/admin/sampah/export', [SampahController::class, 'export'])->name('admin.exportSampah');
 
     Route::get('/admin/sampah/data', [SampahController::class, 'showData'])->name('admin.dataSampah');
     Route::get('/admin/sampah/data/tambah', [SampahController::class, 'createDataSampah'])->name('admin.dataSampahBaru');
     Route::post('/admin/sampah/data/store', [SampahController::class, 'storeDataSampah'])->name('admin.storeDataSampahBaru');
+    Route::get('/admin/sampah/data/{kodeSampah}/edit', [SampahController::class, 'editDataSampah'])->name('admin.editDataSampah');
+    Route::patch('/admin/sampah/data', [SampahController::class, 'patchDataSampah'])->name('admin.patchDataSampah');
+    Route::delete('/admin/sampah/data/{kodeSampah}/delete', [SampahController::class, 'deleteDataSampah'])->name('admin.deleteDataSampah');
 
     Route::get('/admin/pelapak', [PelapakController::class, 'showAll'])->name('admin.daftarPelapak');
     Route::get('/admin/pelapak/create', [PelapakController::class, 'create'])->name('admin.pelapakBaru');
@@ -117,5 +120,3 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('admin.detailBaruPenjualan');
     })->name('admin.detailBaruPenjualan');
 });
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -10,7 +10,7 @@
 					<p>Silahkan isi data di bawah ini.</p>
 					<x-form method="PATCH" action="{{ route('admin.patchSampah')}}">
 
-						<input type="text" name="idSampah" value="{{$sampah->id}}" style="display:none;" />
+						<input type="text" name="idSampah" value="{{$sampah->id}}" style="display:none;" readonly/>
 						<div class="col-md-12">
 							<input type="text" id="kategori" name="kategori" value="{{ old('kategori', $sampah->kategori) }}">
 							@error('kategori')

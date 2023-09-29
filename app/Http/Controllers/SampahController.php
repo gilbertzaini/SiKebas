@@ -97,11 +97,7 @@ class SampahController extends Controller
 
     function createDataSampah()
     {
-        $dataSampahSorted = DataSampah::all()->sortBy(function ($item) {
-            return $item->kodeSampah == 10 ? 100 : (int)$item->kodeSampah;
-        });
-
-        $jenisSampah = $dataSampahSorted->groupBy('jenis');
+        $jenisSampah = KategoriSampah::get();
 
         return view('admin.dataSampahBaru', ['jenisSampah' => $jenisSampah]);
     }
@@ -140,5 +136,41 @@ class SampahController extends Controller
 
         return redirect()->route('admin.dataSampah');
         // dd($dataSampah);
+    }
+
+    function editDataSampah(string $kodeSampah)
+    {   
+        $jenisSampah = KategoriSampah::get();
+        $sampah = DataSampah::where('kodeSampah', $kodeSampah)->first();
+
+        return view('admin.editDataSampah', compact('jenisSampah', 'sampah'));
+    }
+
+    function patchDataSampah(request $request)
+    {
+        $request->validate([
+            'kodeSampah' => 'required|string',
+            'kategori' => 'required|numeric',
+            'nama' => 'required|string',
+            'hargaNasabah' => 'required|numeric',
+            'hargaPelapak' => 'required|numeric',
+        ]);
+
+        $sampah = DataSampah::where('kodeSampah', $request->kodeSampah)->first();
+
+        $sampah->kategori = KategoriSampah::where('id', $request->kategori)->first()->kategori;
+        $sampah->nama = $request->nama;
+        $sampah->hargaNasabah = $request->hargaNasabah;
+        $sampah->hargaPelapak = $request->hargaPelapak;
+        $sampah->save();
+
+        return redirect()->route('admin.dataSampah');
+    }
+
+    function deleteDataSampah(string $kodeSampah)
+    {
+        DataSampah::where("kodeSampah", $kodeSampah)->first()->delete();
+
+        return redirect()->route('admin.dataSampah');
     }
 }

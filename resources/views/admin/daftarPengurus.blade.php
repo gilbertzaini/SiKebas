@@ -25,6 +25,7 @@
           <th>No</th>
           <th>Kode Pengurus</th>
           <th>Nama Pengurus</th>
+          <th>Jabatan</th>
           <th>Alamat</th>
           <th>No Telepon</th>
           <th>Aksi</th>
@@ -41,6 +42,7 @@
             <td>{{ $count++ }}</td>
             <td>P{{ str_pad($pengurus->id, 6, '0', STR_PAD_LEFT) }}</td>
             <td>{{ $pengurus->name }}</td>
+            <td>{{ $pengurus->jabatan }}</td>
             <td>{{ $pengurus->alamat }}</td>
             <td>{{ $pengurus->no_telp }}</td>
             <td>
@@ -78,7 +80,7 @@
       dom: '<"top"lf<"dataTableNewElement">>t<"bottom"ip>',
       initComplete: function() {
         $('.dataTableNewElement').html(
-          '<button class="btn btn-secondary tableAddButton my-1" onclick="window.location=\'{{ route("admin.pengurusBaru") }}\'">Tambah</button>');
+          '@if(Auth::user()->jabatan !== 'Pengurus')<button class="btn btn-secondary tableAddButton my-1" onclick="window.location=\'{{ route("admin.pengurusBaru") }}\'">Tambah</button>@endif ');
         },
       columnDefs: [{
           targets: [2], // Index of the column you want to make searchable (0-based index)

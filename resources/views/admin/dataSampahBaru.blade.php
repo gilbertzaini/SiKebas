@@ -22,8 +22,8 @@
                                 <div class="col-md-12">
                                     <select class="form-select" name="kategori" aria-label="Default select example">
                                         <option>Silahkan Pilih Jenis Sampah</option>
-                                        @foreach ($jenisSampah as $jenis => $items)
-                                            <option value="{{ $kodeKategori++ }}">{{ $jenis }}</option>
+                                        @foreach ($jenisSampah as $items)
+                                            <option value="{{ $items->id }}">{{ $items->kategori }}</option>
                                         @endforeach
                                     </select>
                                     @error('kategori')
@@ -43,7 +43,7 @@
                             <div class="col-md-12">
                                 <input class="form-control" type="text" name="hargaPelapak"
                                     placeholder="Masukan Harga Pelapak" required>
-                                <@error('hargaPelapak') <div class="formAlert">{{ $message }}
+                                @error('hargaPelapak') <div class="formAlert">{{ $message }}
                                 </div>
                             @enderror
                     </div>
@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="form-button mt-3">
-                        <button class="btn btn-danger"
+                        <button class="btn btn-danger" type="button"
                             onclick="window.location='{{ route('admin.dataSampah') }}'">Kembali</button>
                         <button id="submit" type="submit" class="btn btn-primary">Tambahkan</button>
                     </div>
