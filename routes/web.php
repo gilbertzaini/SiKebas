@@ -115,8 +115,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/transaksi/penjualan-nasabah', [TransaksiController::class, 'transaksiPenjualanNasabah'])->name('admin.transaksiPenjualanNasabah');
     Route::get('/admin/transaksi/penjualan-nasabah/tambah', [TransaksiController::class, 'tambahPenjualanSampah'])->name('admin.tambahPenjualanSampah');
     Route::post('/admin/transaksi/penjualan-nasabah/tambah', [TransaksiController::class, 'storePenjualanSampah'])->name('admin.storePenjualanSampah');
-
-    Route::get('/admin/detailBaruPenjualan', function () {
-        return view('admin.detailBaruPenjualan');
-    })->name('admin.detailBaruPenjualan');
 });

@@ -7,7 +7,7 @@
             <h2 class="text-center d-flex justify-content-center">Sikebas</h2>
             <div class="col-md-6 d-flex rounded-4 justify-content-center align-items-center flex-column left-box" style="background-color: green; opacity: 95%;">
                 <div class="featured-image mb-1">
-                    <img src="{{asset('assets/iPhone_14_Pro_Max_-_1-removebg-preview.png')}}" class="img-fluid mx-auto" style="width: 200px !important; height: 230px !important;" />
+                    <img src="{{asset('assets/logo.png')}}" class="img-fluid mx-auto" style="width: 200px !important; height: auto !important;" />
                 </div>
                 <button type="submit" class="text-white fs-3" style="font-family: 'Courier New', Courier, monospace; font-weight: 600; background-color: transparent; border: transparent;">Masuk</button>
             </div>

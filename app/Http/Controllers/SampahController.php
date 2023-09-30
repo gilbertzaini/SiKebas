@@ -158,10 +158,10 @@ class SampahController extends Controller
 
         $sampah = DataSampah::where('kodeSampah', $request->kodeSampah)->first();
 
-        $sampah->kategori = KategoriSampah::where('id', $request->kategori)->first()->kategori;
+        $sampah->jenis = KategoriSampah::where('id', $request->kategori)->first()->kategori;
         $sampah->nama = $request->nama;
         $sampah->hargaNasabah = $request->hargaNasabah;
-        $sampah->hargaPelapak = $request->hargaPelapak;
+        $sampah->hargaLapak = $request->hargaPelapak;
         $sampah->save();
 
         return redirect()->route('admin.dataSampah');

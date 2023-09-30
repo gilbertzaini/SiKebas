@@ -8,7 +8,7 @@
                     <div class="form-items">
                         <h3>Edit Data Sampah</h3>
                         <p>Silahkan isi data di bawah ini.</p>
-                        <x-form action="{{ route('admin.patchDataSampah') }}" class="requires-validation" novalidate>
+                        <x-form method="patch" action="{{ route('admin.patchDataSampah') }}" class="requires-validation" novalidate>
                             <div class="d-flex justify-content-center">
                                 <input type="text" name="kodeSampah" value="{{ $sampah->kodeSampah }}"
                                     style="display:none;" readonly />
@@ -56,7 +56,7 @@
                             <div class="form-button mt-3">
                                 <button class="btn btn-danger" type="button"
                                     onclick="window.location='{{ route('admin.dataSampah') }}'">Kembali</button>
-                                <button id="submit" type="submit" class="btn btn-primary">Tambahkan</button>
+                                <button id="submit" type="submit" class="btn btn-primary">Edit</button>
                             </div>
                         </x-form>
                     </div>
