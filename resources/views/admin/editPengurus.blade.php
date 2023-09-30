@@ -18,6 +18,19 @@
               @enderror
             </div>
 
+            @if(Auth::user()->jabatan != "Pengurus")
+            <div class="col-md-12">
+              <select class="form-control" type="text" name="jabatan">
+                  <option value="Pengurus" @if($pengurus->jabatan == "Pengurus") selected @endif>Pengurus</option>
+                  <option value="Bendahara" @if($pengurus->jabatan == "Bendahara") selected @endif>Bendahara</option>
+                  <option value="Ketua" @if($pengurus->jabatan == "Ketua") selected @endif>Ketua</option>
+              </select>
+              @error('jabatan')
+                  <div class="formAlert">{{ $message }}</div>
+              @enderror
+          </div>
+          @endif
+
             <div class="col-md-12">
               <input type="text" name="alamat" class="form-control" id="validationCustom01" value="{{$pengurus->alamat}}" placeholder="Alamat" required>
               @error('alamat')

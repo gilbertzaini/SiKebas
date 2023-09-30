@@ -10,7 +10,7 @@ use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +31,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin', [HomeController::class, 'index'])->name('admin.index');
     Route::get('/admin/dashboard', [HomeController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/transaksi', [HomeController::class, 'transactions'])->name('admin.daftarTransaksi');
-    
+
     // Route::get('/admin', function () {
     //     return redirect()->route('admin.dashboard');
     // });
@@ -51,13 +51,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/admin/pengurus/search', [PengurusController::class, 'search'])->name('admin.searchPengurus');
     Route::get('/admin/pengurus/search/{param}', [PengurusController::class, 'filtered'])->name('admin.filteredPengurus');
     Route::get('/admin/pengurus/{id}/detail', [PengurusController::class, 'show'])->name('admin.detailPengurus');
-    Route::get('/admin/pengurus/new', [PengurusController::class, 'create'])->name('admin.pengurusBaru');
-    Route::post('/admin/pengurus', [PengurusController::class, 'store'])->name('admin.storePengurus');
+    Route::get('/admin/pengurus/export', [PengurusController::class, 'export'])->name('admin.exportPengurus');
     Route::get('/admin/pengurus/{id}/edit', [PengurusController::class, 'edit'])->name('admin.editPengurus');
     Route::patch('/admin/pengurus', [PengurusController::class, 'patch'])->name('admin.patchPengurus');
-    Route::delete('/admin/pengurus/{id}', [PengurusController::class, 'delete'])->name('admin.deletePengurus');
-    Route::get('/admin/pengurus/export', [PengurusController::class, 'export'])->name('admin.exportPengurus');
-
+    
     Route::get('/admin/sampah', [SampahController::class, 'showAll'])->name('admin.kategoriSampah');
     // Route::post('/admin/sampah/search', [SampahController::class, 'search'])->name('admin.searchSampah');
     // Route::get('/admin/sampah/search/{param}', [SampahController::class, 'filtered'])->name('admin.filteredSampah');
@@ -83,6 +80,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/admin/pelapak', [PelapakController::class, 'patch'])->name('admin.patchPelapak');
     Route::delete('/admin/pelapak/{id}', [PelapakController::class, 'delete'])->name('admin.deletePelapak');
 
+    Route::get('/admin/transaksi/setoran-nasabah', [TransaksiController::class, 'setoranNasabah'])->name('admin.setoranNasabah');
+    Route::post('/admin/transaksi/setoran-nasabah', [TransaksiController::class, 'setoranNasabahById'])->name('admin.setoranNasabahId');
+    Route::get('/admin/transaksi/setoran-nasabah/{id}/tambah', [TransaksiController::class, 'setoranNasabahBaru'])->name('admin.setoranNasabahBaru');
+    Route::post('/admin/transaksi/setoran-nasabah/tambah', [TransaksiController::class, 'storeSetoranNasabahBaru'])->name('admin.storeSetoranNasabahBaru');
+
+    Route::get('/admin/transaksi/tabungan-nasabah', [TransaksiController::class, 'tabunganNasabah'])->name('admin.tabunganNasabah');
+    Route::get('/admin/transaksi/penarikan', [TransaksiController::class, 'penarikanNasabah'])->name('admin.penarikanNasabah');
+    Route::post('/admin/transaksi/penarikan', [TransaksiController::class, 'storePenarikanNasabah'])->name('admin.storePenarikanNasabah');
+
+    Route::get('/admin/transaksi/penjualan-nasabah', [TransaksiController::class, 'transaksiPenjualanNasabah'])->name('admin.transaksiPenjualanNasabah');
+    Route::get('/admin/transaksi/penjualan-nasabah/tambah', [TransaksiController::class, 'tambahPenjualanSampah'])->name('admin.tambahPenjualanSampah');
+    Route::post('/admin/transaksi/penjualan-nasabah/tambah', [TransaksiController::class, 'storePenjualanSampah'])->name('admin.storePenjualanSampah');
+});
+
+Route::middleware(['auth', 'superuser'])->group(function () {
+    Route::get('/admin/pengurus/new', [PengurusController::class, 'create'])->name('admin.pengurusBaru');
+    Route::post('/admin/pengurus', [PengurusController::class, 'store'])->name('admin.storePengurus');
+    Route::delete('/admin/pengurus/{id}', [PengurusController::class, 'delete'])->name('admin.deletePengurus');
+
     Route::get('/admin/laporan/arus-kas-nasabah', [LaporanController::class, 'kasNasabah'])->name('admin.laporanArusKasNasabah');
     Route::post('/admin/laporan/arus-kas-nasabah', [LaporanController::class, 'kasNasabahByDate'])->name('admin.laporanArusKasNasabahByDate');
     Route::get('/admin/laporan/arus-kas-nasabah/export/{tanggalMulai}/{tanggalSelesai}', [LaporanController::class, 'kasNasabahExport'])->name('admin.exportKasNasabah');
@@ -94,25 +110,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/laporan/pembayaran-ke-lapak', [LaporanController::class, 'pembayaranLapak'])->name('admin.laporanPembayaranKeLapak');
     Route::post('/admin/laporan/pembayaran-ke-lapak', [LaporanController::class, 'pembayaranLapakByDate'])->name('admin.laporanPembayaranKeLapakByDate');
     Route::get('/admin/laporan/pembayaran-ke-lapak/export/{tanggalMulai}/{tanggalSelesai}', [LaporanController::class, 'pembayaranLapakExport'])->name('admin.exportPembayaranLapak');
-    
+
     Route::get('/admin/laporan/DLHK', [LaporanController::class, 'dlhk'])->name('admin.laporanDLHK');
     Route::post('/admin/laporan/DLHK', [LaporanController::class, 'dlhkByDate'])->name('admin.laporanDLHKbyDate');
     Route::get('/admin/laporan/DLHK/export/{tanggalMulai}/{tanggalSelesai}', [LaporanController::class, 'dlhkExport'])->name('admin.exportLaporanDLHK');
-    
+
     Route::get('/admin/laporan/internal', [LaporanController::class, 'internal'])->name('admin.laporanInternal');
     Route::post('/admin/laporan/internal', [LaporanController::class, 'internalByDate'])->name('admin.laporanInternalByDate');
     Route::get('/admin/laporan/internal/export/{tanggalMulai}/{tanggalSelesai}', [LaporanController::class, 'internalExport'])->name('admin.exportLaporanInternal');
-    
-    Route::get('/admin/transaksi/setoran-nasabah', [TransaksiController::class, 'setoranNasabah'])->name('admin.setoranNasabah');
-    Route::post('/admin/transaksi/setoran-nasabah', [TransaksiController::class, 'setoranNasabahById'])->name('admin.setoranNasabahId');
-    Route::get('/admin/transaksi/setoran-nasabah/{id}/tambah', [TransaksiController::class, 'setoranNasabahBaru'])->name('admin.setoranNasabahBaru');
-    Route::post('/admin/transaksi/setoran-nasabah/tambah', [TransaksiController::class, 'storeSetoranNasabahBaru'])->name('admin.storeSetoranNasabahBaru');
-    
-    Route::get('/admin/transaksi/tabungan-nasabah', [TransaksiController::class, 'tabunganNasabah'])->name('admin.tabunganNasabah');
-    Route::get('/admin/transaksi/penarikan', [TransaksiController::class, 'penarikanNasabah'])->name('admin.penarikanNasabah');
-    Route::post('/admin/transaksi/penarikan', [TransaksiController::class, 'storePenarikanNasabah'])->name('admin.storePenarikanNasabah');
-        
-    Route::get('/admin/transaksi/penjualan-nasabah', [TransaksiController::class, 'transaksiPenjualanNasabah'])->name('admin.transaksiPenjualanNasabah');
-    Route::get('/admin/transaksi/penjualan-nasabah/tambah', [TransaksiController::class, 'tambahPenjualanSampah'])->name('admin.tambahPenjualanSampah');
-    Route::post('/admin/transaksi/penjualan-nasabah/tambah', [TransaksiController::class, 'storePenjualanSampah'])->name('admin.storePenjualanSampah');
 });

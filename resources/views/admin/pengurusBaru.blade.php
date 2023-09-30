@@ -19,6 +19,17 @@
                             </div>
 
                             <div class="col-md-12">
+                                <select class="form-control" type="text" name="jabatan">
+                                    <option value="Pengurus">Pengurus</option>
+                                    <option value="Bendahara">Bendahara</option>
+                                    <option value="Ketua">Ketua</option>
+                                </select>
+                                @error('jabatan')
+                                    <div class="formAlert">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-12">
                                 <input type="text" name="alamat" class="form-control" id="validationCustom01"
                                     value="{{ old('alamat') }}" placeholder="Alamat" required>
                                 @error('alamat')
@@ -53,7 +64,7 @@
                             <div class="form-button mt-3">
                                 <button class="btn btn-danger" type="button"
                                     onclick="window.location='{{ route('admin.daftarPengurus') }}'">Kembali</button>
-                                <button id="submit" type="submit" class="btn btn-primary">Edit</button>
+                                <button id="submit" type="submit" class="btn btn-primary">Tambah</button>
                             </div>
                         </x-form>
                     </div>

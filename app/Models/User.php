@@ -57,4 +57,6 @@ class User extends Authenticatable
     public function penjualanSampah(){
         return $this->hasMany(PenjualanSampah::class, 'idNasabah');
     }
+
+    protected $guard = 'admin';
 }
