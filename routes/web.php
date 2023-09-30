@@ -32,38 +32,34 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/dashboard', [HomeController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/transaksi', [HomeController::class, 'transactions'])->name('admin.daftarTransaksi');
 
-    // Route::get('/admin', function () {
-    //     return redirect()->route('admin.dashboard');
-    // });
-
     Route::get('/admin/nasabah', [NasabahController::class, 'showAll'])->name('admin.daftarNasabah');
-    Route::post('/admin/nasabah/search', [NasabahController::class, 'search'])->name('admin.searchNasabah');
-    Route::get('/admin/nasabah/search/{param}', [NasabahController::class, 'filtered'])->name('admin.filteredNasabah');
     Route::get('/admin/nasabah/{id}/detail', [NasabahController::class, 'show'])->name('admin.detailNasabah');
     Route::get('/admin/nasabah/new', [NasabahController::class, 'create'])->name('admin.nasabahBaru');
     Route::post('/admin/nasabah', [NasabahController::class, 'store'])->name('admin.storeNasabah');
     Route::get('/admin/nasabah/{id}/edit', [NasabahController::class, 'edit'])->name('admin.editNasabah');
     Route::patch('/admin/nasabah', [NasabahController::class, 'patch'])->name('admin.patchNasabah');
     Route::delete('/admin/nasabah/{id}', [NasabahController::class, 'delete'])->name('admin.deleteNasabah');
-    Route::get('/admin/nasabah/export', [NasabahController::class, 'export'])->name('admin.exportNasabah');
+    // Route::post('/admin/nasabah/search', [NasabahController::class, 'search'])->name('admin.searchNasabah');
+    // Route::get('/admin/nasabah/search/{param}', [NasabahController::class, 'filtered'])->name('admin.filteredNasabah');
+    // Route::get('/admin/nasabah/export', [NasabahController::class, 'export'])->name('admin.exportNasabah');
 
     Route::get('/admin/pengurus', [PengurusController::class, 'showAll'])->name('admin.daftarPengurus');
-    Route::post('/admin/pengurus/search', [PengurusController::class, 'search'])->name('admin.searchPengurus');
-    Route::get('/admin/pengurus/search/{param}', [PengurusController::class, 'filtered'])->name('admin.filteredPengurus');
-    Route::get('/admin/pengurus/{id}/detail', [PengurusController::class, 'show'])->name('admin.detailPengurus');
-    Route::get('/admin/pengurus/export', [PengurusController::class, 'export'])->name('admin.exportPengurus');
     Route::get('/admin/pengurus/{id}/edit', [PengurusController::class, 'edit'])->name('admin.editPengurus');
     Route::patch('/admin/pengurus', [PengurusController::class, 'patch'])->name('admin.patchPengurus');
+    Route::get('/admin/pengurus/{id}/detail', [PengurusController::class, 'show'])->name('admin.detailPengurus');
+    // Route::post('/admin/pengurus/search', [PengurusController::class, 'search'])->name('admin.searchPengurus');
+    // Route::get('/admin/pengurus/search/{param}', [PengurusController::class, 'filtered'])->name('admin.filteredPengurus');
+    // Route::get('/admin/pengurus/export', [PengurusController::class, 'export'])->name('admin.exportPengurus');
     
     Route::get('/admin/sampah', [SampahController::class, 'showAll'])->name('admin.kategoriSampah');
-    // Route::post('/admin/sampah/search', [SampahController::class, 'search'])->name('admin.searchSampah');
-    // Route::get('/admin/sampah/search/{param}', [SampahController::class, 'filtered'])->name('admin.filteredSampah');
-    // Route::get('/admin/sampah/{id}/detail', [SampahController::class, 'show'])->name('admin.detailSampah');
     Route::get('/admin/sampah/create', [SampahController::class, 'create'])->name('admin.sampahBaru');
     Route::post('/admin/sampah', [SampahController::class, 'store'])->name('admin.storeSampah');
     Route::get('/admin/sampah/{id}/edit', [SampahController::class, 'edit'])->name('admin.editSampah');
     Route::patch('/admin/sampah', [SampahController::class, 'patch'])->name('admin.patchSampah');
     Route::delete('/admin/sampah/{id}', [SampahController::class, 'delete'])->name('admin.deleteSampah');
+    // Route::post('/admin/sampah/search', [SampahController::class, 'search'])->name('admin.searchSampah');
+    // Route::get('/admin/sampah/search/{param}', [SampahController::class, 'filtered'])->name('admin.filteredSampah');
+    // Route::get('/admin/sampah/{id}/detail', [SampahController::class, 'show'])->name('admin.detailSampah');
     // Route::get('/admin/sampah/export', [SampahController::class, 'export'])->name('admin.exportSampah');
 
     Route::get('/admin/sampah/data', [SampahController::class, 'showData'])->name('admin.dataSampah');

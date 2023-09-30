@@ -4,19 +4,6 @@
 <!-- Section Start -->
 <div class="mx-2">
   <h2 class="main-text">Data Nasabah</h2>
-  <!-- <div class="card-header d-flex justify-content-end mx-5 px-4">
-    <ul class="nav nav-pills card-header-pills">
-      <li class="nav-item">
-        <div class="input-group">
-          <x-form action="{{route('admin.searchNasabah')}}" class="input-group">
-            <input type="search" name="param" class="form-control rounded mx-3" placeholder="Cari nasabah..." aria-label="Search" aria-describedby="search-addon" />
-            <button type="submit" class="btn btn-outline-primary">Filter</button>
-            <button type="button" class="btn btn-outline-primary" onclick="window.location='{{route('admin.nasabahBaru')}}'">Tambah</button>
-          </x-form>
-        </div>
-      </li>
-    </ul>
-  </div> -->
 
   <div class="table-wrapper-section">
     <table class="fl-table" id="dataTable">
