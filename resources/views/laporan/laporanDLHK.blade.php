@@ -25,8 +25,8 @@ $prevCategory = "none";
     <table class="fl-table" id="dataTable">
         <thead>
             <th>No</th>
-            <th>Kode Barang</th>
-            <th>Nama Barang</th>
+            <th>Kode Sampah</th>
+            <th>Nama Sampah</th>
             <th>H. Lapak</th>
             <th>JML</th>
             <th>Rp</th>

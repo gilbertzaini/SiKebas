@@ -15,7 +15,7 @@ $count = 1;
     <thead>
       <tr>
         <th>No</th>
-        <th>Nama Barang</th>
+        <th>Nama Sampah</th>
         <th>Harga Lapak</th>
         <th>Jumlah / kg</th>
         <th>Total</th>
