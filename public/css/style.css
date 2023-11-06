@@ -630,3 +630,16 @@ img{
   font-size: 0.8rem;
   color: red;
 }
+
+.navigation p{
+  margin: auto;
+  padding: auto;
+  font-family: "Calibri Light", sans-serif;
+}
+
+.carousel-inner img {
+  width: 85vw !important;
+  height: 60vh !important;
+  object-fit: scale-down;
+  margin: auto;
+}

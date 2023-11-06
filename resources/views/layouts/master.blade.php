@@ -25,6 +25,11 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sweetAlert.css') }}" rel="stylesheet">
+
+    <!-- Font -->
+    <link href="https://fonts.cdnfonts.com/css/poppins" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/calibri-light" rel="stylesheet">           
+
     @vite(['resources/js/app.js'])
     @yield('additionalHeadContent')
 </head>
