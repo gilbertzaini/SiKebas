@@ -1,5 +1,16 @@
 @extends('layouts.master')
 
+@section('additionalHeadContent')
+    <style>
+        .carousel-inner img {
+            width: 85vw !important;
+            height: 60vh !important;
+            object-fit: scale-down;
+            margin: auto;
+        }
+    </style>
+@endsection
+
 @section('content')
     <section>
         <div class="mt-5 card-group container-fluid d-flex flex-column justify-content-center"
@@ -71,7 +82,8 @@
                     </div>
                 </div>
             </div>
-            <div id="carouselExampleControlsNoTouching" class="carousel slide mx-auto mb-5" style="width: 85vw; height: 60vh;" data-bs-touch="false">
+            <div id="carouselExampleControlsNoTouching" class="carousel slide mx-auto mb-5"
+                style="width: 85vw; height: 60vh;" data-bs-touch="false">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img class="d-block w-auto h-100" src="{{ asset('assets/gallery1.jpeg') }}" alt="First slide">

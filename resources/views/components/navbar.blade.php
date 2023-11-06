@@ -7,7 +7,7 @@
         <h1 class="d-block d-lg-none nav-text my-auto py-auto">SIKEBAS</h1>
     </div>
 
-    <button onclick="burger()" class="burger"></button>
+    <button style="opacity: 0" onclick="burger()" class="burger"></button>
     <div class="dropdowns-navigation">
         <button class="button nav-link" onclick="window.location='{{ route('admin.dashboard') }}'">
             <p>Dashboard</p>
@@ -81,7 +81,7 @@
                 </div>
             </div>
         @endif
-        <div class="d-flex justify-content-end" style="width: 100%">
+        <div class="d-flex justify-content-center justify-content-md-end" style="width: 100%">
             <x-form class="mx-5" action="{{ route('logout') }}">
                 <button class="nav-link" style="color: #9da9a5;" onmouseover="this.style.color='red';"
                     onmouseout="this.style.color='#9da9a5';">
