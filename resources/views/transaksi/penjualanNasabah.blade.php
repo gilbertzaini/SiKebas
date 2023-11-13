@@ -7,7 +7,7 @@ $count = 1;
 @endphp
 
 @section('content')
-<h2 class="main-text">Transaksi Penjualan Nasabah</h2>
+<h2 class="main-text">Transaksi Penjualan Sampah</h2>
 <!-- <div class="container-fluid d-flex justify-content-end col-11">
     <button class="btn btn-danger" onclick="window.location='{{route('admin.tambahPenjualanSampah')}}'">Penjualan Baru</button>
 </div> -->

@@ -13,7 +13,7 @@
 
 @section('content')
     <section>
-        <div class="mt-5 card-group container-fluid d-flex flex-column justify-content-center"
+        <div class="mt-5 pt-5 pt-lg-0 card-group container-fluid d-flex flex-column justify-content-center"
             style="background-color: #254038; min-height:100vh;">
             <div class="d-md-flex justify-content-sm-center align-items-sm-center flex-lg-row flex-md-column">
                 <div class="d-flex justify-content-center align-items-center mb-5">

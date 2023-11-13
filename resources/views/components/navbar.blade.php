@@ -1,9 +1,10 @@
 <nav class="navigation container-fluid">
-    <div class="brand-nav-navigation d-flex col-4" style="font-family: Poppins">
-        <img src="{{ asset('assets/logo.png') }}" alt="" srcset="">
-        <h1 class="d-none d-lg-block nav-text my-auto py-auto" style="font-size: 1rem !important">Sistem Informasi
-            Keuangan
-            Bank Sampah Pamulang 25</h1>
+    <div class="brand-nav-navigation d-flex col-5" style="font-family: Poppins">
+        <img class="my-auto py-auto" src="{{ asset('assets/logo.png') }}" alt="" srcset="">
+        <div class="d-flex flex-column justify-content-center align-items-center d-none d-lg-block nav-text">
+            <h1 style="font-size: 1.3rem !important">SIKEBAS Pamulang 25</h1>
+            <h1 style="font-size: 0.9rem !important">(Sistem Informasi Keuangan Bank Sampah Pamulang 25)</h1>
+        </div>
         <h1 class="d-block d-lg-none nav-text my-auto py-auto">SIKEBAS</h1>
     </div>
 
@@ -12,7 +13,7 @@
         <button class="button nav-link" onclick="window.location='{{ route('admin.dashboard') }}'">
             <p>Dashboard</p>
         </button>
-        <div class="dropdown-navigation ">
+        <div class="dropdown-navigation">
             <button class="button">
                 <p>
                     Master</p>
