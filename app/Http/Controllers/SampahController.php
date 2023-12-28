@@ -115,19 +115,12 @@ class SampahController extends Controller
         $serialNumber = DataSampah::where('jenis', $kategori->kategori)->count();
         $serialNumber++;
 
-        $alphabets = range('A', 'Z');
-        $result = '';
-
-        do {
-            $index = ($serialNumber - 1) % 26;
-            $result = $alphabets[$index] . $result;
-            $serialNumber = intval(($serialNumber - $index) / 26);
-        } while ($serialNumber > 0);
-
-        // dd($request, $kategori, $serialNumber,  $result);
+        $lastItem = DataSampah::where('jenis', $kategori->kategori)->orderBy('created_at', 'desc')->first();
+        $lastAlphabet = substr($lastItem->kodeSampah, 1);
+        $newAlphabet = ++$lastAlphabet;
 
         $dataSampah = new DataSampah;
-        $dataSampah->kodeSampah = $request->kategori . $result;
+        $dataSampah->kodeSampah = $request->kategori . $newAlphabet;
         $dataSampah->jenis = $kategori->kategori;
         $dataSampah->nama = $request->nama;
         $dataSampah->hargaLapak = $request->hargaPelapak;
@@ -135,11 +128,10 @@ class SampahController extends Controller
         $dataSampah->save();
 
         return redirect()->route('admin.dataSampah');
-        // dd($dataSampah);
     }
 
     function editDataSampah(string $kodeSampah)
-    {   
+    {
         $jenisSampah = KategoriSampah::get();
         $sampah = DataSampah::where('kodeSampah', $kodeSampah)->first();
 
